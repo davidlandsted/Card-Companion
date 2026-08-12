@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
+<!-- Stik Companion v4 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -47,6 +48,7 @@ h2{font-size:20px} .muted{color:var(--muted)}
 .setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
 .field{padding:14px}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em}
 .field input,.field select{width:100%;background:#0c0f13;border:1px solid var(--line);color:#fff;padding:13px 14px;border-radius:13px;outline:none}
+.input-wrap{position:relative}.input-wrap input{padding-right:44px}.clear-input{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#aeb6c0;background:#191e25;border:1px solid #2f3640;font-size:18px;line-height:1}.clear-input:active{transform:translateY(-50%) scale(.96)}
 .segment{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;background:#0b0e12;border:1px solid var(--line);padding:5px;border-radius:15px}
 .segment button{padding:12px;border-radius:11px;font-weight:800;color:var(--muted)}
 .segment button.active{background:var(--accent);color:#1b0901}
@@ -57,14 +59,14 @@ h2{font-size:20px} .muted{color:var(--muted)}
 .score-screen{padding:10px 10px 4px}
 .score-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-bottom:10px}
 .round-head{text-align:center;min-width:0}.round-head h1{font-size:22px;margin-top:2px}.round-head .rule{font-size:13px;color:#cbd1d8;margin-top:3px}
-.progress{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:7px}.dot{width:24px;height:24px;border-radius:50%;border:1px solid #343b45;color:#858e99;font-size:11px;display:grid;place-items:center}.dot.active{background:var(--accent);border-color:var(--accent);color:#170700;font-weight:900}.dot.done{border-color:#5e6875;color:#dce1e6}
-.undo-btn{justify-self:end;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#0f1217;font-size:13px;color:#d7dce2}
+.progress{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:7px}.dot{width:24px;height:24px;padding:0;border-radius:50%;border:1px solid #343b45;background:#0b0e12;color:#858e99;font-size:11px;display:grid;place-items:center;cursor:pointer}.dot.active{background:var(--accent);border-color:var(--accent);color:#170700;font-weight:900}.dot.done{background:rgba(119,213,138,.17);border-color:var(--green);color:#dff7e4;font-weight:900}.dot.done.active{background:var(--green);border-color:var(--green);color:#07110a;box-shadow:0 0 0 2px rgba(255,106,26,.9)}
+.header-actions{justify-self:end;display:flex;gap:6px;align-items:center}.undo-btn,.game-btn{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#0f1217;font-size:13px;color:#d7dce2}.game-btn{font-weight:800}.limit-note{font-size:11px;color:var(--muted);margin-top:4px}.limit-note strong{color:#dce1e6}
 .score-board{display:grid;gap:9px;min-height:calc(100dvh - 212px - var(--safe-top) - var(--safe-bottom));}
 .player-card{position:relative;overflow:hidden;min-height:170px;background:linear-gradient(145deg,#12161c,#0b0e12);border:1px solid #303741;border-radius:18px}
 .player-card::before{content:"";position:absolute;inset:0;background:radial-gradient(380px 170px at 50% 10%,var(--seatglow,rgba(255,106,26,.11)),transparent 70%);pointer-events:none}
 .seat-inner{position:relative;height:100%;display:grid;grid-template-columns:64px 1fr 64px;align-items:center;gap:6px;padding:14px}
 .score-minus,.score-plus{width:58px;height:58px;border-radius:50%;font-size:34px;font-weight:400;display:grid;place-items:center;align-self:center}
-.score-minus{background:#b52d27}.score-plus{background:var(--accent);color:#190900}
+.score-minus{background:#b52d27}.score-plus{background:var(--accent);color:#190900}.score-plus:disabled,.score-minus:disabled{opacity:.28;filter:saturate(.45);cursor:not-allowed;transform:none}
 .player-core{text-align:center;min-width:0}.player-name{font-size:15px;color:#d8dde3;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.round-score{font-size:68px;line-height:.95;font-weight:800;letter-spacing:-.045em;margin:6px 0 2px}.event-count{font-size:13px;color:#d8dde3}.total-score{font-size:13px;color:var(--accent2);font-weight:800;margin-top:5px}
 .leader-badge{position:absolute;top:10px;right:10px;font-size:10px;border:1px solid rgba(119,213,138,.35);background:rgba(119,213,138,.08);color:var(--green);padding:5px 7px;border-radius:999px}
 .middle-strip{display:flex;gap:8px;align-items:stretch}.mini-panel{flex:1;background:#0d1014;border:1px solid var(--line);border-radius:15px;padding:10px 12px}.mini-panel h3{font-size:12px;color:var(--muted);margin-bottom:6px}.rank-row{display:flex;justify-content:space-between;font-size:12px;padding:2px 0}.rank-row strong{color:var(--green)}
@@ -74,6 +76,7 @@ h2{font-size:20px} .muted{color:var(--muted)}
 .section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:14px}.section-head p{font-size:13px;color:var(--muted);margin-top:4px}
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#0c0f13}
 table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10px;border-bottom:1px solid #222831;text-align:right;font-size:13px}th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:#0c0f13}th{color:#98a1ac;font-size:11px;text-transform:uppercase;letter-spacing:.04em}td.best{color:var(--green);font-weight:800}td.worst{color:var(--red);font-weight:800}
+.mobile-rounds{display:none}.mobile-standing{padding:13px;margin-bottom:12px;position:sticky;top:calc(var(--safe-top) + 4px);z-index:6;background:rgba(15,18,23,.97);backdrop-filter:blur(16px)}.mobile-standing-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}.mobile-standing-head strong{font-size:14px}.mobile-standing-head span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}.mobile-standing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.mobile-standing-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 9px;border-radius:11px;background:#0a0d11;border:1px solid #232a33;min-width:0}.mobile-standing-row .who{display:flex;gap:6px;align-items:center;min-width:0}.mobile-standing-row .rank{color:var(--muted);font-size:11px;flex:0 0 auto}.mobile-standing-row .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;font-size:12px}.mobile-standing-row .pts{font-size:14px;font-weight:900;color:var(--green);flex:0 0 auto}.mobile-round-list{display:grid;gap:9px}.mobile-round-card{padding:0;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s}.mobile-round-card:active{transform:scale(.992)}.mobile-round-card.active-round{border-color:rgba(255,106,26,.72);box-shadow:0 0 0 1px rgba(255,106,26,.12) inset}.mobile-round-card-head{display:grid;grid-template-columns:34px 1fr auto;gap:9px;align-items:center;padding:11px 12px;border-bottom:1px solid #222831}.mobile-round-no{width:30px;height:30px;border-radius:10px;background:#0b0e12;border:1px solid #2b323b;display:grid;place-items:center;color:var(--accent);font-weight:900;font-size:12px}.mobile-round-title{min-width:0}.mobile-round-title strong{display:block;font-size:14px}.mobile-round-title span{display:block;color:var(--muted);font-size:10px;margin-top:2px}.round-state{font-size:10px;padding:5px 7px;border-radius:999px;border:1px solid #313842;color:#9ca5b0;white-space:nowrap}.round-state.done{border-color:rgba(119,213,138,.3);background:rgba(119,213,138,.07);color:var(--green)}.round-state.live{border-color:rgba(255,106,26,.35);background:rgba(255,106,26,.07);color:var(--accent2)}.mobile-round-players{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#222831}.mobile-round-player{background:#0c0f13;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}.mobile-round-player .nm{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mobile-round-player .sc{font-size:18px;font-weight:900;flex:0 0 auto}.mobile-round-player.best .sc{color:var(--green)}.mobile-round-player.worst .sc{color:var(--red)}.mobile-round-foot{padding:8px 12px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:10px}.mobile-round-foot .open-hint{color:var(--accent2);font-weight:800}
 .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat-card{padding:14px}.stat-name{font-weight:800}.stat-total{font-size:34px;font-weight:900;margin-top:5px}.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.metric{background:#0c0f13;border:1px solid #242b34;border-radius:12px;padding:9px}.metric .v{font-weight:800}.metric .l{font-size:10px;color:var(--muted);margin-top:2px}
 .bars{display:grid;gap:8px;margin-top:12px}.bar-row{display:grid;grid-template-columns:90px 1fr 44px;gap:8px;align-items:center;font-size:11px}.bar-track{height:9px;background:#20262e;border-radius:999px;overflow:hidden}.bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),#ffb26b);border-radius:999px}
 .history-list{display:grid;gap:10px}.history-item{padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:center}.history-item .date{font-size:12px;color:var(--muted);margin-bottom:4px}.history-item .scores{font-size:12px;color:#d5dae0;margin-top:4px}.history-item .winner{color:var(--green);font-weight:800}.trash{color:var(--red);font-size:18px;padding:8px}
@@ -84,17 +87,18 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
 .final-hero{text-align:center;padding:26px 18px}.trophy{font-size:64px}.winner-name{font-size:36px;font-weight:900;margin-top:5px}.winner-score{color:var(--green);font-size:18px;margin-top:4px}.final-rank{margin-top:16px;display:grid;gap:8px}.final-row{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid var(--line);background:#0d1014;border-radius:13px}.final-actions{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:8px;margin-top:14px}.final-actions button{padding:13px;border-radius:13px;background:#14191f;border:1px solid var(--line);font-weight:800}.final-actions .primary{border:0}
 
 /* Nav */
-.nav{position:fixed;left:0;right:0;bottom:0;height:calc(70px + var(--safe-bottom));padding:5px 8px var(--safe-bottom);background:rgba(5,6,8,.94);backdrop-filter:blur(18px);border-top:1px solid #20252d;display:grid;grid-template-columns:repeat(5,1fr);z-index:50}.nav button{display:grid;place-items:center;color:#7f8894;font-size:10px;gap:2px}.nav .ico{font-size:19px;line-height:1}.nav button.active{color:var(--accent)}
+.nav{position:fixed;left:0;right:0;bottom:0;height:calc(70px + var(--safe-bottom));padding:5px 8px var(--safe-bottom);background:rgba(5,6,8,.94);backdrop-filter:blur(18px);border-top:1px solid #20252d;display:grid;grid-template-columns:repeat(5,1fr);z-index:50}.nav button{display:grid;place-items:center;color:#7f8894;font-size:10px;gap:2px}.nav .ico{width:23px;height:23px;display:grid;place-items:center}.nav .ico svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.nav button.active{color:var(--accent)}
 .toast{position:fixed;left:50%;bottom:calc(82px + var(--safe-bottom));transform:translateX(-50%);background:#151a20;border:1px solid #343b45;padding:10px 14px;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.18s;z-index:100;font-size:13px}.toast.show{opacity:1}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.66);display:grid;place-items:center;padding:20px;z-index:90}.dialog{width:min(440px,100%);padding:18px}.dialog p{color:var(--muted);font-size:13px;margin-top:7px}.dialog-actions{display:flex;gap:8px;margin-top:16px}.dialog-actions>*{flex:1}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.66);display:grid;place-items:center;padding:20px;z-index:90}.dialog{width:min(440px,100%);padding:18px}.dialog p{color:var(--muted);font-size:13px;margin-top:7px}.dialog-actions{display:flex;gap:8px;margin-top:16px}.dialog-actions>*{flex:1}.game-menu-actions{display:grid;gap:9px;margin-top:16px}.game-menu-actions button{width:100%}.game-menu-actions .end-game{background:#2a2117;border:1px solid #5a4128;color:#ffd5a8}.game-menu-actions .new-game{background:#35171a;border:1px solid #6e2a31;color:#ffd3d6}
 
 @media (max-width:700px){
   .screen{padding:12px}.score-screen{padding:8px}
-  .score-header{grid-template-columns:auto 1fr auto}.score-header .brand{font-size:0}.score-header .brandmark{width:34px;height:34px}
+  .score-header{grid-template-columns:38px minmax(0,1fr) auto;gap:6px}.score-header .brand{font-size:0}.score-header .brandmark{width:34px;height:34px}.undo-btn{padding:9px 9px;font-size:12px}.game-btn{width:38px;height:38px;padding:0;font-size:0;display:grid;place-items:center}.game-btn::after{content:"•••";font-size:15px;letter-spacing:1px}.header-actions{gap:4px}
   .round-head h1{font-size:18px}.round-head .rule{font-size:11px}.progress{gap:4px}.dot{width:21px;height:21px;font-size:10px}
   .score-board{min-height:auto;grid-template-columns:1fr;gap:8px}.player-card{min-height:112px}.seat-inner{grid-template-columns:50px 1fr 50px;padding:10px}.score-minus,.score-plus{width:46px;height:46px;font-size:28px}.round-score{font-size:46px}.event-count,.total-score{font-size:11px}.leader-badge{display:none}
   .middle-strip{display:none}.round-actions{grid-template-columns:1fr 1fr}.round-actions .complete{grid-column:1/-1}
   .stats-grid{grid-template-columns:1fr}.setup-grid,.player-name-grid{grid-template-columns:1fr}
+  #rounds .table-wrap{display:none}.mobile-rounds{display:block}.mobile-standing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mobile-round-players{grid-template-columns:repeat(2,minmax(0,1fr))}
   .final-actions{grid-template-columns:1fr}.final-actions .primary{grid-row:1}
 }
 
@@ -144,7 +148,7 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
         <div class="rule" id="roundRule"></div>
         <div class="progress" id="roundProgress"></div>
       </div>
-      <button class="undo-btn" id="undoBtn">↶ Fortryd</button>
+      <div class="header-actions"><button class="game-btn" id="gameMenuBtn">Spil</button><button class="undo-btn" id="undoBtn">↶ Fortryd</button></div>
     </div>
     <div class="score-board" id="scoreBoard"></div>
     <div class="middle-strip" id="middleStrip"></div>
@@ -156,7 +160,8 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
   </section>
 
   <section id="rounds" class="screen">
-    <div class="section-head"><div><div class="kicker">Runder</div><h1>Resultater pr. runde</h1><p>Laveste score er bedst.</p></div></div>
+    <div class="section-head"><div><div class="kicker">Runder</div><h1>Resultater pr. runde</h1><p>Laveste score er bedst. Tryk på en runde for at rette point.</p></div></div>
+    <div class="mobile-rounds" id="mobileRounds"></div>
     <div class="table-wrap"><table id="roundTable"></table></div>
   </section>
 
@@ -193,16 +198,17 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
   </section>
 
   <nav class="nav" id="nav">
-    <button data-view="score" class="active"><span class="ico">▣</span><span>Score</span></button>
-    <button data-view="rounds"><span class="ico">☷</span><span>Runder</span></button>
-    <button data-view="stats"><span class="ico">▥</span><span>Statistik</span></button>
-    <button data-view="history"><span class="ico">↶</span><span>Historik</span></button>
-    <button data-view="settings"><span class="ico">⚙</span><span>Indstillinger</span></button>
+    <button data-view="score" class="active" aria-label="Score"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><path d="M8 12h8M12 8v8"></path></svg></span><span>Score</span></button>
+    <button data-view="rounds" aria-label="Runder"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"></path><circle cx="4.5" cy="6" r="1"></circle><circle cx="4.5" cy="12" r="1"></circle><circle cx="4.5" cy="18" r="1"></circle></svg></span><span>Runder</span></button>
+    <button data-view="stats" aria-label="Statistik"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg></span><span>Statistik</span></button>
+    <button data-view="history" aria-label="Historik"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5M12 7v5l3 2"></path></svg></span><span>Historik</span></button>
+    <button data-view="settings" aria-label="Indstillinger"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h7M15 18h5"></path><circle cx="16" cy="6" r="2"></circle><circle cx="8" cy="12" r="2"></circle><circle cx="13" cy="18" r="2"></circle></svg></span><span>Indstillinger</span></button>
   </nav>
 </div>
 
 <div class="toast" id="toast"></div>
 <div class="modal hidden" id="modal"><div class="dialog card"><h2 id="modalTitle"></h2><p id="modalText"></p><div class="dialog-actions"><button class="secondary" id="modalCancel">Annuller</button><button class="primary" id="modalConfirm">OK</button></div></div></div>
+<div class="modal hidden" id="gameMenu"><div class="dialog card"><h2>Spil</h2><p>Afslut det nuværende spil og se resultatet, eller start et nyt spil.</p><div class="game-menu-actions"><button class="secondary" id="closeGameMenu">Fortsæt spil</button><button class="end-game" id="endGameNow">Afslut spil</button><button class="new-game" id="newGameNow">Start nyt spil</button></div></div></div>
 
 <script>
 (() => {
@@ -214,16 +220,62 @@ const ROUNDS = [
  {name:'Sidste stik', unit:100, event:'sidste stik', rule:'100 point for sidste stik'},
  {name:'Kabale', unit:25, event:'pas', rule:'25 point pr. pas'}
 ];
-const STORAGE='stikCompanion.vFinal'; const HISTORY='stikCompanion.history';
+const STORAGE='stikCompanion.v4'; const LEGACY_STORAGES=['stikCompanion.v3','stikCompanion.vFinal']; const HISTORY='stikCompanion.history';
 const seatGlow=['rgba(255,106,26,.15)','rgba(173,91,255,.15)','rgba(96,214,112,.14)','rgba(255,81,66,.14)','rgba(80,170,255,.14)','rgba(255,206,84,.14)','rgba(255,123,196,.14)','rgba(112,221,214,.14)'];
 const $=id=>document.getElementById(id);
 let modalResolver=null;
+let startupWarnings=[];
 let state=loadState();
 
 function freshState(names=['Spiller 1','Spiller 2','Spiller 3','Spiller 4'], mode='table'){
  return {version:1, players:names.map((name,i)=>({id:'p'+Date.now()+'_'+i,name})), mode, round:0, completed:Array(6).fill(false), scores:names.map(()=>Array(6).fill(0)), actions:[], sound:false, started:true, finalized:false, createdAt:new Date().toISOString()};
 }
-function loadState(){try{return JSON.parse(localStorage.getItem(STORAGE))}catch(e){return null}}
+function maxEventsFor(ri,playerCount){
+ if(ri===0)return Math.floor(52/playerCount);
+ if(ri===1)return 13;
+ if(ri===2)return 4;
+ if(ri===3)return 1;
+ if(ri===4)return 1;
+ return null;
+}
+function normalizeLoadedState(raw){
+ if(!raw||!Array.isArray(raw.players)||raw.players.length<2)return null;
+ raw.version=4;
+ raw.round=Math.max(0,Math.min(5,Number(raw.round)||0));
+ raw.completed=Array.from({length:6},(_,ri)=>!!raw.completed?.[ri]);
+ raw.scores=raw.players.map((_,pi)=>Array.from({length:6},(_,ri)=>{
+   const unit=ROUNDS[ri].unit; const value=Number(raw.scores?.[pi]?.[ri])||0;
+   return Math.max(0,Math.round(value/unit)*unit);
+ }));
+ raw.actions=Array.isArray(raw.actions)?raw.actions:[];
+ raw.mode=raw.mode==='phone'?'phone':'table';
+ raw.sound=!!raw.sound; raw.started=true; raw.finalized=!!raw.finalized;
+ const invalid=[];
+ for(let ri=0;ri<5;ri++){
+   const max=maxEventsFor(ri,raw.players.length);
+   const unit=ROUNDS[ri].unit;
+   const used=raw.scores.reduce((sum,row)=>sum+Math.round(row[ri]/unit),0);
+   if(used>max){
+     raw.scores.forEach(row=>row[ri]=0);
+     raw.completed[ri]=false;
+     raw.finalized=false;
+     invalid.push(ROUNDS[ri].name);
+   }
+ }
+ if(invalid.length)startupWarnings.push(`Ugyldige gamle point blev nulstillet i: ${invalid.join(', ')}`);
+ return raw;
+}
+function loadState(){
+ try{
+   const current=localStorage.getItem(STORAGE);
+   if(current)return normalizeLoadedState(JSON.parse(current));
+   for(const key of LEGACY_STORAGES){
+     const legacy=localStorage.getItem(key);
+     if(legacy){const migrated=normalizeLoadedState(JSON.parse(legacy));if(migrated)localStorage.setItem(STORAGE,JSON.stringify(migrated));return migrated}
+   }
+   return null;
+ }catch(e){return null}
+}
 function save(){localStorage.setItem(STORAGE,JSON.stringify(state))}
 function loadHistory(){try{return JSON.parse(localStorage.getItem(HISTORY))||[]}catch(e){return []}}
 function saveHistory(h){localStorage.setItem(HISTORY,JSON.stringify(h))}
@@ -238,10 +290,14 @@ function totals(){return state.players.map((_,i)=>state.scores[i].reduce((a,b)=>
 function rankData(){const t=totals(); const sorted=t.map((score,i)=>({i,score})).sort((a,b)=>a.score-b.score);let rank=0,last=null;return sorted.map((x,idx)=>{if(last===null||x.score!==last)rank=idx+1;last=x.score;return {...x,rank}})}
 function currentRoundEventCount(pi){return Math.round(state.scores[pi][state.round]/ROUNDS[state.round].unit)}
 function completedCount(){return state.completed.filter(Boolean).length}
+function roundMaxEvents(ri){return maxEventsFor(ri,state.players.length)}
+function totalRoundEvents(ri){const unit=ROUNDS[ri].unit;return state.players.reduce((sum,_,pi)=>sum+Math.round(state.scores[pi][ri]/unit),0)}
+function limitLabel(ri,max){if(ri===0)return `Præcis ${max} stik fordeles med ${state.players.length} spillere`;if(ri===1)return 'Maks 13 klør i alt';if(ri===2)return 'Præcis 4 damer i alt';if(ri===3)return 'Klør konge gives kun 1 gang';if(ri===4)return 'Sidste stik gives kun 1 gang';return ''}
 
 function init(){
  if(!state){$('welcome').classList.remove('hidden');return}
- $('app').classList.remove('hidden');applyMode();renderAll();
+ $('app').classList.remove('hidden');applyMode();renderAll();showView(state.finalized?'final':'score');
+ if(startupWarnings.length)setTimeout(()=>toast(startupWarnings.join(' · ')),350);
 }
 $('welcomeStart').onclick=()=>openSetup(false);
 $('cancelSetup').onclick=()=>{if(state){$('setupScreen').classList.add('hidden');$('app').classList.remove('hidden')}else{$('setupScreen').classList.add('hidden');$('welcome').classList.remove('hidden')}};
@@ -251,7 +307,8 @@ function openSetup(edit){
  const mode=state?state.mode:'table';[...$('modeSegment').querySelectorAll('button')].forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
  renderNameFields(count,edit);
 }
-function renderNameFields(n,edit){$('nameGrid').innerHTML='';for(let i=0;i<n;i++){const name=state?.players[i]?.name||`Spiller ${i+1}`;$('nameGrid').insertAdjacentHTML('beforeend',`<div class="card field"><label>Spiller ${i+1}</label><input maxlength="20" data-name="${i}" value="${esc(name)}"></div>`)} }
+function renderNameFields(n,edit){$('nameGrid').innerHTML='';for(let i=0;i<n;i++){const name=state?.players[i]?.name||`Spiller ${i+1}`;$('nameGrid').insertAdjacentHTML('beforeend',`<div class="card field"><label>Spiller ${i+1}</label><div class="input-wrap"><input maxlength="20" data-name="${i}" value="${esc(name)}"><button type="button" class="clear-input" data-clear-name="${i}" aria-label="Slet navn">×</button></div></div>`)} }
+$('nameGrid').onclick=e=>{const b=e.target.closest('[data-clear-name]');if(!b)return;const inp=$('nameGrid').querySelector(`[data-name="${b.dataset.clearName}"]`);if(inp){inp.value='';inp.focus()}};
 $('playerCount').onchange=e=>renderNameFields(Number(e.target.value),!!state);
 $('modeSegment').onclick=e=>{const b=e.target.closest('button');if(!b)return;[...$('modeSegment').querySelectorAll('button')].forEach(x=>x.classList.remove('active'));b.classList.add('active')};
 $('startGame').onclick=()=>{
@@ -265,33 +322,80 @@ $('startGame').onclick=()=>{
 function applyMode(){document.body.classList.toggle('table-mode',state.mode==='table');$('tableToggle').classList.toggle('on',state.mode==='table');$('soundToggle').classList.toggle('on',!!state.sound)}
 function renderAll(){renderScore();renderRounds();renderStats();renderHistory();renderSettings();renderFinal()}
 function renderScore(){
- const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;$('roundRule').textContent=r.rule;
- $('roundProgress').innerHTML=ROUNDS.map((_,i)=>`<span class="dot ${i===state.round?'active':''} ${state.completed[i]?'done':''}">${i+1}</span>`).join('');
+ const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;const max=roundMaxEvents(state.round),used=totalRoundEvents(state.round);const full=max!==null&&used>=max;$('roundRule').innerHTML=`${esc(r.rule)}${max!==null?`<div class="limit-note"><strong style="color:${full?'var(--green)':'#dce1e6'}">${used} / ${max}${full?' ✓':''}</strong> · ${esc(limitLabel(state.round,max))}</div>`:''}`;
+ $('roundProgress').innerHTML=ROUNDS.map((_,i)=>`<button type="button" class="dot ${i===state.round?'active':''} ${state.completed[i]?'done':''}" data-jump-round="${i}" aria-label="Åbn runde ${i+1}: ${esc(ROUNDS[i].name)}">${i+1}</button>`).join('');
  const t=totals(),best=Math.min(...t);$('scoreBoard').innerHTML='';
  state.players.forEach((p,i)=>{
-  const score=state.scores[i][state.round],events=currentRoundEventCount(i);$('scoreBoard').insertAdjacentHTML('beforeend',`<article class="player-card" style="--seatglow:${seatGlow[i%seatGlow.length]}"><div class="seat-inner"><button class="score-minus" data-score="${i}" data-dir="-1">−</button><div class="player-core"><div class="player-name">${esc(p.name)}</div><div class="round-score">${score}</div><div class="event-count">${events} ${esc(r.event)}</div><div class="total-score">Total ${t[i]}</div></div><button class="score-plus" data-score="${i}" data-dir="1">+</button></div>${t[i]===best?'<span class="leader-badge">fører</span>':''}</article>`)
+  const score=state.scores[i][state.round],events=currentRoundEventCount(i);const plusDisabled=max!==null&&used>=max;const minusDisabled=score<=0;$('scoreBoard').insertAdjacentHTML('beforeend',`<article class="player-card" style="--seatglow:${seatGlow[i%seatGlow.length]}"><div class="seat-inner"><button class="score-minus" data-score="${i}" data-dir="-1" ${minusDisabled?'disabled':''}>−</button><div class="player-core"><div class="player-name">${esc(p.name)}</div><div class="round-score">${score}</div><div class="event-count">${events} ${esc(r.event)}</div><div class="total-score">Total ${t[i]}</div></div><button class="score-plus" data-score="${i}" data-dir="1" ${plusDisabled?'disabled':''}>+</button></div>${t[i]===best?'<span class="leader-badge">fører</span>':''}</article>`)
  });
  $('middleStrip').innerHTML=`<div class="mini-panel"><h3>Rangering</h3>${rankData().slice(0,4).map(x=>`<div class="rank-row"><span>${x.rank}. ${esc(state.players[x.i].name)}</span><strong>${x.score}</strong></div>`).join('')}</div><div class="mini-panel"><h3>Rundestatus</h3><div class="rank-row"><span>Afsluttede runder</span><strong>${completedCount()} / 6</strong></div><div class="rank-row"><span>Aktiv runde</span><strong>${state.round+1}</strong></div></div>`;
  $('completeRound').textContent=state.completed[state.round]?'Genåbn runde':'Afslut runde';
 }
 $('scoreBoard').onclick=e=>{const b=e.target.closest('[data-score]');if(!b)return;changeScore(Number(b.dataset.score),Number(b.dataset.dir))};
-function changeScore(pi,dir){const r=state.round,unit=ROUNDS[r].unit,old=state.scores[pi][r],next=Math.max(0,old+dir*unit);if(next===old)return;state.scores[pi][r]=next;state.actions.push({pi,r,old,next,at:Date.now()});if(state.actions.length>100)state.actions.shift();save();beep();renderAll()}
+$('roundProgress').onclick=e=>{const b=e.target.closest('[data-jump-round]');if(!b)return;state.round=Number(b.dataset.jumpRound);save();renderAll();showView('score')};
+function changeScore(pi,dir){
+ const r=state.round,unit=ROUNDS[r].unit,old=state.scores[pi][r];
+ if(dir>0){
+   const max=roundMaxEvents(r),used=totalRoundEvents(r);
+   if(max!==null&&used>=max){
+     if(r===3||r===4){const owner=state.players.findIndex((_,i)=>state.scores[i][r]>0);toast(owner>=0?`${ROUNDS[r].name} er allerede registreret hos ${state.players[owner].name}`:limitLabel(r,max))}
+     else toast(`Maksimum er nået: ${limitLabel(r,max)}`);
+     return;
+   }
+ }
+ const next=Math.max(0,old+dir*unit);if(next===old)return;
+ state.scores[pi][r]=next;state.actions.push({pi,r,old,next,at:Date.now()});if(state.actions.length>100)state.actions.shift();save();beep();renderAll();
+}
 $('undoBtn').onclick=()=>{const a=state.actions.pop();if(!a){toast('Intet at fortryde');return}state.scores[a.pi][a.r]=a.old;save();renderAll();toast('Seneste ændring fortrudt')};
-$('prevRound').onclick=()=>{state.round=(state.round+5)%6;save();renderScore()};
-$('nextRound').onclick=()=>{state.round=(state.round+1)%6;save();renderScore()};
-$('completeRound').onclick=async()=>{state.completed[state.round]=!state.completed[state.round];save();renderAll();if(state.completed.every(Boolean)&&!state.finalized){await finalizeGame();return} if(state.completed[state.round]){const next=state.completed.findIndex(x=>!x);if(next>=0){state.round=next;save();renderScore()}}};
+$('prevRound').onclick=()=>{if(state.round>0){state.round--;save();renderScore()}else toast('Du er allerede på første runde')};
+$('nextRound').onclick=()=>{if(state.round<5){state.round++;save();renderScore();return}if(state.completed[5]){finalizeGame();return}toast('Afslut runde 6 for at se resultatet')};
+$('completeRound').onclick=async()=>{
+ const ri=state.round,wasCompleted=state.completed[ri];
+ if(wasCompleted){state.completed[ri]=false;state.finalized=false;save();renderAll();toast('Runden er genåbnet');return}
+ const max=roundMaxEvents(ri),used=totalRoundEvents(ri);
+ if(max!==null&&used<max){
+   if(ri===1){
+     const ok=await confirmBox('Færre end 13 klør?',`Der er registreret ${used} af maks. 13 klør. Det kan være korrekt, hvis et lavt klørkort blev fjernet før uddeling. Afslut runden med ${used} klør?`,'Afslut');
+     if(!ok)return;
+   } else {
+     const missing=max-used;
+     toast(ri===3?'Vælg først hvem der tog klør konge':ri===4?'Vælg først hvem der tog sidste stik':`Der mangler ${missing} ${ROUNDS[ri].event}${missing===1?'':' i alt'}`);
+     return;
+   }
+ }
+ state.completed[ri]=true;save();renderAll();
+ if(ri===5||state.completed.every(Boolean)){await finalizeGame();return}
+ const next=state.completed.findIndex((x,i)=>!x&&i>ri);if(next>=0){state.round=next;save();renderAll();showView('score')}
+};
 
 function renderRounds(){
- const totalsNow=totals();let html='<thead><tr><th>Spiller</th>'+ROUNDS.map(r=>`<th>${r.name}</th>`).join('')+'<th>Total</th></tr></thead><tbody>';
- state.players.forEach((p,i)=>{html+=`<tr><td><strong>${esc(p.name)}</strong></td>`+ROUNDS.map((_,ri)=>{const vals=state.players.map((_,pi)=>state.scores[pi][ri]);const min=Math.min(...vals),max=Math.max(...vals);const v=state.scores[i][ri];const cls=state.completed[ri]?(v===min?'best':(v===max&&max!==min?'worst':'')):'';return `<td class="${cls}">${v}${state.completed[ri]?'':' ·'}</td>`}).join('')+`<td><strong>${totalsNow[i]}</strong></td></tr>`});html+='</tbody>';$('roundTable').innerHTML=html;
+ const totalsNow=totals();
+ let html='<thead><tr><th>Spiller</th>'+ROUNDS.map((r,ri)=>`<th data-open-round="${ri}" style="cursor:pointer">${r.name}</th>`).join('')+'<th>Total</th></tr></thead><tbody>';
+ state.players.forEach((p,i)=>{html+=`<tr><td><strong>${esc(p.name)}</strong></td>`+ROUNDS.map((_,ri)=>{const vals=state.players.map((_,pi)=>state.scores[pi][ri]);const min=Math.min(...vals),max=Math.max(...vals);const v=state.scores[i][ri];const cls=state.completed[ri]?(v===min?'best':(v===max&&max!==min?'worst':'')):'';return `<td class="${cls}" data-open-round="${ri}" style="cursor:pointer">${v}${state.completed[ri]?'':' ·'}</td>`}).join('')+`<td><strong>${totalsNow[i]}</strong></td></tr>`});
+ html+='</tbody>';$('roundTable').innerHTML=html;
+
+ const standing=rankData();
+ const standingHtml=`<div class="card mobile-standing"><div class="mobile-standing-head"><strong>Samlet stilling</strong><span>Laveste score fører</span></div><div class="mobile-standing-grid">${standing.map(x=>`<div class="mobile-standing-row"><div class="who"><span class="rank">${x.rank}.</span><span class="nm">${esc(state.players[x.i].name)}</span></div><span class="pts">${x.score}</span></div>`).join('')}</div></div>`;
+ const cards=ROUNDS.map((r,ri)=>{
+   const vals=state.players.map((_,pi)=>state.scores[pi][ri]);
+   const min=Math.min(...vals),max=Math.max(...vals);
+   const status=state.completed[ri]?'<span class="round-state done">✓ Afsluttet</span>':(ri===state.round?'<span class="round-state live">Aktiv</span>':'<span class="round-state">Ikke afsluttet</span>');
+   const playerCells=state.players.map((p,pi)=>{const v=state.scores[pi][ri];const cls=state.completed[ri]?(v===min?'best':(v===max&&max!==min?'worst':'')):'';return `<div class="mobile-round-player ${cls}"><span class="nm">${esc(p.name)}</span><span class="sc">${v}</span></div>`}).join('');
+   return `<article class="card mobile-round-card ${ri===state.round?'active-round':''}" data-open-round="${ri}" role="button" tabindex="0" aria-label="Åbn ${esc(r.name)}"><div class="mobile-round-card-head"><div class="mobile-round-no">${ri+1}</div><div class="mobile-round-title"><strong>${esc(r.name)}</strong><span>${esc(r.rule)}</span></div>${status}</div><div class="mobile-round-players">${playerCells}</div><div class="mobile-round-foot"><span>${state.completed[ri]?'Laveste score markeret':'Point kan stadig ændres'}</span><span class="open-hint">Åbn runde →</span></div></article>`;
+ }).join('');
+ $('mobileRounds').innerHTML=standingHtml+`<div class="mobile-round-list">${cards}</div>`;
 }
+function openRoundFromOverview(ri){state.round=ri;save();renderScore();showView('score')}
+$('mobileRounds').onclick=e=>{const el=e.target.closest('[data-open-round]');if(el)openRoundFromOverview(Number(el.dataset.openRound))};
+$('mobileRounds').onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-open-round]')){e.preventDefault();openRoundFromOverview(Number(e.target.closest('[data-open-round]').dataset.openRound))}};
+$('roundTable').onclick=e=>{const el=e.target.closest('[data-open-round]');if(el)openRoundFromOverview(Number(el.dataset.openRound))};
 function playerStats(i){const completed=state.completed.map((x,ri)=>x?ri:null).filter(x=>x!==null);const vals=completed.map(ri=>state.scores[i][ri]);const total=totals()[i];const avg=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;let wins=0;completed.forEach(ri=>{const min=Math.min(...state.players.map((_,pi)=>state.scores[pi][ri]));if(state.scores[i][ri]===min)wins++});const zeros=vals.filter(v=>v===0).length;const bestVal=vals.length?Math.min(...vals):0,worstVal=vals.length?Math.max(...vals):0;const bestRi=completed.find(ri=>state.scores[i][ri]===bestVal);const worstRi=completed.find(ri=>state.scores[i][ri]===worstVal);const rank=rankData().find(x=>x.i===i)?.rank||1;return {total,avg,wins,zeros,bestVal,worstVal,bestRi,worstRi,rank}}
 function renderStats(){
  const maxScore=Math.max(100,...state.scores.flat());$('statsGrid').innerHTML='';state.players.forEach((p,i)=>{const s=playerStats(i);const bars=ROUNDS.map((r,ri)=>`<div class="bar-row"><span>${r.name}</span><span class="bar-track"><span class="bar-fill" style="display:block;width:${Math.min(100,(state.scores[i][ri]/maxScore)*100)}%"></span></span><strong>${state.scores[i][ri]}</strong></div>`).join('');$('statsGrid').insertAdjacentHTML('beforeend',`<article class="card stat-card"><div class="stat-name">${esc(p.name)}</div><div class="stat-total">${s.total}</div><div class="muted">Placering ${s.rank}</div><div class="metric-grid"><div class="metric"><div class="v">${s.avg.toFixed(1).replace('.',',')}</div><div class="l">Gns. pr. runde</div></div><div class="metric"><div class="v">${s.wins}</div><div class="l">Rundesejre</div></div><div class="metric"><div class="v">${s.zeros}</div><div class="l">0-point runder</div></div><div class="metric"><div class="v">${s.worstVal}</div><div class="l">Værste runde</div></div></div><div class="bars">${bars}</div></article>`)});
 }
 function historySnapshot(){return {id:'g'+Date.now(),date:new Date().toISOString(),players:state.players.map(p=>p.name),scores:state.scores.map(r=>[...r]),totals:totals(),winner:rankData()[0].i}}
-async function finalizeGame(){state.finalized=true;save();const h=loadHistory();h.unshift(historySnapshot());saveHistory(h.slice(0,50));renderAll();showView('final')}
-function renderHistory(){const h=loadHistory();if(!h.length){$('historyList').innerHTML='<div class="card history-item"><div><strong>Ingen gemte spil endnu</strong><div class="date">Når et spil afsluttes, vises det her.</div></div></div>';return}$('historyList').innerHTML=h.map((g,idx)=>{const d=new Date(g.date).toLocaleDateString('da-DK',{day:'numeric',month:'short',year:'numeric'});return `<div class="card history-item"><div><div class="date">${d} · ${g.players.length} spillere</div><strong>Vinder: <span class="winner">${esc(g.players[g.winner])}</span></strong><div class="scores">${g.totals.join(' – ')}</div></div><button class="trash" data-delhist="${idx}">⌫</button></div>`}).join('')}
+async function finalizeGame(){if(!state.finalized){state.finalized=true;save();const h=loadHistory();h.unshift(historySnapshot());saveHistory(h.slice(0,50))}renderAll();showView('final')}
+function renderHistory(){const h=loadHistory();if(!h.length){$('historyList').innerHTML='<div class="card history-item"><div><strong>Ingen gemte spil endnu</strong><div class="date">Når et spil afsluttes, vises det her.</div></div></div>';return}$('historyList').innerHTML=h.map((g,idx)=>{const dt=new Date(g.date);const d=dt.toLocaleDateString('da-DK',{day:'numeric',month:'short',year:'numeric'});const tm=dt.toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});return `<div class="card history-item"><div><div class="date">${d} · kl. ${tm} · ${g.players.length} spillere</div><strong>Vinder: <span class="winner">${esc(g.players[g.winner])}</span></strong><div class="scores">${g.totals.join(' – ')}</div></div><button class="trash" data-delhist="${idx}">⌫</button></div>`}).join('')}
 $('historyList').onclick=async e=>{const b=e.target.closest('[data-delhist]');if(!b)return;if(await confirmBox('Slet spil?','Denne historikpost kan ikke gendannes.','Slet')){const h=loadHistory();h.splice(Number(b.dataset.delhist),1);saveHistory(h);renderHistory()}};
 function renderSettings(){applyMode()}
 $('tableToggle').onclick=()=>{state.mode=state.mode==='table'?'phone':'table';save();applyMode();renderScore()};
@@ -300,7 +404,12 @@ $('editPlayers').onclick=()=>openSetup(true);
 $('resetGame').onclick=async()=>{if(await confirmBox('Nulstil spil?','Alle point i det nuværende spil bliver slettet.','Nulstil')){const names=state.players.map(p=>p.name),mode=state.mode,sound=state.sound;state=freshState(names,mode);state.sound=sound;save();renderAll();showView('score')}};
 $('clearHistory').onclick=async()=>{if(await confirmBox('Slet al historik?','Alle gemte afsluttede spil fjernes fra denne enhed.','Slet')){saveHistory([]);renderHistory();toast('Historik slettet')}};
 function renderFinal(){if(!state?.finalized)return;const ranks=rankData();const w=ranks[0];$('winnerName').textContent=state.players[w.i].name;$('winnerScore').textContent=`${w.score} point`;$('finalRank').innerHTML=ranks.map(x=>`<div class="final-row"><span>${x.rank}. ${esc(state.players[x.i].name)}</span><strong>${x.score}</strong></div>`).join('')}
-$('finalStats').onclick=()=>showView('stats');$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>{state=null;localStorage.removeItem(STORAGE);openSetup(false)};
+async function startNewGameFromActive(){if(await confirmBox('Start nyt spil?','Det nuværende aktive spil slettes. Gemte afsluttede spil i Historik bevares.','Nyt spil')){state=null;localStorage.removeItem(STORAGE);LEGACY_STORAGES.forEach(k=>localStorage.removeItem(k));$('gameMenu').classList.add('hidden');openSetup(false)}}
+$('gameMenuBtn').onclick=()=>$('gameMenu').classList.remove('hidden');
+$('closeGameMenu').onclick=()=>$('gameMenu').classList.add('hidden');
+$('endGameNow').onclick=async()=>{if(await confirmBox('Afslut spil?','Det aktuelle resultat gemmes i Historik, også hvis ikke alle runder er markeret som afsluttet.','Afslut')){$('gameMenu').classList.add('hidden');await finalizeGame()}};
+$('newGameNow').onclick=startNewGameFromActive;
+$('finalStats').onclick=()=>showView('stats');$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>{state=null;localStorage.removeItem(STORAGE);LEGACY_STORAGES.forEach(k=>localStorage.removeItem(k));openSetup(false)};
 
 function showView(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('#nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'instant'})}
 $('nav').onclick=e=>{const b=e.target.closest('[data-view]');if(b)showView(b.dataset.view)};
