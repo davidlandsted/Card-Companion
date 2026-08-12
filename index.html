@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
 <meta name="theme-color" content="#08090b" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v7.1 -->
+<!-- Stik Companion v8 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -25,7 +26,7 @@ button:active{transform:scale(.985)}
 .app{min-height:100dvh;padding-top:var(--safe-top);padding-bottom:calc(76px + var(--safe-bottom));background:radial-gradient(1200px 700px at 50% -10%,#15191f 0,#090b0e 48%,#060709 100%)}
 .hidden{display:none!important}
 .screen{display:none;min-height:calc(100dvh - 76px - var(--safe-top) - var(--safe-bottom));padding:16px}
-.screen.active{display:block}
+.screen.active{display:block}.screen:not(.active){display:none!important}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
 .brandmark{width:36px;height:36px;border-radius:11px;background:linear-gradient(145deg,#fff,#c9cdd2);color:#111;display:grid;place-items:center;font-size:20px;box-shadow:var(--shadow)}
@@ -84,6 +85,11 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
 .history-list{display:grid;gap:10px}.history-item{overflow:hidden}.history-item summary{list-style:none;cursor:pointer;padding:14px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.history-item summary::-webkit-details-marker{display:none}.history-summary-main{min-width:0}.history-item .date{font-size:11px;color:var(--muted);margin-bottom:5px}.history-item .winner{color:var(--green);font-weight:900}.history-player-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.history-player-chip{border:1px solid #2b323c;background:#0b0e12;border-radius:999px;padding:5px 8px;font-size:11px;color:#cdd3da}.history-player-chip strong{color:#fff}.history-player-chip.winner-chip{border-color:rgba(119,213,138,.35);background:rgba(119,213,138,.07)}.history-chevron{width:30px;height:30px;border-radius:50%;border:1px solid #303741;display:grid;place-items:center;color:var(--muted);transition:transform .18s}.history-item[open] .history-chevron{transform:rotate(180deg)}.history-details{border-top:1px solid #252c34;padding:12px 14px 14px}.history-round-list{display:grid;gap:6px}.history-round-row{background:#0b0e12;border:1px solid #232a33;border-radius:11px;padding:8px 10px}.history-round-name{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;font-size:11px;color:var(--muted)}.history-round-name strong{color:#dfe4ea}.history-round-result{color:var(--green);font-weight:900;text-align:right}.history-round-result.pending{color:var(--muted);font-weight:700}.history-round-rule{font-size:10px;color:var(--muted);margin:2px 0 7px}.history-round-scores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.history-round-score{display:flex;justify-content:space-between;gap:7px;font-size:11px;min-width:0}.history-round-score span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.history-round-score strong{color:#fff}.history-round-score.round-best strong{color:var(--green)}.history-delete{width:100%;margin-top:10px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,91,84,.35);background:rgba(255,91,84,.07);color:var(--red);font-weight:800}.privacy-note{padding:14px;display:flex;gap:11px;align-items:flex-start}.privacy-note-icon{width:34px;height:34px;flex:0 0 auto;border-radius:11px;background:rgba(119,213,138,.08);border:1px solid rgba(119,213,138,.25);display:grid;place-items:center;color:var(--green);font-weight:900}.privacy-note .desc{font-size:11px;color:var(--muted);line-height:1.5;margin-top:4px}
 .settings-list{display:grid;gap:10px}.setting-row{padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:center}.setting-row .desc{font-size:11px;color:var(--muted);margin-top:3px}.toggle{width:48px;height:28px;border-radius:999px;background:#333a44;padding:3px;transition:.2s}.toggle::after{content:"";display:block;width:22px;height:22px;border-radius:50%;background:white;transition:.2s}.toggle.on{background:var(--green)}.toggle.on::after{transform:translateX(20px)}
 .danger{color:var(--red)}
+.setting-block{padding:14px}.setting-block>strong{display:block;margin-bottom:4px}.setting-block .desc{font-size:11px;color:var(--muted);line-height:1.45;margin-bottom:11px}
+.settings-mode-segment{display:grid;grid-template-columns:1fr 1fr;gap:5px;background:#0b0e12;border:1px solid var(--line);padding:5px;border-radius:15px}.settings-mode-segment button{padding:11px 10px;border-radius:11px;color:var(--muted);font-weight:850}.settings-mode-segment button.active{background:var(--accent);color:#190a02}
+.setting-value{font-size:11px;color:var(--accent2);font-weight:800;text-align:right}.fullscreen-note{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4}
+.seat-dialog{width:min(560px,100%);padding:18px}.seat-list{display:grid;gap:8px;margin-top:15px}.seat-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 12px;border-radius:14px;background:#0b0f13;border:1px solid #272e37}.seat-copy{display:flex;align-items:center;gap:10px;min-width:0}.seat-number{width:30px;height:30px;flex:0 0 auto;border-radius:10px;background:rgba(255,106,26,.11);border:1px solid rgba(255,106,26,.3);display:grid;place-items:center;color:var(--accent2);font-weight:900}.seat-copy strong,.seat-copy span{display:block}.seat-copy strong{font-size:12px}.seat-copy span{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.seat-controls{display:flex;gap:6px}.seat-controls button{width:38px;height:38px;border-radius:11px;background:#161c23;border:1px solid #303843;font-size:18px;font-weight:900}.seat-controls button:disabled{opacity:.25}.seat-help{font-size:11px;color:var(--muted);line-height:1.45;margin-top:6px}.seat-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.seat-actions button{padding:13px;border-radius:13px;font-weight:850}
+body.fullscreen-active .app{min-height:100vh}
 
 /* Final */
 .final-hero{text-align:center;padding:26px 18px}.trophy{font-size:64px}.winner-name{font-size:36px;font-weight:900;margin-top:5px}.winner-score{color:var(--green);font-size:18px;margin-top:4px}.final-rank{margin-top:16px;display:grid;gap:8px}.final-row{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid var(--line);background:#0d1014;border-radius:13px}.final-actions{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:8px;margin-top:18px}.final-actions button{padding:14px;border-radius:14px;background:#14191f;border:1px solid var(--line);font-weight:800}.final-actions button.primary{background:linear-gradient(180deg,var(--accent2),var(--accent));color:#190a02;border-color:transparent;box-shadow:0 10px 28px rgba(255,106,26,.2)}.final-hint{color:var(--muted);font-size:12px;margin-top:12px}
@@ -107,41 +113,51 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
 }
 
 @media (min-width:701px) and (orientation:landscape){
-  .score-board{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}.player-card{min-height:0}
-  body.table-mode .player-card:nth-child(-n+2) .seat-inner{transform:rotate(180deg)}
-  body.table-mode .player-card:nth-child(-n+2) .leader-badge{top:auto;bottom:10px;right:auto;left:10px;transform:rotate(180deg)}
-  .score-screen{height:calc(100dvh - 70px - var(--safe-top) - var(--safe-bottom));display:flex;flex-direction:column}.score-board{flex:1}.round-score{font-size:72px}
-}
-
-/* Compact phone landscape: keep the full score board visible above the browser/nav bars. */
-@media (orientation:landscape) and (max-height:560px) and (max-width:1000px){
-  .app{padding-bottom:calc(48px + var(--safe-bottom))}
-  .score-screen{height:calc(100dvh - 48px - var(--safe-top) - var(--safe-bottom));min-height:0;padding:4px 6px 3px;display:flex;flex-direction:column;overflow:hidden}
-  .score-header{grid-template-columns:30px minmax(0,1fr) auto;gap:5px;margin-bottom:4px;flex:0 0 auto}
-  .score-header .brand{font-size:0}.score-header .brandmark{width:28px;height:28px;border-radius:8px;font-size:15px}
-  .round-head .kicker{font-size:8px;line-height:1}.round-head h1{font-size:14px;line-height:1.05;margin-top:1px}.round-head .rule{font-size:8.5px;line-height:1.15;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.round-head .limit-note{display:inline;margin:0 0 0 5px;font-size:8px}
-  .progress{gap:3px;margin-top:2px}.dot{width:17px;height:17px;font-size:8px;border-width:1px}
-  .header-actions{gap:3px}.game-btn,.undo-btn{width:30px;height:30px;padding:0;border-radius:9px;display:grid;place-items:center}.game-btn{font-size:0}.game-btn::after{content:"...";font-size:13px;letter-spacing:1px}.undo-btn{font-size:0}.undo-btn::before{content:"\\21B6";font-size:16px}
-  .score-board{flex:1;min-height:0;gap:5px;overflow:hidden;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
-  .player-card{min-height:0;border-radius:12px}.seat-inner{grid-template-columns:36px minmax(0,1fr) 36px;gap:3px;padding:5px 7px}.score-minus,.score-plus{width:34px;height:34px;font-size:23px}.player-name{font-size:11px}.round-score{font-size:39px;line-height:.86;margin:2px 0 1px}.event-count,.total-score{font-size:8.5px;line-height:1.05}.total-score{margin-top:2px}.leader-badge{display:none}
-  .middle-strip{display:none}
-  .round-actions{grid-template-columns:1fr 1fr 1.25fr;gap:4px;margin-top:4px;flex:0 0 auto}.round-actions button{padding:5px 6px;min-height:27px;border-radius:8px;font-size:9px;line-height:1}.round-actions .complete{grid-column:auto}
-  .nav{height:calc(48px + var(--safe-bottom));padding:2px 7px var(--safe-bottom)}.nav button{font-size:8px;gap:0}.nav .ico{width:19px;height:19px}.nav .ico svg{width:18px;height:18px}
-
-  /* Phone mode uses the width efficiently: up to four players sit in one row. */
+  .score-screen.active{height:calc(100dvh - 70px - var(--safe-top) - var(--safe-bottom));min-height:0;display:flex;flex-direction:column;overflow:hidden}
+  .score-screen:not(.active){display:none!important}
+  .score-board{flex:1;min-height:0;gap:9px;overflow:hidden}
+  .player-card{min-height:0}
+  .round-score{font-size:clamp(50px,6.2vw,76px)}
+  body.table-mode .player-card.opposite-seat .seat-inner{transform:rotate(180deg)}
+  body.table-mode .player-card.opposite-seat .leader-badge{top:auto;bottom:10px;right:auto;left:10px;transform:rotate(180deg)}
+  body.table-mode[data-player-count="2"] .score-board{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+  body.table-mode[data-player-count="3"] .score-board{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+  body.table-mode[data-player-count="3"] .player-card:first-child{grid-column:1/-1}
+  body.table-mode[data-player-count="4"] .score-board{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+  body.table-mode[data-player-count="5"] .score-board,body.table-mode[data-player-count="6"] .score-board{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,1fr)}
+  body.table-mode[data-player-count="7"] .score-board,body.table-mode[data-player-count="8"] .score-board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,1fr)}
   body:not(.table-mode)[data-player-count="2"] .score-board{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:1fr}
   body:not(.table-mode)[data-player-count="3"] .score-board{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:1fr}
   body:not(.table-mode)[data-player-count="4"] .score-board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr}
   body:not(.table-mode)[data-player-count="5"] .score-board,body:not(.table-mode)[data-player-count="6"] .score-board{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,1fr)}
   body:not(.table-mode)[data-player-count="7"] .score-board,body:not(.table-mode)[data-player-count="8"] .score-board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,1fr)}
-  body:not(.table-mode)[data-player-count="3"] .seat-inner,body:not(.table-mode)[data-player-count="4"] .seat-inner{grid-template-columns:30px minmax(0,1fr) 30px;padding:5px 4px}.score-minus,.score-plus{max-width:100%}
+}
+
+/* Compact phone landscape: keep the full score board visible above browser and navigation bars. */
+@media (orientation:landscape) and (max-height:560px) and (max-width:1000px){
+  .app{padding-bottom:calc(48px + var(--safe-bottom))}
+  .score-screen.active{height:calc(100dvh - 48px - var(--safe-top) - var(--safe-bottom));min-height:0;padding:4px 6px 3px;display:flex;flex-direction:column;overflow:hidden}
+  .score-screen:not(.active){display:none!important}
+  .score-header{grid-template-columns:30px minmax(0,1fr) auto;gap:5px;margin-bottom:4px;flex:0 0 auto}
+  .score-header .brand{font-size:0}.score-header .brandmark{width:28px;height:28px;border-radius:8px;font-size:15px}
+  .round-head .kicker{font-size:8px;line-height:1}.round-head h1{font-size:14px;line-height:1.05;margin-top:1px}.round-head .rule{font-size:8.5px;line-height:1.15;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.round-head .limit-note{display:inline;margin:0 0 0 5px;font-size:8px}
+  .progress{gap:3px;margin-top:2px}.dot{width:17px;height:17px;font-size:8px;border-width:1px}
+  .header-actions{gap:3px}.game-btn,.undo-btn{width:30px;height:30px;padding:0;border-radius:9px;display:grid;place-items:center}.game-btn{font-size:0}.game-btn::after{content:"...";font-size:13px;letter-spacing:1px}.undo-btn{font-size:0}.undo-btn::before{content:"\\21B6";font-size:16px}
+  .score-board{flex:1;min-height:0;gap:5px;overflow:hidden}
+  .player-card{min-height:0;border-radius:12px}.seat-inner{grid-template-columns:36px minmax(0,1fr) 36px;gap:3px;padding:5px 7px}.score-minus,.score-plus{width:34px;height:34px;font-size:23px}.player-name{font-size:11px}.round-score{font-size:39px;line-height:.86;margin:2px 0 1px}.event-count,.total-score{font-size:8.5px;line-height:1.05}.total-score{margin-top:2px}.leader-badge{display:none}
+  .middle-strip{display:none}
+  .round-actions{grid-template-columns:1fr 1fr 1.25fr;gap:4px;margin-top:4px;flex:0 0 auto}.round-actions button{padding:5px 6px;min-height:27px;border-radius:8px;font-size:9px;line-height:1}.round-actions .complete{grid-column:auto}
+  .nav{height:calc(48px + var(--safe-bottom));padding:2px 7px var(--safe-bottom)}.nav button{font-size:8px;gap:0}.nav .ico{width:19px;height:19px}.nav .ico svg{width:18px;height:18px}
+  body:not(.table-mode)[data-player-count="2"] .score-board{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:1fr}
+  body:not(.table-mode)[data-player-count="3"] .score-board{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:1fr}
+  body:not(.table-mode)[data-player-count="4"] .score-board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr}
+  body:not(.table-mode)[data-player-count="5"] .score-board,body:not(.table-mode)[data-player-count="6"] .score-board{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,1fr)}
+  body:not(.table-mode)[data-player-count="7"] .score-board,body:not(.table-mode)[data-player-count="8"] .score-board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,1fr)}
+  body:not(.table-mode)[data-player-count="3"] .seat-inner,body:not(.table-mode)[data-player-count="4"] .seat-inner{grid-template-columns:30px minmax(0,1fr) 30px;padding:5px 4px}
   body:not(.table-mode)[data-player-count="3"] .score-minus,body:not(.table-mode)[data-player-count="3"] .score-plus,body:not(.table-mode)[data-player-count="4"] .score-minus,body:not(.table-mode)[data-player-count="4"] .score-plus{width:29px;height:29px;font-size:20px}
   body:not(.table-mode)[data-player-count="4"] .round-score{font-size:34px}body:not(.table-mode)[data-player-count="4"] .player-name{font-size:10px}
-
-  /* Table mode keeps the familiar 2x2 tabletop layout, but at compact phone scale. */
-  body.table-mode .score-board{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
-  body.table-mode .player-card:nth-child(-n+2) .seat-inner{transform:rotate(180deg)}
-  body.table-mode .player-card:nth-child(-n+2) .leader-badge{transform:rotate(180deg)}
+  body.table-mode .player-card.opposite-seat .seat-inner{transform:rotate(180deg)}
+  body.table-mode .player-card.opposite-seat .leader-badge{transform:rotate(180deg)}
 }
 
 @media (min-width:980px){.stats-grid{grid-template-columns:repeat(4,1fr)}}
@@ -215,7 +231,9 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
   <section id="settings" class="screen">
     <div class="section-head"><div><div class="kicker">Indstillinger</div><h1>Indstillinger</h1></div></div>
     <div class="settings-list">
-      <div class="card setting-row"><div><strong>Bordtilstand</strong><div class="desc">Til iPad/tablet på bordet. Modstående spillere vendes 180° i landskab.</div></div><button class="toggle" id="tableToggle" aria-label="Bordtilstand"></button></div>
+      <div class="card setting-block"><strong>Visning</strong><div class="desc">Bord viser spillere omkring en tablet. Telefon vender alle felter samme vej.</div><div class="settings-mode-segment" id="settingsModeSegment"><button data-settings-mode="table">Bord (iPad)</button><button data-settings-mode="phone">Telefon</button></div></div>
+      <button class="card setting-row" id="reorderPlayers"><div><strong>Placering omkring bordet</strong><div class="desc">Flyt spillerne, så felterne passer med den rækkefølge, I sidder i.</div></div><span class="setting-value" id="seatOrderSummary">Rediger</span></button>
+      <button class="card setting-row" id="fullscreenBtn"><div><strong id="fullscreenTitle">Fuld skærm</strong><div class="desc" id="fullscreenDesc">Skjul browserens værktøjslinjer, hvor det understøttes.</div></div><span>↗</span></button>
       <div class="card setting-row"><div><strong>Lydeffekter</strong><div class="desc">Standard: slået fra.</div></div><button class="toggle" id="soundToggle" aria-label="Lydeffekter"></button></div>
       <div class="card privacy-note"><div class="privacy-note-icon">⌁</div><div><strong>Data gemmes lokalt</strong><div class="desc">Andre, der åbner hjemmesiden på deres egen enhed eller browser, ser ikke dine resultater. Aktive spil og Historik gemmes kun i denne browsers website-data. Hvis website-data/cookies for siden ryddes, kan resultaterne forsvinde.</div></div></div>
       <button class="card setting-row" id="editPlayers"><div><strong>Rediger spillere</strong><div class="desc">Navne og antal spillere.</div></div><span>›</span></button>
@@ -246,7 +264,8 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
 
 <div class="toast" id="toast"></div>
 <div class="modal hidden" id="modal"><div class="dialog card"><h2 id="modalTitle"></h2><p id="modalText"></p><div class="dialog-actions"><button class="secondary" id="modalCancel">Annuller</button><button class="primary" id="modalConfirm">OK</button></div></div></div>
-<div class="modal hidden" id="gameMenu"><div class="dialog card game-sheet"><div class="kicker">Spil</div><h2>Hvad vil du gøre?</h2><p>Dit aktive spil gemmes automatisk på denne enhed.</p><div class="game-menu-actions"><button class="continue-game" id="closeGameMenu"><span class="menu-copy"><span class="menu-title">Fortsæt spil</span><span class="menu-desc">Luk menuen og fortsæt runden</span></span><span class="menu-arrow">×</span></button><button class="end-game" id="endGameNow"><span class="menu-copy"><span class="menu-title">Afslut spil nu</span><span class="menu-desc">Gem nuværende resultat i Historik</span></span><span class="menu-arrow">›</span></button><button class="new-game" id="newGameNow"><span class="menu-copy"><span class="menu-title">Start nyt spil</span><span class="menu-desc">Behold Historik, men erstat det aktive spil</span></span><span class="menu-arrow">›</span></button></div></div></div>
+<div class="modal hidden" id="gameMenu"><div class="dialog card game-sheet"><div class="kicker">Spil</div><h2>Hvad vil du gøre?</h2><p>Dit aktive spil gemmes automatisk på denne enhed.</p><div class="game-menu-actions"><button class="continue-game" id="closeGameMenu"><span class="menu-copy"><span class="menu-title">Fortsæt spil</span><span class="menu-desc">Luk menuen og fortsæt runden</span></span><span class="menu-arrow">×</span></button><button class="continue-game" id="switchModeNow"><span class="menu-copy"><span class="menu-title" id="switchModeTitle">Skift visning</span><span class="menu-desc" id="switchModeDesc">Skift mellem Bord og Telefon</span></span><span class="menu-arrow">↔</span></button><button class="continue-game" id="fullscreenMenuBtn"><span class="menu-copy"><span class="menu-title">Fuld skærm</span><span class="menu-desc">Skjul browserbjælker, hvor det understøttes</span></span><span class="menu-arrow">↗</span></button><button class="end-game" id="endGameNow"><span class="menu-copy"><span class="menu-title">Afslut spil nu</span><span class="menu-desc">Gem nuværende resultat i Historik</span></span><span class="menu-arrow">›</span></button><button class="new-game" id="newGameNow"><span class="menu-copy"><span class="menu-title">Start nyt spil</span><span class="menu-desc">Behold Historik, men erstat det aktive spil</span></span><span class="menu-arrow">›</span></button></div></div></div>
+<div class="modal hidden" id="seatModal"><div class="dialog card seat-dialog"><div class="kicker">Placering</div><h2>Spillere omkring bordet</h2><p class="seat-help">Rækkefølgen her styrer felternes placering i Bord (iPad). Brug pilene til at flytte en spiller. Point og historik ændres ikke.</p><div class="seat-list" id="seatList"></div><div class="seat-actions"><button class="secondary" id="resetSeatOrder">Nulstil rækkefølge</button><button class="primary" id="closeSeatModal">Færdig</button></div></div></div>
 
 <script>
 (() => {
@@ -269,7 +288,7 @@ let state=loadState();
 
 function suggestedMode(){const w=Math.min(window.screen?.width||innerWidth,window.screen?.height||innerHeight);return w>=600?'table':'phone'}
 function freshState(names=['Spiller 1','Spiller 2','Spiller 3','Spiller 4'], mode=suggestedMode()){
- return {version:1, players:names.map((name,i)=>({id:'p'+Date.now()+'_'+i,name})), mode, round:0, completed:Array(6).fill(false), scores:names.map(()=>Array(6).fill(0)), actions:[], sound:false, started:true, finalized:false, createdAt:new Date().toISOString()};
+ const players=names.map((name,i)=>({id:'p'+Date.now()+'_'+i,name})); return {version:8, players, seatOrder:players.map(p=>p.id), mode, round:0, completed:Array(6).fill(false), scores:names.map(()=>Array(6).fill(0)), actions:[], sound:false, started:true, finalized:false, createdAt:new Date().toISOString()};
 }
 function cardsToRemove(playerCount){return 52%playerCount}
 function updateDealNote(){
@@ -291,9 +310,22 @@ function maxEventsFor(ri,playerCount){
  if(ri===4)return 1;
  return null;
 }
+function normalizeSeatOrder(target){
+ const ids=target.players.map(p=>p.id);const current=Array.isArray(target.seatOrder)?target.seatOrder:[];
+ target.seatOrder=[...current.filter(id=>ids.includes(id)),...ids.filter(id=>!current.includes(id))];
+ return target.seatOrder;
+}
+function displayPlayerIndices(){normalizeSeatOrder(state);return state.seatOrder.map(id=>state.players.findIndex(p=>p.id===id)).filter(i=>i>=0)}
+function oppositeSeatCount(n){if(n<=2)return 1;if(n===3)return 1;return Math.floor(n/2)}
+function seatLabels(n){
+ if(n===2)return ['Øverst – vendes 180°','Nederst'];
+ if(n===3)return ['Øverst – vendes 180°','Nederst venstre','Nederst højre'];
+ if(n===4)return ['Øverst venstre – vendes','Øverst højre – vendes','Nederst venstre','Nederst højre'];
+ const opposite=oppositeSeatCount(n);return Array.from({length:n},(_,i)=>i<opposite?`Modsat plads ${i+1} – vendes`:`Nærmeste plads ${i-opposite+1}`);
+}
 function normalizeLoadedState(raw){
  if(!raw||!Array.isArray(raw.players)||raw.players.length<2)return null;
- raw.version=7;
+ raw.version=8;
  raw.round=Math.max(0,Math.min(5,Number(raw.round)||0));
  raw.completed=Array.from({length:6},(_,ri)=>!!raw.completed?.[ri]);
  raw.scores=raw.players.map((_,pi)=>Array.from({length:6},(_,ri)=>{
@@ -302,7 +334,7 @@ function normalizeLoadedState(raw){
  }));
  raw.actions=Array.isArray(raw.actions)?raw.actions:[];
  raw.mode=raw.mode==='phone'?'phone':'table';
- raw.sound=!!raw.sound; raw.started=true; raw.finalized=!!raw.finalized;
+ raw.sound=!!raw.sound; raw.started=true; raw.finalized=!!raw.finalized;normalizeSeatOrder(raw);
  const invalid=[];
  for(let ri=0;ri<5;ri++){
    const max=maxEventsFor(ri,raw.players.length);
@@ -349,7 +381,7 @@ function limitLabel(ri,max){if(ri===0)return `Præcis ${max} stik fordeles med $
 
 function init(){
  if(!state){$('welcome').classList.remove('hidden');return}
- $('app').classList.remove('hidden');applyMode();renderAll();showView(state.finalized?'final':'score');
+ $('app').classList.remove('hidden');normalizeSeatOrder(state);save();applyMode();renderAll();showView(state.finalized?'final':'score');
  if(startupWarnings.length)setTimeout(()=>toast(startupWarnings.join(' · ')),350);
 }
 $('welcomeStart').onclick=()=>openSetup(false);
@@ -369,19 +401,28 @@ $('modeSegment').onclick=e=>{const b=e.target.closest('button');if(!b)return;[..
 $('startGame').onclick=()=>{
  const n=Number($('playerCount').value);const names=[...document.querySelectorAll('[data-name]')].slice(0,n).map((inp,i)=>inp.value.trim()||`Spiller ${i+1}`);const mode=$('modeSegment').querySelector('.active').dataset.mode;
  if(setupMode==='edit'&&state&&state.started){
-   const oldScores=state.scores;const oldPlayers=state.players;state.mode=mode;state.players=names.map((name,i)=>({id:oldPlayers[i]?.id||('p'+Date.now()+'_'+i),name}));state.scores=names.map((_,i)=>oldScores[i]||Array(6).fill(0));save();
+   const oldScores=state.scores;const oldPlayers=state.players;state.mode=mode;state.players=names.map((name,i)=>({id:oldPlayers[i]?.id||('p'+Date.now()+'_'+i),name}));state.scores=names.map((_,i)=>oldScores[i]||Array(6).fill(0));normalizeSeatOrder(state);save();
  } else {const sound=setupPreset?.sound??false;state=freshState(names,mode);state.sound=sound;save()}
  setupPreset=null;$('setupScreen').classList.add('hidden');$('app').classList.remove('hidden');applyMode();renderAll();showView('score');
 };
 
-function applyMode(){document.body.classList.toggle('table-mode',state.mode==='table');document.body.dataset.playerCount=String(state.players.length);$('tableToggle').classList.toggle('on',state.mode==='table');$('soundToggle').classList.toggle('on',!!state.sound)}
+function applyMode(){
+ document.body.classList.toggle('table-mode',state.mode==='table');document.body.dataset.playerCount=String(state.players.length);
+ document.body.classList.toggle('fullscreen-active',!!fullscreenElement());
+ if($('soundToggle'))$('soundToggle').classList.toggle('on',!!state.sound);
+ if($('settingsModeSegment'))[...$('settingsModeSegment').querySelectorAll('[data-settings-mode]')].forEach(b=>b.classList.toggle('active',b.dataset.settingsMode===state.mode));
+ if($('switchModeTitle'))$('switchModeTitle').textContent=state.mode==='table'?'Skift til Telefon':'Skift til Bord (iPad)';
+ if($('switchModeDesc'))$('switchModeDesc').textContent=state.mode==='table'?'Alle spillerfelter vendes samme vej':'Placér enheden på bordet med modstående felter vendt';
+ updateFullscreenCopy();
+}
 function renderAll(){renderScore();renderRounds();renderStats();renderHistory();renderSettings();renderFinal()}
 function renderScore(){
  const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;const max=roundMaxEvents(state.round),used=totalRoundEvents(state.round);const full=max!==null&&used>=max;$('roundRule').innerHTML=`${esc(r.rule)}${max!==null?`<div class="limit-note"><strong style="color:${full?'var(--green)':'#dce1e6'}">${used} / ${max}${full?' ✓':''}</strong> · ${esc(limitLabel(state.round,max))}</div>`:''}`;
  $('roundProgress').innerHTML=ROUNDS.map((_,i)=>`<button type="button" class="dot ${i===state.round?'active':''} ${state.completed[i]?'done':''}" data-jump-round="${i}" aria-label="Åbn runde ${i+1}: ${esc(ROUNDS[i].name)}">${i+1}</button>`).join('');
  const t=totals(),best=Math.min(...t);$('scoreBoard').innerHTML='';
- state.players.forEach((p,i)=>{
-  const score=state.scores[i][state.round],events=currentRoundEventCount(i);const plusDisabled=max!==null&&used>=max;const minusDisabled=score<=0;$('scoreBoard').insertAdjacentHTML('beforeend',`<article class="player-card" style="--seatglow:${seatGlow[i%seatGlow.length]}"><div class="seat-inner"><button class="score-minus" data-score="${i}" data-dir="-1" ${minusDisabled?'disabled':''}>−</button><div class="player-core"><div class="player-name">${esc(p.name)}</div><div class="round-score">${score}</div><div class="event-count">${events} ${esc(r.event)}</div><div class="total-score">Total ${t[i]}</div></div><button class="score-plus" data-score="${i}" data-dir="1" ${plusDisabled?'disabled':''}>+</button></div>${t[i]===best?'<span class="leader-badge">fører</span>':''}</article>`)
+ const displayOrder=displayPlayerIndices(),oppositeCount=oppositeSeatCount(displayOrder.length);
+ displayOrder.forEach((i,seatIndex)=>{
+  const p=state.players[i],score=state.scores[i][state.round],events=currentRoundEventCount(i);const plusDisabled=max!==null&&used>=max;const minusDisabled=score<=0;const opposite=seatIndex<oppositeCount?' opposite-seat':'';$('scoreBoard').insertAdjacentHTML('beforeend',`<article class="player-card${opposite}" data-seat-index="${seatIndex}" style="--seatglow:${seatGlow[i%seatGlow.length]}"><div class="seat-inner"><button class="score-minus" data-score="${i}" data-dir="-1" ${minusDisabled?'disabled':''}>−</button><div class="player-core"><div class="player-name">${esc(p.name)}</div><div class="round-score">${score}</div><div class="event-count">${events} ${esc(r.event)}</div><div class="total-score">Total ${t[i]}</div></div><button class="score-plus" data-score="${i}" data-dir="1" ${plusDisabled?'disabled':''}>+</button></div>${t[i]===best?'<span class="leader-badge">fører</span>':''}</article>`)
  });
  $('middleStrip').innerHTML=`<div class="mini-panel"><h3>Rangering</h3>${rankData().slice(0,4).map(x=>`<div class="rank-row"><span>${x.rank}. ${esc(state.players[x.i].name)}</span><strong>${x.score}</strong></div>`).join('')}</div><div class="mini-panel"><h3>Rundestatus</h3><div class="rank-row"><span>Afsluttede runder</span><strong>${completedCount()} / 6</strong></div><div class="rank-row"><span>Aktiv runde</span><strong>${state.round+1}</strong></div></div>`;
  $('completeRound').textContent=state.completed[state.round]?'Genåbn runde':'Afslut runde';
@@ -467,10 +508,42 @@ function renderHistory(){
  }).join('')
 }
 $('historyList').onclick=async e=>{const b=e.target.closest('[data-delhist]');if(!b)return;e.preventDefault();e.stopPropagation();if(await confirmBox('Slet spil?','Denne historikpost kan ikke gendannes.','Slet')){const h=loadHistory();h.splice(Number(b.dataset.delhist),1);saveHistory(h);renderHistory()}};
-function renderSettings(){applyMode()}
-$('tableToggle').onclick=()=>{state.mode=state.mode==='table'?'phone':'table';save();applyMode();renderScore()};
+function isStandalone(){return window.matchMedia?.('(display-mode: standalone)').matches||window.navigator.standalone===true}
+function fullscreenElement(){return document.fullscreenElement||document.webkitFullscreenElement||null}
+function fullscreenSupported(){const el=document.documentElement;return !!(el.requestFullscreen||el.webkitRequestFullscreen)}
+function updateFullscreenCopy(){
+ if(!$('fullscreenTitle'))return;
+ if(isStandalone()){$('fullscreenTitle').textContent='Webapp-tilstand aktiv';$('fullscreenDesc').textContent='Appen er åbnet fra hjemmeskærmen uden almindelige browserbjælker.';return}
+ if(fullscreenElement()){$('fullscreenTitle').textContent='Afslut fuld skærm';$('fullscreenDesc').textContent='Gå tilbage til browserens normale visning.';return}
+ $('fullscreenTitle').textContent='Fuld skærm';$('fullscreenDesc').textContent=fullscreenSupported()?'Forsøg at skjule browserens værktøjslinjer.':'På iPhone/iPad: føj siden til hjemmeskærmen og vælg Åbn som webapp.';
+}
+async function fullscreenHelp(){await confirmBox('Fuld skærm på iPhone/iPad','Safari kan ikke altid skjule browserbjælker fra en almindelig fane. Den sikre løsning er: Del → Føj til hjemmeskærm → slå “Åbn som webapp” til. Åbn derefter Stik Companion fra ikonet på hjemmeskærmen.','OK')}
+async function toggleFullscreen(){
+ if(isStandalone()){toast('Appen kører allerede som webapp uden browserbjælker');return}
+ try{
+  if(fullscreenElement()){
+   if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();
+  }else{
+   const el=document.documentElement;
+   if(el.requestFullscreen)await el.requestFullscreen({navigationUI:'hide'});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();else{await fullscreenHelp();return}
+  }
+ }catch(e){await fullscreenHelp()}
+ applyMode();
+}
+function renderSettings(){
+ applyMode();const names=displayPlayerIndices().map(i=>state.players[i].name);if($('seatOrderSummary'))$('seatOrderSummary').textContent=names.join(' · ');
+}
+$('settingsModeSegment').onclick=e=>{const b=e.target.closest('[data-settings-mode]');if(!b||b.dataset.settingsMode===state.mode)return;state.mode=b.dataset.settingsMode;save();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Telefonvisning valgt')};
 $('soundToggle').onclick=()=>{state.sound=!state.sound;save();applyMode();beep()};
 $('editPlayers').onclick=()=>openSetup(true);
+$('reorderPlayers').onclick=()=>{renderSeatEditor();$('seatModal').classList.remove('hidden')};
+$('closeSeatModal').onclick=()=>{$('seatModal').classList.add('hidden');renderAll()};
+$('seatModal').onclick=e=>{if(e.target===$('seatModal')){$('seatModal').classList.add('hidden');renderAll()}};
+$('resetSeatOrder').onclick=()=>{state.seatOrder=state.players.map(p=>p.id);save();renderSeatEditor();renderScore();toast('Rækkefølgen er nulstillet')};
+$('seatList').onclick=e=>{const b=e.target.closest('[data-seat-move]');if(!b)return;const from=Number(b.dataset.seatIndex),to=from+Number(b.dataset.seatMove);normalizeSeatOrder(state);if(to<0||to>=state.seatOrder.length)return;[state.seatOrder[from],state.seatOrder[to]]=[state.seatOrder[to],state.seatOrder[from]];save();renderSeatEditor();renderScore()};
+function renderSeatEditor(){
+ const order=displayPlayerIndices(),labels=seatLabels(order.length);$('seatList').innerHTML=order.map((pi,seatIndex)=>`<div class="seat-row"><div class="seat-copy"><span class="seat-number">${seatIndex+1}</span><div><strong>${esc(labels[seatIndex]||`Plads ${seatIndex+1}`)}</strong><span>${esc(state.players[pi].name)}</span></div></div><div class="seat-controls"><button data-seat-index="${seatIndex}" data-seat-move="-1" ${seatIndex===0?'disabled':''} aria-label="Flyt op">↑</button><button data-seat-index="${seatIndex}" data-seat-move="1" ${seatIndex===order.length-1?'disabled':''} aria-label="Flyt ned">↓</button></div></div>`).join('');
+}
 $('resetGame').onclick=async()=>{if(await confirmBox('Nulstil spil?','Alle point i det nuværende spil bliver slettet.','Nulstil')){const names=state.players.map(p=>p.name),mode=state.mode,sound=state.sound;state=freshState(names,mode);state.sound=sound;save();renderAll();showView('score')}};
 $('clearHistory').onclick=async()=>{if(await confirmBox('Slet al historik?','Alle gemte afsluttede spil fjernes fra denne enhed.','Slet')){saveHistory([]);renderHistory();toast('Historik slettet')}};
 function renderFinal(){if(!state?.finalized)return;const ranks=rankData();const w=ranks[0];$('winnerName').textContent=state.players[w.i].name;$('winnerScore').textContent=`${w.score} point`;$('finalRank').innerHTML=ranks.map(x=>`<div class="final-row"><span>${x.rank}. ${esc(state.players[x.i].name)}</span><strong>${x.score}</strong></div>`).join('')}
@@ -478,16 +551,20 @@ function closeGameMenu(){ $('gameMenu').classList.add('hidden') }
 function gamePreset(){return {names:state.players.map(p=>p.name),mode:state.mode,sound:state.sound}}
 function nextPaint(){return new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))}
 async function startNewGameFromActive(){const preset=gamePreset();closeGameMenu();await nextPaint();if(await confirmBox('Start nyt spil?','Det nuværende aktive spil erstattes. Historikken bevares.','Fortsæt'))openSetup(false,preset)}
-$('gameMenuBtn').onclick=()=>$('gameMenu').classList.remove('hidden');
+$('gameMenuBtn').onclick=()=>{applyMode();$('gameMenu').classList.remove('hidden')};
 $('closeGameMenu').onclick=closeGameMenu;
+$('switchModeNow').onclick=()=>{state.mode=state.mode==='table'?'phone':'table';save();closeGameMenu();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Telefonvisning valgt')};
+$('fullscreenMenuBtn').onclick=async()=>{closeGameMenu();await nextPaint();await toggleFullscreen()};
+$('fullscreenBtn').onclick=toggleFullscreen;
 $('gameMenu').onclick=e=>{if(e.target===$('gameMenu'))closeGameMenu()};
 $('endGameNow').onclick=async()=>{closeGameMenu();await nextPaint();if(await confirmBox('Afslut spil?','Det aktuelle resultat gemmes i Historik, også hvis ikke alle runder er markeret som afsluttet.','Afslut'))await finalizeGame()};
 $('newGameNow').onclick=startNewGameFromActive;
 $('finalStats').onclick=()=>showView('stats');$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>openSetup(false,gamePreset());
 
-function showView(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('#nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'instant'})}
+function showView(id){document.querySelectorAll('.screen').forEach(s=>{const active=s.id===id;s.classList.toggle('active',active);s.setAttribute('aria-hidden',active?'false':'true')});document.querySelectorAll('#nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'instant'})}
 $('nav').onclick=e=>{const b=e.target.closest('[data-view]');if(b)showView(b.dataset.view)};
 
+document.addEventListener('fullscreenchange',()=>{applyMode();renderSettings()});document.addEventListener('webkitfullscreenchange',()=>{applyMode();renderSettings()});
 window.addEventListener('beforeunload',()=>{if(state)save()});
 init();
 })();
