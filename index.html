@@ -184,6 +184,96 @@ body.fullscreen-active .app{min-height:100vh}
 }
 
 @media (min-width:980px){.stats-grid{grid-template-columns:repeat(4,1fr)}}
+
+/* V10.11 - harmonised compact score-header actions on phones */
+@media (max-width:700px){
+  .header-actions{
+    gap:0;
+    padding:2px;
+    border:1px solid #303741;
+    border-radius:14px;
+    background:rgba(11,14,18,.92);
+    box-shadow:0 5px 16px rgba(0,0,0,.18);
+    overflow:hidden;
+  }
+  .header-actions .arrange-btn,
+  .header-actions .game-btn{
+    height:34px;
+    padding:0;
+    margin:0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+  }
+  .header-actions .arrange-btn{
+    width:52px;
+    border-radius:10px 0 0 10px;
+    color:var(--accent2);
+  }
+  .header-actions .arrange-btn::after{
+    content:"Plads";
+    font-size:10px;
+    font-weight:900;
+  }
+  .header-actions .arrange-btn.active{
+    background:rgba(255,106,26,.16);
+    color:var(--accent2);
+  }
+  .header-actions .game-btn{
+    width:36px;
+    border-left:1px solid #2b323b;
+    border-radius:0 10px 10px 0;
+    color:#aeb6c0;
+  }
+  .header-actions .game-btn::after{
+    content:"•••";
+    font-size:15px;
+    line-height:1;
+    letter-spacing:1.2px;
+  }
+  .header-actions .arrange-btn:active,
+  .header-actions .game-btn:active{
+    background:rgba(255,255,255,.055);
+  }
+  .header-actions .arrange-btn.active:active{
+    background:rgba(255,106,26,.22);
+  }
+}
+@media (orientation:landscape) and (max-height:560px) and (max-width:1000px){
+  .header-actions{
+    gap:0;
+    padding:2px;
+    border:1px solid #303741;
+    border-radius:11px;
+    background:rgba(11,14,18,.92);
+    overflow:hidden;
+  }
+  .header-actions .arrange-btn,
+  .header-actions .game-btn{
+    height:28px;
+    padding:0;
+    border:0;
+    background:transparent;
+  }
+  .header-actions .arrange-btn{
+    display:grid;
+    place-items:center;
+    width:44px;
+    border-radius:8px 0 0 8px;
+    font-size:0;
+    color:var(--accent2);
+  }
+  .header-actions .arrange-btn::after{content:"Plads";font-size:8.5px;font-weight:900}
+  .header-actions .game-btn{
+    width:30px;
+    border-left:1px solid #2b323b;
+    border-radius:0 8px 8px 0;
+    color:#aeb6c0;
+  }
+  .header-actions .game-btn::after{content:"•••";font-size:12px;line-height:1;letter-spacing:1px}
+  .header-actions .arrange-btn.active{background:rgba(255,106,26,.16);color:var(--accent2)}
+}
+
 </style>
 </head>
 <body>
