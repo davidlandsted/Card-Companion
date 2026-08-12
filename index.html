@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v6 -->
+<!-- Stik Companion v7.1 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -81,7 +81,7 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
 .mobile-rounds{display:none}.mobile-standing{padding:13px;margin-bottom:12px;position:sticky;top:calc(var(--safe-top) + 4px);z-index:6;background:rgba(15,18,23,.97);backdrop-filter:blur(16px)}.mobile-standing-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}.mobile-standing-head strong{font-size:14px}.mobile-standing-head span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}.mobile-standing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.mobile-standing-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 9px;border-radius:11px;background:#0a0d11;border:1px solid #232a33;min-width:0}.mobile-standing-row .who{display:flex;gap:6px;align-items:center;min-width:0}.mobile-standing-row .rank{color:var(--muted);font-size:11px;flex:0 0 auto}.mobile-standing-row .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;font-size:12px}.mobile-standing-row .pts{font-size:14px;font-weight:900;color:var(--green);flex:0 0 auto}.mobile-round-list{display:grid;gap:9px}.mobile-round-card{padding:0;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s}.mobile-round-card:active{transform:scale(.992)}.mobile-round-card.active-round{border-color:rgba(255,106,26,.72);box-shadow:0 0 0 1px rgba(255,106,26,.12) inset}.mobile-round-card-head{display:grid;grid-template-columns:34px 1fr auto;gap:9px;align-items:center;padding:11px 12px;border-bottom:1px solid #222831}.mobile-round-no{width:30px;height:30px;border-radius:10px;background:#0b0e12;border:1px solid #2b323b;display:grid;place-items:center;color:var(--accent);font-weight:900;font-size:12px}.mobile-round-title{min-width:0}.mobile-round-title strong{display:block;font-size:14px}.mobile-round-title span{display:block;color:var(--muted);font-size:10px;margin-top:2px}.round-state{font-size:10px;padding:5px 7px;border-radius:999px;border:1px solid #313842;color:#9ca5b0;white-space:nowrap}.round-state.done{border-color:rgba(119,213,138,.3);background:rgba(119,213,138,.07);color:var(--green)}.round-state.live{border-color:rgba(255,106,26,.35);background:rgba(255,106,26,.07);color:var(--accent2)}.mobile-round-players{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#222831}.mobile-round-player{background:#0c0f13;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}.mobile-round-player .nm{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mobile-round-player .sc{font-size:18px;font-weight:900;flex:0 0 auto}.mobile-round-player.best .sc{color:var(--green)}.mobile-round-player.worst .sc{color:var(--red)}.mobile-round-foot{padding:8px 12px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:10px}.mobile-round-foot .open-hint{color:var(--accent2);font-weight:800}
 .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat-card{padding:14px}.stat-name{font-weight:800}.stat-total{font-size:34px;font-weight:900;margin-top:5px}.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.metric{background:#0c0f13;border:1px solid #242b34;border-radius:12px;padding:9px}.metric .v{font-weight:800}.metric .l{font-size:10px;color:var(--muted);margin-top:2px}
 .bars{display:grid;gap:8px;margin-top:12px}.bar-row{display:grid;grid-template-columns:90px 1fr 44px;gap:8px;align-items:center;font-size:11px}.bar-track{height:9px;background:#20262e;border-radius:999px;overflow:hidden}.bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),#ffb26b);border-radius:999px}
-.history-list{display:grid;gap:10px}.history-item{overflow:hidden}.history-item summary{list-style:none;cursor:pointer;padding:14px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.history-item summary::-webkit-details-marker{display:none}.history-summary-main{min-width:0}.history-item .date{font-size:11px;color:var(--muted);margin-bottom:5px}.history-item .winner{color:var(--green);font-weight:900}.history-player-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.history-player-chip{border:1px solid #2b323c;background:#0b0e12;border-radius:999px;padding:5px 8px;font-size:11px;color:#cdd3da}.history-player-chip strong{color:#fff}.history-player-chip.winner-chip{border-color:rgba(119,213,138,.35);background:rgba(119,213,138,.07)}.history-chevron{width:30px;height:30px;border-radius:50%;border:1px solid #303741;display:grid;place-items:center;color:var(--muted);transition:transform .18s}.history-item[open] .history-chevron{transform:rotate(180deg)}.history-details{border-top:1px solid #252c34;padding:12px 14px 14px}.history-round-list{display:grid;gap:6px}.history-round-row{background:#0b0e12;border:1px solid #232a33;border-radius:11px;padding:8px 10px}.history-round-name{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:11px;color:var(--muted);margin-bottom:5px}.history-round-scores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.history-round-score{display:flex;justify-content:space-between;gap:7px;font-size:11px;min-width:0}.history-round-score span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.history-round-score strong{color:#fff}.history-delete{width:100%;margin-top:10px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,91,84,.35);background:rgba(255,91,84,.07);color:var(--red);font-weight:800}
+.history-list{display:grid;gap:10px}.history-item{overflow:hidden}.history-item summary{list-style:none;cursor:pointer;padding:14px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.history-item summary::-webkit-details-marker{display:none}.history-summary-main{min-width:0}.history-item .date{font-size:11px;color:var(--muted);margin-bottom:5px}.history-item .winner{color:var(--green);font-weight:900}.history-player-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.history-player-chip{border:1px solid #2b323c;background:#0b0e12;border-radius:999px;padding:5px 8px;font-size:11px;color:#cdd3da}.history-player-chip strong{color:#fff}.history-player-chip.winner-chip{border-color:rgba(119,213,138,.35);background:rgba(119,213,138,.07)}.history-chevron{width:30px;height:30px;border-radius:50%;border:1px solid #303741;display:grid;place-items:center;color:var(--muted);transition:transform .18s}.history-item[open] .history-chevron{transform:rotate(180deg)}.history-details{border-top:1px solid #252c34;padding:12px 14px 14px}.history-round-list{display:grid;gap:6px}.history-round-row{background:#0b0e12;border:1px solid #232a33;border-radius:11px;padding:8px 10px}.history-round-name{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;font-size:11px;color:var(--muted)}.history-round-name strong{color:#dfe4ea}.history-round-result{color:var(--green);font-weight:900;text-align:right}.history-round-result.pending{color:var(--muted);font-weight:700}.history-round-rule{font-size:10px;color:var(--muted);margin:2px 0 7px}.history-round-scores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.history-round-score{display:flex;justify-content:space-between;gap:7px;font-size:11px;min-width:0}.history-round-score span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.history-round-score strong{color:#fff}.history-round-score.round-best strong{color:var(--green)}.history-delete{width:100%;margin-top:10px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,91,84,.35);background:rgba(255,91,84,.07);color:var(--red);font-weight:800}.privacy-note{padding:14px;display:flex;gap:11px;align-items:flex-start}.privacy-note-icon{width:34px;height:34px;flex:0 0 auto;border-radius:11px;background:rgba(119,213,138,.08);border:1px solid rgba(119,213,138,.25);display:grid;place-items:center;color:var(--green);font-weight:900}.privacy-note .desc{font-size:11px;color:var(--muted);line-height:1.5;margin-top:4px}
 .settings-list{display:grid;gap:10px}.setting-row{padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:center}.setting-row .desc{font-size:11px;color:var(--muted);margin-top:3px}.toggle{width:48px;height:28px;border-radius:999px;background:#333a44;padding:3px;transition:.2s}.toggle::after{content:"";display:block;width:22px;height:22px;border-radius:50%;background:white;transition:.2s}.toggle.on{background:var(--green)}.toggle.on::after{transform:translateX(20px)}
 .danger{color:var(--red)}
 
@@ -111,6 +111,37 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
   body.table-mode .player-card:nth-child(-n+2) .seat-inner{transform:rotate(180deg)}
   body.table-mode .player-card:nth-child(-n+2) .leader-badge{top:auto;bottom:10px;right:auto;left:10px;transform:rotate(180deg)}
   .score-screen{height:calc(100dvh - 70px - var(--safe-top) - var(--safe-bottom));display:flex;flex-direction:column}.score-board{flex:1}.round-score{font-size:72px}
+}
+
+/* Compact phone landscape: keep the full score board visible above the browser/nav bars. */
+@media (orientation:landscape) and (max-height:560px) and (max-width:1000px){
+  .app{padding-bottom:calc(48px + var(--safe-bottom))}
+  .score-screen{height:calc(100dvh - 48px - var(--safe-top) - var(--safe-bottom));min-height:0;padding:4px 6px 3px;display:flex;flex-direction:column;overflow:hidden}
+  .score-header{grid-template-columns:30px minmax(0,1fr) auto;gap:5px;margin-bottom:4px;flex:0 0 auto}
+  .score-header .brand{font-size:0}.score-header .brandmark{width:28px;height:28px;border-radius:8px;font-size:15px}
+  .round-head .kicker{font-size:8px;line-height:1}.round-head h1{font-size:14px;line-height:1.05;margin-top:1px}.round-head .rule{font-size:8.5px;line-height:1.15;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.round-head .limit-note{display:inline;margin:0 0 0 5px;font-size:8px}
+  .progress{gap:3px;margin-top:2px}.dot{width:17px;height:17px;font-size:8px;border-width:1px}
+  .header-actions{gap:3px}.game-btn,.undo-btn{width:30px;height:30px;padding:0;border-radius:9px;display:grid;place-items:center}.game-btn{font-size:0}.game-btn::after{content:"...";font-size:13px;letter-spacing:1px}.undo-btn{font-size:0}.undo-btn::before{content:"\\21B6";font-size:16px}
+  .score-board{flex:1;min-height:0;gap:5px;overflow:hidden;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+  .player-card{min-height:0;border-radius:12px}.seat-inner{grid-template-columns:36px minmax(0,1fr) 36px;gap:3px;padding:5px 7px}.score-minus,.score-plus{width:34px;height:34px;font-size:23px}.player-name{font-size:11px}.round-score{font-size:39px;line-height:.86;margin:2px 0 1px}.event-count,.total-score{font-size:8.5px;line-height:1.05}.total-score{margin-top:2px}.leader-badge{display:none}
+  .middle-strip{display:none}
+  .round-actions{grid-template-columns:1fr 1fr 1.25fr;gap:4px;margin-top:4px;flex:0 0 auto}.round-actions button{padding:5px 6px;min-height:27px;border-radius:8px;font-size:9px;line-height:1}.round-actions .complete{grid-column:auto}
+  .nav{height:calc(48px + var(--safe-bottom));padding:2px 7px var(--safe-bottom)}.nav button{font-size:8px;gap:0}.nav .ico{width:19px;height:19px}.nav .ico svg{width:18px;height:18px}
+
+  /* Phone mode uses the width efficiently: up to four players sit in one row. */
+  body:not(.table-mode)[data-player-count="2"] .score-board{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:1fr}
+  body:not(.table-mode)[data-player-count="3"] .score-board{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:1fr}
+  body:not(.table-mode)[data-player-count="4"] .score-board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr}
+  body:not(.table-mode)[data-player-count="5"] .score-board,body:not(.table-mode)[data-player-count="6"] .score-board{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,1fr)}
+  body:not(.table-mode)[data-player-count="7"] .score-board,body:not(.table-mode)[data-player-count="8"] .score-board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,1fr)}
+  body:not(.table-mode)[data-player-count="3"] .seat-inner,body:not(.table-mode)[data-player-count="4"] .seat-inner{grid-template-columns:30px minmax(0,1fr) 30px;padding:5px 4px}.score-minus,.score-plus{max-width:100%}
+  body:not(.table-mode)[data-player-count="3"] .score-minus,body:not(.table-mode)[data-player-count="3"] .score-plus,body:not(.table-mode)[data-player-count="4"] .score-minus,body:not(.table-mode)[data-player-count="4"] .score-plus{width:29px;height:29px;font-size:20px}
+  body:not(.table-mode)[data-player-count="4"] .round-score{font-size:34px}body:not(.table-mode)[data-player-count="4"] .player-name{font-size:10px}
+
+  /* Table mode keeps the familiar 2x2 tabletop layout, but at compact phone scale. */
+  body.table-mode .score-board{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+  body.table-mode .player-card:nth-child(-n+2) .seat-inner{transform:rotate(180deg)}
+  body.table-mode .player-card:nth-child(-n+2) .leader-badge{transform:rotate(180deg)}
 }
 
 @media (min-width:980px){.stats-grid{grid-template-columns:repeat(4,1fr)}}
@@ -177,7 +208,7 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
   </section>
 
   <section id="history" class="screen">
-    <div class="section-head"><div><div class="kicker">Historik</div><h1>Gemte spil</h1><p>Afsluttede spil gemmes på denne enhed.</p></div></div>
+    <div class="section-head"><div><div class="kicker">Historik</div><h1>Gemte spil</h1><p>Gemmes kun lokalt i denne browser på denne enhed.</p></div></div>
     <div class="history-list" id="historyList"></div>
   </section>
 
@@ -186,6 +217,7 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
     <div class="settings-list">
       <div class="card setting-row"><div><strong>Bordtilstand</strong><div class="desc">Til iPad/tablet på bordet. Modstående spillere vendes 180° i landskab.</div></div><button class="toggle" id="tableToggle" aria-label="Bordtilstand"></button></div>
       <div class="card setting-row"><div><strong>Lydeffekter</strong><div class="desc">Standard: slået fra.</div></div><button class="toggle" id="soundToggle" aria-label="Lydeffekter"></button></div>
+      <div class="card privacy-note"><div class="privacy-note-icon">⌁</div><div><strong>Data gemmes lokalt</strong><div class="desc">Andre, der åbner hjemmesiden på deres egen enhed eller browser, ser ikke dine resultater. Aktive spil og Historik gemmes kun i denne browsers website-data. Hvis website-data/cookies for siden ryddes, kan resultaterne forsvinde.</div></div></div>
       <button class="card setting-row" id="editPlayers"><div><strong>Rediger spillere</strong><div class="desc">Navne og antal spillere.</div></div><span>›</span></button>
       <button class="card setting-row danger" id="resetGame"><div><strong>Nulstil nuværende spil</strong><div class="desc">Sletter point i det aktive spil.</div></div><span>↺</span></button>
       <button class="card setting-row danger" id="clearHistory"><div><strong>Slet historik</strong><div class="desc">Fjerner alle gemte afsluttede spil.</div></div><span>⌫</span></button>
@@ -226,7 +258,7 @@ const ROUNDS = [
  {name:'Sidste stik', unit:100, event:'sidste stik', rule:'100 point for sidste stik'},
  {name:'Kabale', unit:25, event:'pas', rule:'25 point pr. pas'}
 ];
-const STORAGE='stikCompanion.v6'; const LEGACY_STORAGES=['stikCompanion.v5','stikCompanion.v4','stikCompanion.v3','stikCompanion.vFinal']; const HISTORY='stikCompanion.history';
+const STORAGE='stikCompanion.v7'; const LEGACY_STORAGES=['stikCompanion.v6','stikCompanion.v5','stikCompanion.v4','stikCompanion.v3','stikCompanion.vFinal']; const HISTORY='stikCompanion.history';
 const seatGlow=['rgba(255,106,26,.15)','rgba(173,91,255,.15)','rgba(96,214,112,.14)','rgba(255,81,66,.14)','rgba(80,170,255,.14)','rgba(255,206,84,.14)','rgba(255,123,196,.14)','rgba(112,221,214,.14)'];
 const $=id=>document.getElementById(id);
 let modalResolver=null;
@@ -261,7 +293,7 @@ function maxEventsFor(ri,playerCount){
 }
 function normalizeLoadedState(raw){
  if(!raw||!Array.isArray(raw.players)||raw.players.length<2)return null;
- raw.version=6;
+ raw.version=7;
  raw.round=Math.max(0,Math.min(5,Number(raw.round)||0));
  raw.completed=Array.from({length:6},(_,ri)=>!!raw.completed?.[ri]);
  raw.scores=raw.players.map((_,pi)=>Array.from({length:6},(_,ri)=>{
@@ -342,7 +374,7 @@ $('startGame').onclick=()=>{
  setupPreset=null;$('setupScreen').classList.add('hidden');$('app').classList.remove('hidden');applyMode();renderAll();showView('score');
 };
 
-function applyMode(){document.body.classList.toggle('table-mode',state.mode==='table');$('tableToggle').classList.toggle('on',state.mode==='table');$('soundToggle').classList.toggle('on',!!state.sound)}
+function applyMode(){document.body.classList.toggle('table-mode',state.mode==='table');document.body.dataset.playerCount=String(state.players.length);$('tableToggle').classList.toggle('on',state.mode==='table');$('soundToggle').classList.toggle('on',!!state.sound)}
 function renderAll(){renderScore();renderRounds();renderStats();renderHistory();renderSettings();renderFinal()}
 function renderScore(){
  const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;const max=roundMaxEvents(state.round),used=totalRoundEvents(state.round);const full=max!==null&&used>=max;$('roundRule').innerHTML=`${esc(r.rule)}${max!==null?`<div class="limit-note"><strong style="color:${full?'var(--green)':'#dce1e6'}">${used} / ${max}${full?' ✓':''}</strong> · ${esc(limitLabel(state.round,max))}</div>`:''}`;
@@ -415,11 +447,24 @@ function playerStats(i){const completed=state.completed.map((x,ri)=>x?ri:null).f
 function renderStats(){
  const maxScore=Math.max(100,...state.scores.flat());$('statsGrid').innerHTML='';state.players.forEach((p,i)=>{const s=playerStats(i);const bars=ROUNDS.map((r,ri)=>`<div class="bar-row"><span>${r.name}</span><span class="bar-track"><span class="bar-fill" style="display:block;width:${Math.min(100,(state.scores[i][ri]/maxScore)*100)}%"></span></span><strong>${state.scores[i][ri]}</strong></div>`).join('');$('statsGrid').insertAdjacentHTML('beforeend',`<article class="card stat-card"><div class="stat-name">${esc(p.name)}</div><div class="stat-total">${s.total}</div><div class="muted">Placering ${s.rank}</div><div class="metric-grid"><div class="metric"><div class="v">${s.avg.toFixed(1).replace('.',',')}</div><div class="l">Gns. pr. runde</div></div><div class="metric"><div class="v">${s.wins}</div><div class="l">Rundesejre</div></div><div class="metric"><div class="v">${s.zeros}</div><div class="l">0-point runder</div></div><div class="metric"><div class="v">${s.worstVal}</div><div class="l">Værste runde</div></div></div><div class="bars">${bars}</div></article>`)});
 }
-function historySnapshot(){return {id:'g'+Date.now(),date:new Date().toISOString(),players:state.players.map(p=>p.name),scores:state.scores.map(r=>[...r]),totals:totals(),winner:rankData()[0].i}}
+function historySnapshot(){return {id:'g'+Date.now(),date:new Date().toISOString(),players:state.players.map(p=>p.name),scores:state.scores.map(r=>[...r]),totals:totals(),completed:[...state.completed],winner:rankData()[0].i}}
 async function finalizeGame(){if(!state.finalized){state.finalized=true;save();const h=loadHistory();h.unshift(historySnapshot());saveHistory(h.slice(0,50))}renderAll();showView('final')}
 function renderHistory(){
  const h=loadHistory();if(!h.length){$('historyList').innerHTML='<div class="card" style="padding:14px"><strong>Ingen gemte spil endnu</strong><div class="date" style="margin-top:4px">Når et spil afsluttes, vises det her.</div></div>';return}
- $('historyList').innerHTML=h.map((g,idx)=>{const dt=new Date(g.date);const d=dt.toLocaleDateString('da-DK',{day:'numeric',month:'short',year:'numeric'});const tm=dt.toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});const totalsG=Array.isArray(g.totals)?g.totals:g.players.map((_,pi)=>(g.scores?.[pi]||[]).reduce((a,b)=>a+(Number(b)||0),0));const order=g.players.map((_,pi)=>pi).sort((a,b)=>(totalsG[a]??0)-(totalsG[b]??0)||a-b);const winner=order[0]??0;const chips=order.map(pi=>`<span class="history-player-chip ${pi===winner?'winner-chip':''}"><strong>${esc(g.players[pi])}</strong> ${totalsG[pi]??0}</span>`).join('');const roundRows=ROUNDS.map((r,ri)=>`<div class="history-round-row"><div class="history-round-name"><strong>${ri+1}. ${esc(r.name)}</strong><span>${esc(r.rule)}</span></div><div class="history-round-scores">${order.map(pi=>`<div class="history-round-score"><span>${esc(g.players[pi])}</span><strong>${Number(g.scores?.[pi]?.[ri])||0}</strong></div>`).join('')}</div></div>`).join('');return `<details class="card history-item"><summary><div class="history-summary-main"><div class="date">${d} · kl. ${tm} · ${g.players.length} spillere</div><strong>Vinder: <span class="winner">${esc(g.players[winner]||'—')}</span></strong><div class="history-player-chips">${chips}</div></div><span class="history-chevron">⌄</span></summary><div class="history-details"><div class="history-round-list">${roundRows}</div><button class="history-delete" data-delhist="${idx}">Slet dette spil</button></div></details>`}).join('')
+ $('historyList').innerHTML=h.map((g,idx)=>{
+  const dt=new Date(g.date);const d=dt.toLocaleDateString('da-DK',{day:'numeric',month:'short',year:'numeric'});const tm=dt.toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});
+  const totalsG=Array.isArray(g.totals)?g.totals:g.players.map((_,pi)=>(g.scores?.[pi]||[]).reduce((a,b)=>a+(Number(b)||0),0));
+  const order=g.players.map((_,pi)=>pi).sort((a,b)=>(totalsG[a]??0)-(totalsG[b]??0)||a-b);
+  const bestTotal=totalsG[order[0]]??0;const overallWinners=order.filter(pi=>(totalsG[pi]??0)===bestTotal);const overallWinnerNames=overallWinners.map(pi=>g.players[pi]);
+  const chips=order.map(pi=>`<span class="history-player-chip ${overallWinners.includes(pi)?'winner-chip':''}"><strong>${esc(g.players[pi])}</strong> ${totalsG[pi]??0}</span>`).join('');
+  const roundRows=ROUNDS.map((r,ri)=>{
+   const vals=g.players.map((_,pi)=>Number(g.scores?.[pi]?.[ri])||0);const min=Math.min(...vals);const roundWinnerIdx=order.filter(pi=>vals[pi]===min);const isDone=Array.isArray(g.completed)?!!g.completed[ri]:true;
+   const winnerText=isDone?`${roundWinnerIdx.length>1?'Vindere':'Vinder'}: ${roundWinnerIdx.map(pi=>esc(g.players[pi])).join(', ')}`:'Ikke afsluttet';
+   const scoreRows=order.map(pi=>`<div class="history-round-score ${isDone&&vals[pi]===min?'round-best':''}"><span>${esc(g.players[pi])}</span><strong>${vals[pi]}</strong></div>`).join('');
+   return `<div class="history-round-row"><div class="history-round-name"><strong>${ri+1}. ${esc(r.name)}</strong><span class="history-round-result ${isDone?'':'pending'}">${winnerText}</span></div><div class="history-round-rule">${esc(r.rule)}</div><div class="history-round-scores">${scoreRows}</div></div>`;
+  }).join('');
+  return `<details class="card history-item"><summary><div class="history-summary-main"><div class="date">${d} · kl. ${tm} · ${g.players.length} spillere</div><strong>${overallWinners.length>1?'Vindere':'Vinder'}: <span class="winner">${overallWinnerNames.map(esc).join(', ')||'—'}</span></strong><div class="history-player-chips">${chips}</div></div><span class="history-chevron">⌄</span></summary><div class="history-details"><div class="history-round-list">${roundRows}</div><button class="history-delete" data-delhist="${idx}">Slet dette spil</button></div></details>`;
+ }).join('')
 }
 $('historyList').onclick=async e=>{const b=e.target.closest('[data-delhist]');if(!b)return;e.preventDefault();e.stopPropagation();if(await confirmBox('Slet spil?','Denne historikpost kan ikke gendannes.','Slet')){const h=loadHistory();h.splice(Number(b.dataset.delhist),1);saveHistory(h);renderHistory()}};
 function renderSettings(){applyMode()}
