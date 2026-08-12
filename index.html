@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v8 -->
+<!-- Stik Companion v9 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -75,6 +75,8 @@ h2{font-size:20px} .muted{color:var(--muted)}
 .middle-strip{display:flex;gap:8px;align-items:stretch}.mini-panel{flex:1;background:#0d1014;border:1px solid var(--line);border-radius:15px;padding:10px 12px}.mini-panel h3{font-size:12px;color:var(--muted);margin-bottom:6px}.rank-row{display:flex;justify-content:space-between;font-size:12px;padding:2px 0}.rank-row strong{color:var(--green)}
 .round-actions{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:8px;margin-top:9px}.round-actions button{padding:11px;border-radius:13px;background:#12161b;border:1px solid var(--line);font-weight:800;font-size:13px}.round-actions .complete{background:linear-gradient(180deg,var(--accent2),var(--accent));color:#190900;border-color:transparent}
 
+.arrange-btn{padding:10px 12px;border:1px solid rgba(255,106,26,.35);border-radius:12px;background:rgba(255,106,26,.08);font-size:13px;color:var(--accent2);font-weight:850}.arrange-btn.active{background:var(--accent);border-color:var(--accent);color:#190a02}.arrange-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 9px;padding:10px 12px;border:1px solid rgba(255,106,26,.35);border-radius:15px;background:linear-gradient(90deg,rgba(255,106,26,.13),rgba(255,106,26,.04));flex:0 0 auto}.arrange-copy{min-width:0}.arrange-copy strong{display:block;font-size:13px;color:#fff}.arrange-copy span{display:block;color:#c6cdd5;font-size:11px;line-height:1.35;margin-top:2px}.arrange-bar .primary{flex:0 0 auto;padding:10px 16px;border-radius:12px}.drag-overlay{display:none;position:absolute;inset:0;z-index:7;align-items:center;justify-content:center;padding:12px;cursor:grab;touch-action:none}.drag-overlay-inner{display:grid;place-items:center;text-align:center;gap:5px;padding:13px 18px;border-radius:16px;background:rgba(7,8,10,.88);border:1px solid rgba(255,106,26,.6);box-shadow:0 10px 30px rgba(0,0,0,.45);pointer-events:none}.drag-overlay-inner strong{font-size:15px}.drag-overlay-inner span{font-size:10px;color:var(--muted)}.drag-grip{font-size:26px;line-height:1;color:var(--accent2);letter-spacing:2px}.player-card.arrange-selected{outline:3px solid var(--accent);outline-offset:-3px}.player-card.drag-source{opacity:.42}.player-card.drop-target{outline:3px solid var(--green);outline-offset:-3px}.arrange-hint-name{color:var(--accent2);font-weight:900}body.arrange-mode .player-card{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}body.arrange-mode .player-card .seat-inner{opacity:.18;pointer-events:none}body.arrange-mode .player-card .leader-badge{display:none}body.arrange-mode .player-card .drag-overlay{display:flex}body.table-mode .player-card.opposite-seat .drag-overlay-inner{transform:rotate(180deg)}body:not(.table-mode) .arrange-btn{display:none}
+
 /* Data screens */
 .section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:14px}.section-head p{font-size:13px;color:var(--muted);margin-top:4px}
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#0c0f13}
@@ -83,12 +85,13 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
 .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat-card{padding:14px}.stat-name{font-weight:800}.stat-total{font-size:34px;font-weight:900;margin-top:5px}.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.metric{background:#0c0f13;border:1px solid #242b34;border-radius:12px;padding:9px}.metric .v{font-weight:800}.metric .l{font-size:10px;color:var(--muted);margin-top:2px}
 .bars{display:grid;gap:8px;margin-top:12px}.bar-row{display:grid;grid-template-columns:90px 1fr 44px;gap:8px;align-items:center;font-size:11px}.bar-track{height:9px;background:#20262e;border-radius:999px;overflow:hidden}.bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),#ffb26b);border-radius:999px}
 .history-list{display:grid;gap:10px}.history-item{overflow:hidden}.history-item summary{list-style:none;cursor:pointer;padding:14px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.history-item summary::-webkit-details-marker{display:none}.history-summary-main{min-width:0}.history-item .date{font-size:11px;color:var(--muted);margin-bottom:5px}.history-item .winner{color:var(--green);font-weight:900}.history-player-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.history-player-chip{border:1px solid #2b323c;background:#0b0e12;border-radius:999px;padding:5px 8px;font-size:11px;color:#cdd3da}.history-player-chip strong{color:#fff}.history-player-chip.winner-chip{border-color:rgba(119,213,138,.35);background:rgba(119,213,138,.07)}.history-chevron{width:30px;height:30px;border-radius:50%;border:1px solid #303741;display:grid;place-items:center;color:var(--muted);transition:transform .18s}.history-item[open] .history-chevron{transform:rotate(180deg)}.history-details{border-top:1px solid #252c34;padding:12px 14px 14px}.history-round-list{display:grid;gap:6px}.history-round-row{background:#0b0e12;border:1px solid #232a33;border-radius:11px;padding:8px 10px}.history-round-name{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;font-size:11px;color:var(--muted)}.history-round-name strong{color:#dfe4ea}.history-round-result{color:var(--green);font-weight:900;text-align:right}.history-round-result.pending{color:var(--muted);font-weight:700}.history-round-rule{font-size:10px;color:var(--muted);margin:2px 0 7px}.history-round-scores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.history-round-score{display:flex;justify-content:space-between;gap:7px;font-size:11px;min-width:0}.history-round-score span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.history-round-score strong{color:#fff}.history-round-score.round-best strong{color:var(--green)}.history-delete{width:100%;margin-top:10px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,91,84,.35);background:rgba(255,91,84,.07);color:var(--red);font-weight:800}.privacy-note{padding:14px;display:flex;gap:11px;align-items:flex-start}.privacy-note-icon{width:34px;height:34px;flex:0 0 auto;border-radius:11px;background:rgba(119,213,138,.08);border:1px solid rgba(119,213,138,.25);display:grid;place-items:center;color:var(--green);font-weight:900}.privacy-note .desc{font-size:11px;color:var(--muted);line-height:1.5;margin-top:4px}
-.settings-list{display:grid;gap:10px}.setting-row{padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:center}.setting-row .desc{font-size:11px;color:var(--muted);margin-top:3px}.toggle{width:48px;height:28px;border-radius:999px;background:#333a44;padding:3px;transition:.2s}.toggle::after{content:"";display:block;width:22px;height:22px;border-radius:50%;background:white;transition:.2s}.toggle.on{background:var(--green)}.toggle.on::after{transform:translateX(20px)}
-.danger{color:var(--red)}
-.setting-block{padding:14px}.setting-block>strong{display:block;margin-bottom:4px}.setting-block .desc{font-size:11px;color:var(--muted);line-height:1.45;margin-bottom:11px}
+.settings-list{display:grid;gap:10px}.setting-row{width:100%;padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:center;text-align:left}.setting-row>div:first-child{flex:1;min-width:0;text-align:left}.setting-row strong{display:block}.setting-row>span:last-child{flex:0 0 auto}.setting-row .desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.45}.toggle{width:48px;height:28px;flex:0 0 auto;border-radius:999px;background:#333a44;padding:3px;transition:.2s}.toggle::after{content:"";display:block;width:22px;height:22px;border-radius:50%;background:white;transition:.2s}.toggle.on{background:var(--green)}.toggle.on::after{transform:translateX(20px)}
+.danger{color:var(--red)}.danger-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.setting-block{padding:14px;text-align:left}.setting-block>strong{display:block;margin-bottom:4px}.setting-block .desc{font-size:11px;color:var(--muted);line-height:1.45;margin-bottom:11px}
 .settings-mode-segment{display:grid;grid-template-columns:1fr 1fr;gap:5px;background:#0b0e12;border:1px solid var(--line);padding:5px;border-radius:15px}.settings-mode-segment button{padding:11px 10px;border-radius:11px;color:var(--muted);font-weight:850}.settings-mode-segment button.active{background:var(--accent);color:#190a02}
 .setting-value{font-size:11px;color:var(--accent2);font-weight:800;text-align:right}.fullscreen-note{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4}
-.seat-dialog{width:min(560px,100%);padding:18px}.seat-list{display:grid;gap:8px;margin-top:15px}.seat-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 12px;border-radius:14px;background:#0b0f13;border:1px solid #272e37}.seat-copy{display:flex;align-items:center;gap:10px;min-width:0}.seat-number{width:30px;height:30px;flex:0 0 auto;border-radius:10px;background:rgba(255,106,26,.11);border:1px solid rgba(255,106,26,.3);display:grid;place-items:center;color:var(--accent2);font-weight:900}.seat-copy strong,.seat-copy span{display:block}.seat-copy strong{font-size:12px}.seat-copy span{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.seat-controls{display:flex;gap:6px}.seat-controls button{width:38px;height:38px;border-radius:11px;background:#161c23;border:1px solid #303843;font-size:18px;font-weight:900}.seat-controls button:disabled{opacity:.25}.seat-help{font-size:11px;color:var(--muted);line-height:1.45;margin-top:6px}.seat-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.seat-actions button{padding:13px;border-radius:13px;font-weight:850}
+.seat-setting-card{width:100%;padding:15px;text-align:left;display:block;border-color:rgba(255,106,26,.34);background:linear-gradient(135deg,rgba(255,106,26,.11),rgba(14,18,23,.96) 48%)}.seat-setting-head{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:11px;align-items:center}.seat-setting-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--accent);color:#190a02;font-size:22px;font-weight:900}.seat-setting-copy{min-width:0;text-align:left}.seat-setting-copy strong{display:block;font-size:14px}.seat-setting-copy .desc{font-size:11px;color:#c0c7cf;line-height:1.4;margin-top:3px}.seat-setting-action{padding:7px 10px;border-radius:999px;background:rgba(255,106,26,.13);border:1px solid rgba(255,106,26,.35);color:var(--accent2);font-size:11px;font-weight:900}.seat-preview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:12px}.seat-preview.players-2{grid-template-columns:1fr}.seat-preview.players-3 .seat-preview-cell:first-child{grid-column:1/-1}.seat-preview.players-5,.seat-preview.players-6{grid-template-columns:repeat(3,minmax(0,1fr))}.seat-preview.players-7,.seat-preview.players-8{grid-template-columns:repeat(4,minmax(0,1fr))}.seat-preview-cell{min-width:0;padding:8px 9px;border-radius:11px;background:#090c10;border:1px solid #2b333d;display:flex;align-items:center;justify-content:space-between;gap:8px}.seat-preview-cell.opposite{border-color:rgba(173,91,255,.42);background:rgba(173,91,255,.06)}.seat-preview-cell .seat-pos{font-size:9px;color:var(--muted);white-space:nowrap}.seat-preview-cell strong{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.seat-preview-cell .turn{color:#c69cff;font-size:12px;flex:0 0 auto}
+.seat-dialog{width:min(640px,100%);padding:18px}.seat-list{display:grid;gap:8px;margin-top:15px}.seat-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 12px;border-radius:14px;background:#0b0f13;border:1px solid #272e37}.seat-copy{display:flex;align-items:center;gap:10px;min-width:0}.seat-number{width:30px;height:30px;flex:0 0 auto;border-radius:10px;background:rgba(255,106,26,.11);border:1px solid rgba(255,106,26,.3);display:grid;place-items:center;color:var(--accent2);font-weight:900}.seat-copy strong,.seat-copy span{display:block}.seat-copy strong{font-size:12px}.seat-copy span{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.seat-controls{display:flex;gap:6px}.seat-controls button{width:38px;height:38px;border-radius:11px;background:#161c23;border:1px solid #303843;font-size:18px;font-weight:900}.seat-controls button:disabled{opacity:.25}.seat-help{font-size:11px;color:var(--muted);line-height:1.45;margin-top:6px}.seat-actions{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:8px;margin-top:14px}.seat-actions button{padding:13px;border-radius:13px;font-weight:850}.seat-actions .arrange-board{background:rgba(255,106,26,.1);border:1px solid rgba(255,106,26,.38);color:var(--accent2)}
 body.fullscreen-active .app{min-height:100vh}
 
 /* Final */
@@ -110,6 +113,7 @@ body.fullscreen-active .app{min-height:100vh}
   .final-actions{grid-template-columns:1fr}.final-actions .primary{grid-row:1}
   #gameMenu{place-items:end center;padding:0}.game-sheet{border-radius:24px 24px 0 0;padding:20px 18px calc(20px + var(--safe-bottom));border-bottom:0;box-shadow:0 -18px 60px rgba(0,0,0,.55)}
   .history-round-scores{grid-template-columns:1fr 1fr}
+  .arrange-btn{display:none}.arrange-bar{padding:9px 10px}.arrange-copy strong{font-size:12px}.arrange-copy span{font-size:10px}.seat-actions{grid-template-columns:1fr}.seat-setting-head{grid-template-columns:36px minmax(0,1fr) auto}.seat-setting-icon{width:36px;height:36px}.seat-setting-action{padding:6px 8px}.seat-preview.players-5,.seat-preview.players-6,.seat-preview.players-7,.seat-preview.players-8{grid-template-columns:repeat(2,minmax(0,1fr))}.danger-grid{grid-template-columns:1fr}
 }
 
 @media (min-width:701px) and (orientation:landscape){
@@ -160,6 +164,20 @@ body.fullscreen-active .app{min-height:100vh}
   body.table-mode .player-card.opposite-seat .leader-badge{transform:rotate(180deg)}
 }
 
+@media (min-width:900px) and (min-height:700px){
+  .screen:not(.score-screen){padding:20px 22px}
+  .section-head{margin-bottom:18px}.section-head .kicker{font-size:13px}.section-head h1{font-size:32px}.section-head p{font-size:15px;line-height:1.4}
+  th,td{padding:15px 13px;font-size:15px}th{font-size:12px}.table-wrap{border-radius:18px}
+  .settings-list{gap:12px}.setting-row,.setting-block,.privacy-note,.seat-setting-card{padding:16px 18px}
+  .setting-row strong,.setting-block>strong,.privacy-note strong,.seat-setting-copy strong{font-size:16px}
+  .setting-row .desc,.setting-block .desc,.privacy-note .desc,.seat-setting-copy .desc{font-size:13px;line-height:1.5}
+  .settings-mode-segment button{padding:13px 11px;font-size:15px}.setting-value,.seat-setting-action{font-size:12px}
+  .seat-preview-cell{padding:10px 11px}.seat-preview-cell strong{font-size:13px}.seat-preview-cell .seat-pos{font-size:10px}
+  .history-item summary{padding:17px}.history-item .date{font-size:13px}.history-player-chip{font-size:13px;padding:7px 10px}.history-round-name{font-size:13px}.history-round-rule,.history-round-score{font-size:12px}
+  .nav button{font-size:11px}.nav .ico{width:25px;height:25px}.nav .ico svg{width:23px;height:23px}
+  .round-head h1{font-size:24px}.round-head .rule{font-size:14px}.player-name{font-size:17px}.event-count,.total-score{font-size:14px}.mini-panel h3,.rank-row{font-size:13px}
+}
+
 @media (min-width:980px){.stats-grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
@@ -201,8 +219,9 @@ body.fullscreen-active .app{min-height:100vh}
         <div class="rule" id="roundRule"></div>
         <div class="progress" id="roundProgress"></div>
       </div>
-      <div class="header-actions"><button class="game-btn" id="gameMenuBtn">Spil</button><button class="undo-btn" id="undoBtn">↶ Fortryd</button></div>
+      <div class="header-actions"><button class="arrange-btn" id="arrangeBtn">Placering</button><button class="game-btn" id="gameMenuBtn">Spil</button><button class="undo-btn" id="undoBtn">↶ Fortryd</button></div>
     </div>
+    <div class="arrange-bar hidden" id="arrangeBar"><div class="arrange-copy"><strong>Arrangér spillere på brættet</strong><span id="arrangeHelp">Træk et spillerfelt til en anden plads, eller tryk på to felter for at bytte dem.</span></div><button class="primary" id="finishArrange">Færdig</button></div>
     <div class="score-board" id="scoreBoard"></div>
     <div class="middle-strip" id="middleStrip"></div>
     <div class="round-actions">
@@ -232,13 +251,12 @@ body.fullscreen-active .app{min-height:100vh}
     <div class="section-head"><div><div class="kicker">Indstillinger</div><h1>Indstillinger</h1></div></div>
     <div class="settings-list">
       <div class="card setting-block"><strong>Visning</strong><div class="desc">Bord viser spillere omkring en tablet. Telefon vender alle felter samme vej.</div><div class="settings-mode-segment" id="settingsModeSegment"><button data-settings-mode="table">Bord (iPad)</button><button data-settings-mode="phone">Telefon</button></div></div>
-      <button class="card setting-row" id="reorderPlayers"><div><strong>Placering omkring bordet</strong><div class="desc">Flyt spillerne, så felterne passer med den rækkefølge, I sidder i.</div></div><span class="setting-value" id="seatOrderSummary">Rediger</span></button>
+      <button class="card seat-setting-card" id="reorderPlayers"><div class="seat-setting-head"><div class="seat-setting-icon">↕</div><div class="seat-setting-copy"><strong>Placering omkring bordet</strong><div class="desc">Se pladserne tydeligt, flyt med pile – eller arrangér direkte på scorebrættet.</div></div><span class="seat-setting-action">Arrangér</span></div><div class="seat-preview" id="seatPreview"></div></button>
       <button class="card setting-row" id="fullscreenBtn"><div><strong id="fullscreenTitle">Fuld skærm</strong><div class="desc" id="fullscreenDesc">Skjul browserens værktøjslinjer, hvor det understøttes.</div></div><span>↗</span></button>
       <div class="card setting-row"><div><strong>Lydeffekter</strong><div class="desc">Standard: slået fra.</div></div><button class="toggle" id="soundToggle" aria-label="Lydeffekter"></button></div>
       <div class="card privacy-note"><div class="privacy-note-icon">⌁</div><div><strong>Data gemmes lokalt</strong><div class="desc">Andre, der åbner hjemmesiden på deres egen enhed eller browser, ser ikke dine resultater. Aktive spil og Historik gemmes kun i denne browsers website-data. Hvis website-data/cookies for siden ryddes, kan resultaterne forsvinde.</div></div></div>
       <button class="card setting-row" id="editPlayers"><div><strong>Rediger spillere</strong><div class="desc">Navne og antal spillere.</div></div><span>›</span></button>
-      <button class="card setting-row danger" id="resetGame"><div><strong>Nulstil nuværende spil</strong><div class="desc">Sletter point i det aktive spil.</div></div><span>↺</span></button>
-      <button class="card setting-row danger" id="clearHistory"><div><strong>Slet historik</strong><div class="desc">Fjerner alle gemte afsluttede spil.</div></div><span>⌫</span></button>
+      <div class="danger-grid"><button class="card setting-row danger" id="resetGame"><div><strong>Nulstil nuværende spil</strong><div class="desc">Sletter point i det aktive spil.</div></div><span>↺</span></button><button class="card setting-row danger" id="clearHistory"><div><strong>Slet historik</strong><div class="desc">Fjerner alle gemte afsluttede spil.</div></div><span>⌫</span></button></div>
     </div>
   </section>
 
@@ -264,8 +282,8 @@ body.fullscreen-active .app{min-height:100vh}
 
 <div class="toast" id="toast"></div>
 <div class="modal hidden" id="modal"><div class="dialog card"><h2 id="modalTitle"></h2><p id="modalText"></p><div class="dialog-actions"><button class="secondary" id="modalCancel">Annuller</button><button class="primary" id="modalConfirm">OK</button></div></div></div>
-<div class="modal hidden" id="gameMenu"><div class="dialog card game-sheet"><div class="kicker">Spil</div><h2>Hvad vil du gøre?</h2><p>Dit aktive spil gemmes automatisk på denne enhed.</p><div class="game-menu-actions"><button class="continue-game" id="closeGameMenu"><span class="menu-copy"><span class="menu-title">Fortsæt spil</span><span class="menu-desc">Luk menuen og fortsæt runden</span></span><span class="menu-arrow">×</span></button><button class="continue-game" id="switchModeNow"><span class="menu-copy"><span class="menu-title" id="switchModeTitle">Skift visning</span><span class="menu-desc" id="switchModeDesc">Skift mellem Bord og Telefon</span></span><span class="menu-arrow">↔</span></button><button class="continue-game" id="fullscreenMenuBtn"><span class="menu-copy"><span class="menu-title">Fuld skærm</span><span class="menu-desc">Skjul browserbjælker, hvor det understøttes</span></span><span class="menu-arrow">↗</span></button><button class="end-game" id="endGameNow"><span class="menu-copy"><span class="menu-title">Afslut spil nu</span><span class="menu-desc">Gem nuværende resultat i Historik</span></span><span class="menu-arrow">›</span></button><button class="new-game" id="newGameNow"><span class="menu-copy"><span class="menu-title">Start nyt spil</span><span class="menu-desc">Behold Historik, men erstat det aktive spil</span></span><span class="menu-arrow">›</span></button></div></div></div>
-<div class="modal hidden" id="seatModal"><div class="dialog card seat-dialog"><div class="kicker">Placering</div><h2>Spillere omkring bordet</h2><p class="seat-help">Rækkefølgen her styrer felternes placering i Bord (iPad). Brug pilene til at flytte en spiller. Point og historik ændres ikke.</p><div class="seat-list" id="seatList"></div><div class="seat-actions"><button class="secondary" id="resetSeatOrder">Nulstil rækkefølge</button><button class="primary" id="closeSeatModal">Færdig</button></div></div></div>
+<div class="modal hidden" id="gameMenu"><div class="dialog card game-sheet"><div class="kicker">Spil</div><h2>Hvad vil du gøre?</h2><p>Dit aktive spil gemmes automatisk på denne enhed.</p><div class="game-menu-actions"><button class="continue-game" id="closeGameMenu"><span class="menu-copy"><span class="menu-title">Fortsæt spil</span><span class="menu-desc">Luk menuen og fortsæt runden</span></span><span class="menu-arrow">×</span></button><button class="continue-game" id="switchModeNow"><span class="menu-copy"><span class="menu-title" id="switchModeTitle">Skift visning</span><span class="menu-desc" id="switchModeDesc">Skift mellem Bord og Telefon</span></span><span class="menu-arrow">↔</span></button><button class="continue-game" id="fullscreenMenuBtn"><span class="menu-copy"><span class="menu-title">Fuld skærm</span><span class="menu-desc">Skjul browserbjælker, hvor det understøttes</span></span><span class="menu-arrow">↗</span></button><button class="continue-game" id="arrangePlayersNow"><span class="menu-copy"><span class="menu-title">Arrangér spillere</span><span class="menu-desc">Træk felterne til de pladser, I sidder på</span></span><span class="menu-arrow">↕</span></button><button class="end-game" id="endGameNow"><span class="menu-copy"><span class="menu-title">Afslut spil nu</span><span class="menu-desc">Gem nuværende resultat i Historik</span></span><span class="menu-arrow">›</span></button><button class="new-game" id="newGameNow"><span class="menu-copy"><span class="menu-title">Start nyt spil</span><span class="menu-desc">Behold Historik, men erstat det aktive spil</span></span><span class="menu-arrow">›</span></button></div></div></div>
+<div class="modal hidden" id="seatModal"><div class="dialog card seat-dialog"><div class="kicker">Placering</div><h2>Spillere omkring bordet</h2><p class="seat-help">Rækkefølgen her styrer felternes placering i Bord (iPad). Brug pilene – eller vælg “Arrangér på brættet” og træk spillerfelterne direkte. Point og historik ændres ikke.</p><div class="seat-list" id="seatList"></div><div class="seat-actions"><button class="secondary" id="resetSeatOrder">Nulstil</button><button class="arrange-board" id="arrangeOnBoard">Arrangér på brættet</button><button class="primary" id="closeSeatModal">Færdig</button></div></div></div>
 
 <script>
 (() => {
@@ -284,11 +302,15 @@ let modalResolver=null;
 let startupWarnings=[];
 let setupMode='new';
 let setupPreset=null;
+let arrangeMode=false;
+let selectedSeat=null;
+let dragState=null;
+let suppressArrangeClick=false;
 let state=loadState();
 
 function suggestedMode(){const w=Math.min(window.screen?.width||innerWidth,window.screen?.height||innerHeight);return w>=600?'table':'phone'}
 function freshState(names=['Spiller 1','Spiller 2','Spiller 3','Spiller 4'], mode=suggestedMode()){
- const players=names.map((name,i)=>({id:'p'+Date.now()+'_'+i,name})); return {version:8, players, seatOrder:players.map(p=>p.id), mode, round:0, completed:Array(6).fill(false), scores:names.map(()=>Array(6).fill(0)), actions:[], sound:false, started:true, finalized:false, createdAt:new Date().toISOString()};
+ const players=names.map((name,i)=>({id:'p'+Date.now()+'_'+i,name})); return {version:9, players, seatOrder:players.map(p=>p.id), mode, round:0, completed:Array(6).fill(false), scores:names.map(()=>Array(6).fill(0)), actions:[], sound:false, started:true, finalized:false, createdAt:new Date().toISOString()};
 }
 function cardsToRemove(playerCount){return 52%playerCount}
 function updateDealNote(){
@@ -325,7 +347,7 @@ function seatLabels(n){
 }
 function normalizeLoadedState(raw){
  if(!raw||!Array.isArray(raw.players)||raw.players.length<2)return null;
- raw.version=8;
+ raw.version=9;
  raw.round=Math.max(0,Math.min(5,Number(raw.round)||0));
  raw.completed=Array.from({length:6},(_,ri)=>!!raw.completed?.[ri]);
  raw.scores=raw.players.map((_,pi)=>Array.from({length:6},(_,ri)=>{
@@ -422,12 +444,57 @@ function renderScore(){
  const t=totals(),best=Math.min(...t);$('scoreBoard').innerHTML='';
  const displayOrder=displayPlayerIndices(),oppositeCount=oppositeSeatCount(displayOrder.length);
  displayOrder.forEach((i,seatIndex)=>{
-  const p=state.players[i],score=state.scores[i][state.round],events=currentRoundEventCount(i);const plusDisabled=max!==null&&used>=max;const minusDisabled=score<=0;const opposite=seatIndex<oppositeCount?' opposite-seat':'';$('scoreBoard').insertAdjacentHTML('beforeend',`<article class="player-card${opposite}" data-seat-index="${seatIndex}" style="--seatglow:${seatGlow[i%seatGlow.length]}"><div class="seat-inner"><button class="score-minus" data-score="${i}" data-dir="-1" ${minusDisabled?'disabled':''}>−</button><div class="player-core"><div class="player-name">${esc(p.name)}</div><div class="round-score">${score}</div><div class="event-count">${events} ${esc(r.event)}</div><div class="total-score">Total ${t[i]}</div></div><button class="score-plus" data-score="${i}" data-dir="1" ${plusDisabled?'disabled':''}>+</button></div>${t[i]===best?'<span class="leader-badge">fører</span>':''}</article>`)
+  const p=state.players[i],score=state.scores[i][state.round],events=currentRoundEventCount(i);const plusDisabled=max!==null&&used>=max;const minusDisabled=score<=0;const opposite=seatIndex<oppositeCount?' opposite-seat':'';const selected=arrangeMode&&seatIndex===selectedSeat?' arrange-selected':'';const placeLabel=seatLabels(displayOrder.length)[seatIndex]||`Plads ${seatIndex+1}`;$('scoreBoard').insertAdjacentHTML('beforeend',`<article class="player-card${opposite}${selected}" data-seat-index="${seatIndex}" style="--seatglow:${seatGlow[i%seatGlow.length]}"><div class="seat-inner"><button class="score-minus" data-score="${i}" data-dir="-1" ${minusDisabled?'disabled':''}>−</button><div class="player-core"><div class="player-name">${esc(p.name)}</div><div class="round-score">${score}</div><div class="event-count">${events} ${esc(r.event)}</div><div class="total-score">Total ${t[i]}</div></div><button class="score-plus" data-score="${i}" data-dir="1" ${plusDisabled?'disabled':''}>+</button></div><div class="drag-overlay" aria-label="Flyt ${esc(p.name)}"><div class="drag-overlay-inner"><div class="drag-grip">⠿</div><strong>${esc(p.name)}</strong><span>${esc(placeLabel)}</span></div></div>${t[i]===best?'<span class="leader-badge">fører</span>':''}</article>`)
  });
  $('middleStrip').innerHTML=`<div class="mini-panel"><h3>Rangering</h3>${rankData().slice(0,4).map(x=>`<div class="rank-row"><span>${x.rank}. ${esc(state.players[x.i].name)}</span><strong>${x.score}</strong></div>`).join('')}</div><div class="mini-panel"><h3>Rundestatus</h3><div class="rank-row"><span>Afsluttede runder</span><strong>${completedCount()} / 6</strong></div><div class="rank-row"><span>Aktiv runde</span><strong>${state.round+1}</strong></div></div>`;
  $('completeRound').textContent=state.completed[state.round]?'Genåbn runde':'Afslut runde';
 }
-$('scoreBoard').onclick=e=>{const b=e.target.closest('[data-score]');if(!b)return;changeScore(Number(b.dataset.score),Number(b.dataset.dir))};
+$('scoreBoard').onclick=e=>{
+ if(arrangeMode){
+  if(suppressArrangeClick)return;
+  const card=e.target.closest('.player-card');if(!card)return;
+  handleArrangeTap(Number(card.dataset.seatIndex));return;
+ }
+ const b=e.target.closest('[data-score]');if(!b)return;changeScore(Number(b.dataset.score),Number(b.dataset.dir));
+};
+function arrangeNameAt(seatIndex){const order=displayPlayerIndices();const pi=order[seatIndex];return pi>=0?state.players[pi].name:''}
+function updateArrangeHelp(){
+ if(!$('arrangeHelp'))return;
+ $('arrangeHelp').innerHTML=selectedSeat===null?'Træk et spillerfelt til en anden plads, eller tryk på to felter for at bytte dem.':`<span class="arrange-hint-name">${esc(arrangeNameAt(selectedSeat))}</span> er valgt. Tryk på den plads, spilleren skal bytte med.`;
+}
+function setArrangeMode(on){
+ arrangeMode=!!on;selectedSeat=null;dragState=null;document.body.classList.toggle('arrange-mode',arrangeMode);$('arrangeBar').classList.toggle('hidden',!arrangeMode);$('arrangeBtn').classList.toggle('active',arrangeMode);updateArrangeHelp();renderScore();
+}
+function swapSeatPositions(a,b){
+ normalizeSeatOrder(state);if(a===b||a<0||b<0||a>=state.seatOrder.length||b>=state.seatOrder.length)return;
+ [state.seatOrder[a],state.seatOrder[b]]=[state.seatOrder[b],state.seatOrder[a]];selectedSeat=null;save();renderScore();renderSettings();updateArrangeHelp();
+}
+function handleArrangeTap(seatIndex){
+ if(selectedSeat===null){selectedSeat=seatIndex;renderScore();updateArrangeHelp();return}
+ if(selectedSeat===seatIndex){selectedSeat=null;renderScore();updateArrangeHelp();return}
+ swapSeatPositions(selectedSeat,seatIndex);
+}
+function clearDragClasses(){document.querySelectorAll('#scoreBoard .drag-source,#scoreBoard .drop-target').forEach(el=>el.classList.remove('drag-source','drop-target'))}
+$('scoreBoard').addEventListener('pointerdown',e=>{
+ if(!arrangeMode||(typeof e.button==='number'&&e.button!==0))return;
+ const card=e.target.closest('.player-card');if(!card)return;e.preventDefault();
+ dragState={pointerId:e.pointerId,from:Number(card.dataset.seatIndex),startX:e.clientX,startY:e.clientY,moved:false,target:null,card};
+ try{card.setPointerCapture(e.pointerId)}catch(_e){}
+});
+$('scoreBoard').addEventListener('pointermove',e=>{
+ if(!arrangeMode||!dragState||e.pointerId!==dragState.pointerId)return;
+ const distance=Math.hypot(e.clientX-dragState.startX,e.clientY-dragState.startY);
+ if(!dragState.moved&&distance<9)return;
+ dragState.moved=true;clearDragClasses();dragState.card.classList.add('drag-source');
+ const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('.player-card');
+ if(target&&target!==dragState.card){target.classList.add('drop-target');dragState.target=Number(target.dataset.seatIndex)}else dragState.target=null;
+});
+function finishSeatDrag(e){
+ if(!dragState||e.pointerId!==dragState.pointerId)return;
+ const data=dragState;dragState=null;clearDragClasses();
+ suppressArrangeClick=true;if(data.moved){if(data.target!==null&&data.target!==data.from)swapSeatPositions(data.from,data.target)}else handleArrangeTap(data.from);setTimeout(()=>{suppressArrangeClick=false},0)
+}
+$('scoreBoard').addEventListener('pointerup',finishSeatDrag);$('scoreBoard').addEventListener('pointercancel',finishSeatDrag);
 $('roundProgress').onclick=e=>{const b=e.target.closest('[data-jump-round]');if(!b)return;state.round=Number(b.dataset.jumpRound);save();renderAll();showView('score')};
 function changeScore(pi,dir){
  const r=state.round,unit=ROUNDS[r].unit,old=state.scores[pi][r];
@@ -464,18 +531,17 @@ $('completeRound').onclick=async()=>{
 };
 
 function renderRounds(){
- const totalsNow=totals();
- let html='<thead><tr><th>Spiller</th>'+ROUNDS.map((r,ri)=>`<th data-open-round="${ri}" style="cursor:pointer">${r.name}</th>`).join('')+'<th>Total</th></tr></thead><tbody>';
- state.players.forEach((p,i)=>{html+=`<tr><td><strong>${esc(p.name)}</strong></td>`+ROUNDS.map((_,ri)=>{const vals=state.players.map((_,pi)=>state.scores[pi][ri]);const min=Math.min(...vals),max=Math.max(...vals);const v=state.scores[i][ri];const cls=state.completed[ri]?(v===min?'best':(v===max&&max!==min?'worst':'')):'';return `<td class="${cls}" data-open-round="${ri}" style="cursor:pointer">${v}${state.completed[ri]?'':' ·'}</td>`}).join('')+`<td><strong>${totalsNow[i]}</strong></td></tr>`});
+ const totalsNow=totals();const standing=rankData();const order=standing.map(x=>x.i);const ranksByPlayer=Object.fromEntries(standing.map(x=>[x.i,x.rank]));
+ let html='<thead><tr><th>Placering / spiller</th>'+ROUNDS.map((r,ri)=>`<th data-open-round="${ri}" style="cursor:pointer">${r.name}</th>`).join('')+'<th>Total ↑</th></tr></thead><tbody>';
+ order.forEach(i=>{const p=state.players[i];html+=`<tr><td><strong>${ranksByPlayer[i]}. ${esc(p.name)}</strong></td>`+ROUNDS.map((_,ri)=>{const vals=state.players.map((_,pi)=>state.scores[pi][ri]);const min=Math.min(...vals),max=Math.max(...vals);const v=state.scores[i][ri];const cls=state.completed[ri]?(v===min?'best':(v===max&&max!==min?'worst':'')):'';return `<td class="${cls}" data-open-round="${ri}" style="cursor:pointer">${v}${state.completed[ri]?'':' ·'}</td>`}).join('')+`<td><strong>${totalsNow[i]}</strong></td></tr>`});
  html+='</tbody>';$('roundTable').innerHTML=html;
 
- const standing=rankData();
  const standingHtml=`<div class="card mobile-standing"><div class="mobile-standing-head"><strong>Samlet stilling</strong><span>Laveste score fører</span></div><div class="mobile-standing-grid">${standing.map(x=>`<div class="mobile-standing-row"><div class="who"><span class="rank">${x.rank}.</span><span class="nm">${esc(state.players[x.i].name)}</span></div><span class="pts">${x.score}</span></div>`).join('')}</div></div>`;
  const cards=ROUNDS.map((r,ri)=>{
    const vals=state.players.map((_,pi)=>state.scores[pi][ri]);
    const min=Math.min(...vals),max=Math.max(...vals);
    const status=state.completed[ri]?'<span class="round-state done">✓ Afsluttet</span>':(ri===state.round?'<span class="round-state live">Aktiv</span>':'<span class="round-state">Ikke afsluttet</span>');
-   const playerCells=state.players.map((p,pi)=>{const v=state.scores[pi][ri];const cls=state.completed[ri]?(v===min?'best':(v===max&&max!==min?'worst':'')):'';return `<div class="mobile-round-player ${cls}"><span class="nm">${esc(p.name)}</span><span class="sc">${v}</span></div>`}).join('');
+   const playerCells=order.map(pi=>{const v=state.scores[pi][ri];const cls=state.completed[ri]?(v===min?'best':(v===max&&max!==min?'worst':'')):'';return `<div class="mobile-round-player ${cls}"><span class="nm">${ranksByPlayer[pi]}. ${esc(state.players[pi].name)}</span><span class="sc">${v}</span></div>`}).join('');
    return `<article class="card mobile-round-card ${ri===state.round?'active-round':''}" data-open-round="${ri}" role="button" tabindex="0" aria-label="Åbn ${esc(r.name)}"><div class="mobile-round-card-head"><div class="mobile-round-no">${ri+1}</div><div class="mobile-round-title"><strong>${esc(r.name)}</strong><span>${esc(r.rule)}</span></div>${status}</div><div class="mobile-round-players">${playerCells}</div><div class="mobile-round-foot"><span>${state.completed[ri]?'Laveste score markeret':'Point kan stadig ændres'}</span><span class="open-hint">Åbn runde →</span></div></article>`;
  }).join('');
  $('mobileRounds').innerHTML=standingHtml+`<div class="mobile-round-list">${cards}</div>`;
@@ -531,12 +597,20 @@ async function toggleFullscreen(){
  applyMode();
 }
 function renderSettings(){
- applyMode();const names=displayPlayerIndices().map(i=>state.players[i].name);if($('seatOrderSummary'))$('seatOrderSummary').textContent=names.join(' · ');
+ applyMode();renderSeatPreview();
 }
-$('settingsModeSegment').onclick=e=>{const b=e.target.closest('[data-settings-mode]');if(!b||b.dataset.settingsMode===state.mode)return;state.mode=b.dataset.settingsMode;save();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Telefonvisning valgt')};
+function shortSeatLabel(label){return String(label).replace(' – vendes 180°','').replace(' – vendes','')}
+function renderSeatPreview(){
+ if(!$('seatPreview'))return;const order=displayPlayerIndices(),labels=seatLabels(order.length),opposite=oppositeSeatCount(order.length);
+ $('seatPreview').className=`seat-preview players-${order.length}`;
+ $('seatPreview').innerHTML=order.map((pi,seatIndex)=>`<div class="seat-preview-cell ${seatIndex<opposite?'opposite':''}"><div style="min-width:0"><div class="seat-pos">${seatIndex+1}. ${esc(shortSeatLabel(labels[seatIndex]||`Plads ${seatIndex+1}`))}</div><strong>${esc(state.players[pi].name)}</strong></div>${seatIndex<opposite?'<span class="turn">↻</span>':''}</div>`).join('');
+}
+$('settingsModeSegment').onclick=e=>{const b=e.target.closest('[data-settings-mode]');if(!b||b.dataset.settingsMode===state.mode)return;if(arrangeMode){arrangeMode=false;selectedSeat=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden')}state.mode=b.dataset.settingsMode;save();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Telefonvisning valgt')};
 $('soundToggle').onclick=()=>{state.sound=!state.sound;save();applyMode();beep()};
 $('editPlayers').onclick=()=>openSetup(true);
 $('reorderPlayers').onclick=()=>{renderSeatEditor();$('seatModal').classList.remove('hidden')};
+$('arrangeOnBoard').onclick=()=>{$('seatModal').classList.add('hidden');state.mode='table';save();applyMode();showView('score');setArrangeMode(true)};
+$('arrangeBtn').onclick=()=>setArrangeMode(!arrangeMode);$('finishArrange').onclick=()=>setArrangeMode(false);
 $('closeSeatModal').onclick=()=>{$('seatModal').classList.add('hidden');renderAll()};
 $('seatModal').onclick=e=>{if(e.target===$('seatModal')){$('seatModal').classList.add('hidden');renderAll()}};
 $('resetSeatOrder').onclick=()=>{state.seatOrder=state.players.map(p=>p.id);save();renderSeatEditor();renderScore();toast('Rækkefølgen er nulstillet')};
@@ -553,15 +627,16 @@ function nextPaint(){return new Promise(resolve=>requestAnimationFrame(()=>reque
 async function startNewGameFromActive(){const preset=gamePreset();closeGameMenu();await nextPaint();if(await confirmBox('Start nyt spil?','Det nuværende aktive spil erstattes. Historikken bevares.','Fortsæt'))openSetup(false,preset)}
 $('gameMenuBtn').onclick=()=>{applyMode();$('gameMenu').classList.remove('hidden')};
 $('closeGameMenu').onclick=closeGameMenu;
-$('switchModeNow').onclick=()=>{state.mode=state.mode==='table'?'phone':'table';save();closeGameMenu();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Telefonvisning valgt')};
+$('switchModeNow').onclick=()=>{if(arrangeMode){arrangeMode=false;selectedSeat=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden')}state.mode=state.mode==='table'?'phone':'table';save();closeGameMenu();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Telefonvisning valgt')};
 $('fullscreenMenuBtn').onclick=async()=>{closeGameMenu();await nextPaint();await toggleFullscreen()};
+$('arrangePlayersNow').onclick=()=>{closeGameMenu();state.mode='table';save();applyMode();showView('score');setArrangeMode(true)};
 $('fullscreenBtn').onclick=toggleFullscreen;
 $('gameMenu').onclick=e=>{if(e.target===$('gameMenu'))closeGameMenu()};
 $('endGameNow').onclick=async()=>{closeGameMenu();await nextPaint();if(await confirmBox('Afslut spil?','Det aktuelle resultat gemmes i Historik, også hvis ikke alle runder er markeret som afsluttet.','Afslut'))await finalizeGame()};
 $('newGameNow').onclick=startNewGameFromActive;
 $('finalStats').onclick=()=>showView('stats');$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>openSetup(false,gamePreset());
 
-function showView(id){document.querySelectorAll('.screen').forEach(s=>{const active=s.id===id;s.classList.toggle('active',active);s.setAttribute('aria-hidden',active?'false':'true')});document.querySelectorAll('#nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'instant'})}
+function showView(id){if(id!=='score'&&arrangeMode){arrangeMode=false;selectedSeat=null;dragState=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden');$('arrangeBtn').classList.remove('active')}document.querySelectorAll('.screen').forEach(s=>{const active=s.id===id;s.classList.toggle('active',active);s.setAttribute('aria-hidden',active?'false':'true')});document.querySelectorAll('#nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'instant'})}
 $('nav').onclick=e=>{const b=e.target.closest('[data-view]');if(b)showView(b.dataset.view)};
 
 document.addEventListener('fullscreenchange',()=>{applyMode();renderSettings()});document.addEventListener('webkitfullscreenchange',()=>{applyMode();renderSettings()});
