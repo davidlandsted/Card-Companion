@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v5 -->
+<!-- Stik Companion v6 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -226,7 +226,7 @@ const ROUNDS = [
  {name:'Sidste stik', unit:100, event:'sidste stik', rule:'100 point for sidste stik'},
  {name:'Kabale', unit:25, event:'pas', rule:'25 point pr. pas'}
 ];
-const STORAGE='stikCompanion.v5'; const LEGACY_STORAGES=['stikCompanion.v4','stikCompanion.v3','stikCompanion.vFinal']; const HISTORY='stikCompanion.history';
+const STORAGE='stikCompanion.v6'; const LEGACY_STORAGES=['stikCompanion.v5','stikCompanion.v4','stikCompanion.v3','stikCompanion.vFinal']; const HISTORY='stikCompanion.history';
 const seatGlow=['rgba(255,106,26,.15)','rgba(173,91,255,.15)','rgba(96,214,112,.14)','rgba(255,81,66,.14)','rgba(80,170,255,.14)','rgba(255,206,84,.14)','rgba(255,123,196,.14)','rgba(112,221,214,.14)'];
 const $=id=>document.getElementById(id);
 let modalResolver=null;
@@ -240,7 +240,15 @@ function freshState(names=['Spiller 1','Spiller 2','Spiller 3','Spiller 4'], mod
  return {version:1, players:names.map((name,i)=>({id:'p'+Date.now()+'_'+i,name})), mode, round:0, completed:Array(6).fill(false), scores:names.map(()=>Array(6).fill(0)), actions:[], sound:false, started:true, finalized:false, createdAt:new Date().toISOString()};
 }
 function cardsToRemove(playerCount){return 52%playerCount}
-function updateDealNote(){const n=Number($('playerCount').value)||4;const remove=cardsToRemove(n),each=Math.floor(52/n);if(remove===0){$('dealNote').innerHTML=`<strong>Ingen kort skal fjernes.</strong> 52 kort deles = ${each} til hver.`}else{$('dealNote').innerHTML=`<strong>Fjern ${remove} ${remove===1?'lavt kort':'lave kort'} før uddeling.</strong> ${52-remove} kort deles = ${each} til hver.<span class="club-note">Hvis et fjernet kort er ♣, kan runden “Ingen klør” naturligt ende med færre end 13 klør.</span>`}}
+function updateDealNote(){
+ const n=Number($('playerCount').value)||4;const remove=cardsToRemove(n),each=Math.floor(52/n);
+ if(remove===0){
+   $('dealNote').innerHTML=`<strong>Ingen kort skal fjernes.</strong> 52 kort deles = ${each} til hver. Alle 13 klør bliver i spillet.`;
+   return;
+ }
+ const example=remove===1?'Fx 4♦ eller 4♥.':`Fx ${['4♦','4♥','4♠','5♦'].slice(0,remove).join(', ')}.`;
+ $('dealNote').innerHTML=`<strong>Fjern ${remove} ${remove===1?'lavt kort':'lave kort'} før uddeling – men ingen klør.</strong> ${52-remove} kort deles = ${each} til hver.<span class="club-note">Vælg lave kort, men ikke de allerlaveste. ${example} Så er alle 13 klør stadig med til runden “Ingen klør”.</span>`;
+}
 function updateModeHint(){const mode=$('modeSegment').querySelector('.active')?.dataset.mode||suggestedMode();const recommended=suggestedMode();$('modeHint').textContent=mode==='table'?'Bordtilstand er lavet til iPad/tablet på bordet. Modstående felter vendes i landskab.':'Telefontilstand holder alle spillerfelter vendt samme vej.';if(mode!==recommended)$('modeHint').textContent+=recommended==='phone'?' Telefon anbefales på denne enhed.':' Bord (iPad) anbefales på denne enhed.'}
 
 function maxEventsFor(ri,playerCount){
@@ -253,7 +261,7 @@ function maxEventsFor(ri,playerCount){
 }
 function normalizeLoadedState(raw){
  if(!raw||!Array.isArray(raw.players)||raw.players.length<2)return null;
- raw.version=5;
+ raw.version=6;
  raw.round=Math.max(0,Math.min(5,Number(raw.round)||0));
  raw.completed=Array.from({length:6},(_,ri)=>!!raw.completed?.[ri]);
  raw.scores=raw.players.map((_,pi)=>Array.from({length:6},(_,ri)=>{
@@ -305,7 +313,7 @@ function currentRoundEventCount(pi){return Math.round(state.scores[pi][state.rou
 function completedCount(){return state.completed.filter(Boolean).length}
 function roundMaxEvents(ri){return maxEventsFor(ri,state.players.length)}
 function totalRoundEvents(ri){const unit=ROUNDS[ri].unit;return state.players.reduce((sum,_,pi)=>sum+Math.round(state.scores[pi][ri]/unit),0)}
-function limitLabel(ri,max){if(ri===0)return `Præcis ${max} stik fordeles med ${state.players.length} spillere`;if(ri===1)return 'Maks 13 klør i alt';if(ri===2)return 'Præcis 4 damer i alt';if(ri===3)return 'Klør konge gives kun 1 gang';if(ri===4)return 'Sidste stik gives kun 1 gang';return ''}
+function limitLabel(ri,max){if(ri===0)return `Præcis ${max} stik fordeles med ${state.players.length} spillere`;if(ri===1)return 'Præcis 13 klør i alt';if(ri===2)return 'Præcis 4 damer i alt';if(ri===3)return 'Klør konge gives kun 1 gang';if(ri===4)return 'Sidste stik gives kun 1 gang';return ''}
 
 function init(){
  if(!state){$('welcome').classList.remove('hidden');return}
@@ -369,14 +377,13 @@ $('completeRound').onclick=async()=>{
  if(wasCompleted){state.completed[ri]=false;state.finalized=false;save();renderAll();toast('Runden er genåbnet');return}
  const max=roundMaxEvents(ri),used=totalRoundEvents(ri);
  if(max!==null&&used<max){
+   const missing=max-used;
    if(ri===1){
-     const ok=await confirmBox('Færre end 13 klør?',`Der er registreret ${used} af maks. 13 klør. Det kan være korrekt, hvis et lavt klørkort blev fjernet før uddeling. Afslut runden med ${used} klør?`,'Afslut');
-     if(!ok)return;
-   } else {
-     const missing=max-used;
-     toast(ri===3?'Vælg først hvem der tog klør konge':ri===4?'Vælg først hvem der tog sidste stik':`Der mangler ${missing} ${ROUNDS[ri].event}${missing===1?'':' i alt'}`);
+     toast(`Der mangler ${missing} klør. Alle 13 klør skal være med i spillet.`);
      return;
    }
+   toast(ri===3?'Vælg først hvem der tog klør konge':ri===4?'Vælg først hvem der tog sidste stik':`Der mangler ${missing} ${ROUNDS[ri].event}${missing===1?'':' i alt'}`);
+   return;
  }
  state.completed[ri]=true;save();renderAll();
  if(ri===5||state.completed.every(Boolean)){await finalizeGame();return}
@@ -412,7 +419,7 @@ function historySnapshot(){return {id:'g'+Date.now(),date:new Date().toISOString
 async function finalizeGame(){if(!state.finalized){state.finalized=true;save();const h=loadHistory();h.unshift(historySnapshot());saveHistory(h.slice(0,50))}renderAll();showView('final')}
 function renderHistory(){
  const h=loadHistory();if(!h.length){$('historyList').innerHTML='<div class="card" style="padding:14px"><strong>Ingen gemte spil endnu</strong><div class="date" style="margin-top:4px">Når et spil afsluttes, vises det her.</div></div>';return}
- $('historyList').innerHTML=h.map((g,idx)=>{const dt=new Date(g.date);const d=dt.toLocaleDateString('da-DK',{day:'numeric',month:'short',year:'numeric'});const tm=dt.toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});const totalsG=Array.isArray(g.totals)?g.totals:g.players.map((_,pi)=>(g.scores?.[pi]||[]).reduce((a,b)=>a+(Number(b)||0),0));const winner=Number.isInteger(g.winner)?g.winner:totalsG.indexOf(Math.min(...totalsG));const chips=g.players.map((name,pi)=>`<span class="history-player-chip ${pi===winner?'winner-chip':''}"><strong>${esc(name)}</strong> ${totalsG[pi]??0}</span>`).join('');const roundRows=ROUNDS.map((r,ri)=>`<div class="history-round-row"><div class="history-round-name"><strong>${ri+1}. ${esc(r.name)}</strong><span>${esc(r.rule)}</span></div><div class="history-round-scores">${g.players.map((name,pi)=>`<div class="history-round-score"><span>${esc(name)}</span><strong>${Number(g.scores?.[pi]?.[ri])||0}</strong></div>`).join('')}</div></div>`).join('');return `<details class="card history-item"><summary><div class="history-summary-main"><div class="date">${d} · kl. ${tm} · ${g.players.length} spillere</div><strong>Vinder: <span class="winner">${esc(g.players[winner]||'—')}</span></strong><div class="history-player-chips">${chips}</div></div><span class="history-chevron">⌄</span></summary><div class="history-details"><div class="history-round-list">${roundRows}</div><button class="history-delete" data-delhist="${idx}">Slet dette spil</button></div></details>`}).join('')
+ $('historyList').innerHTML=h.map((g,idx)=>{const dt=new Date(g.date);const d=dt.toLocaleDateString('da-DK',{day:'numeric',month:'short',year:'numeric'});const tm=dt.toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});const totalsG=Array.isArray(g.totals)?g.totals:g.players.map((_,pi)=>(g.scores?.[pi]||[]).reduce((a,b)=>a+(Number(b)||0),0));const order=g.players.map((_,pi)=>pi).sort((a,b)=>(totalsG[a]??0)-(totalsG[b]??0)||a-b);const winner=order[0]??0;const chips=order.map(pi=>`<span class="history-player-chip ${pi===winner?'winner-chip':''}"><strong>${esc(g.players[pi])}</strong> ${totalsG[pi]??0}</span>`).join('');const roundRows=ROUNDS.map((r,ri)=>`<div class="history-round-row"><div class="history-round-name"><strong>${ri+1}. ${esc(r.name)}</strong><span>${esc(r.rule)}</span></div><div class="history-round-scores">${order.map(pi=>`<div class="history-round-score"><span>${esc(g.players[pi])}</span><strong>${Number(g.scores?.[pi]?.[ri])||0}</strong></div>`).join('')}</div></div>`).join('');return `<details class="card history-item"><summary><div class="history-summary-main"><div class="date">${d} · kl. ${tm} · ${g.players.length} spillere</div><strong>Vinder: <span class="winner">${esc(g.players[winner]||'—')}</span></strong><div class="history-player-chips">${chips}</div></div><span class="history-chevron">⌄</span></summary><div class="history-details"><div class="history-round-list">${roundRows}</div><button class="history-delete" data-delhist="${idx}">Slet dette spil</button></div></details>`}).join('')
 }
 $('historyList').onclick=async e=>{const b=e.target.closest('[data-delhist]');if(!b)return;e.preventDefault();e.stopPropagation();if(await confirmBox('Slet spil?','Denne historikpost kan ikke gendannes.','Slet')){const h=loadHistory();h.splice(Number(b.dataset.delhist),1);saveHistory(h);renderHistory()}};
 function renderSettings(){applyMode()}
