@@ -97,7 +97,7 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
 body.fullscreen-active .app{min-height:100vh}
 
 /* Final */
-.final-hero{text-align:center;padding:26px 18px}.trophy{font-size:64px}.winner-name{font-size:36px;font-weight:900;margin-top:5px}.winner-score{color:var(--green);font-size:18px;margin-top:4px}.final-rank{margin-top:16px;display:grid;gap:8px}.final-row{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid var(--line);background:#0d1014;border-radius:13px}.final-actions{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:8px;margin-top:18px}.final-actions button{padding:14px;border-radius:14px;background:#14191f;border:1px solid var(--line);font-weight:800}.final-actions button.primary{background:linear-gradient(180deg,var(--accent2),var(--accent));color:#190a02;border-color:transparent;box-shadow:0 10px 28px rgba(255,106,26,.2)}.final-hint{color:var(--muted);font-size:12px;margin-top:12px}
+.final-hero{position:relative;text-align:center;padding:26px 18px}.final-close{position:absolute;top:14px;right:14px;width:38px;height:38px;padding:0;border-radius:50%;border:1px solid #343b45;background:#10151b;color:#aeb6c0;display:grid;place-items:center;font-size:24px;font-weight:400;line-height:1;box-shadow:0 6px 18px rgba(0,0,0,.18);transition:background .15s,border-color .15s,color .15s,transform .15s}.final-close:hover{background:#171d24;border-color:#46505c;color:#fff}.final-close:active{transform:scale(.94)}.trophy{font-size:64px}.winner-name{font-size:36px;font-weight:900;margin-top:5px}.winner-score{color:var(--green);font-size:18px;margin-top:4px}.final-rank{margin-top:16px;display:grid;gap:8px}.final-row{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid var(--line);background:#0d1014;border-radius:13px}.final-actions{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:8px;margin-top:18px}.final-actions button{padding:14px;border-radius:14px;background:#14191f;border:1px solid var(--line);font-weight:800}.final-actions button.primary{background:linear-gradient(180deg,var(--accent2),var(--accent));color:#190a02;border-color:transparent;box-shadow:0 10px 28px rgba(255,106,26,.2)}.final-hint{color:var(--muted);font-size:12px;margin-top:12px}
 
 /* Nav */
 .nav{position:fixed;left:0;right:0;bottom:0;height:calc(70px + var(--safe-bottom));padding:5px 8px var(--safe-bottom);background:rgba(5,6,8,.94);backdrop-filter:blur(18px);border-top:1px solid #20252d;display:grid;grid-template-columns:repeat(4,1fr);z-index:50}.nav button{display:grid;place-items:center;color:#7f8894;font-size:10px;gap:2px}.nav .ico{width:23px;height:23px;display:grid;place-items:center}.nav .ico svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.nav button.active{color:var(--accent)}
@@ -116,7 +116,7 @@ body.fullscreen-active .app{min-height:100vh}
   .middle-strip{display:none}.round-actions{grid-template-columns:.9fr .9fr 1.25fr;gap:6px;margin-top:6px;flex:0 0 auto}.round-actions button{padding:9px 5px;border-radius:11px;font-size:11px;line-height:1.05}.round-actions .complete{grid-column:auto}
   .stats-grid{grid-template-columns:1fr}.setup-grid,.player-name-grid{grid-template-columns:1fr}
   #rounds .table-wrap{display:none}.mobile-rounds{display:block}.mobile-standing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mobile-round-players{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .final-actions{grid-template-columns:1fr}.final-actions .primary{grid-row:1}
+  .final-actions{grid-template-columns:1fr}.final-actions .primary{grid-row:1}.final-close{top:12px;right:12px;width:36px;height:36px;font-size:22px}
   #gameMenu{place-items:end center;padding:calc(8px + var(--safe-top)) 0 0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.game-sheet{border-radius:24px 24px 0 0;padding:20px 18px calc(20px + var(--safe-bottom));border-bottom:0;box-shadow:0 -18px 60px rgba(0,0,0,.55);max-height:calc(100dvh - 8px - var(--safe-top));overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
   .history-round-scores{grid-template-columns:1fr 1fr}.history-round-score{padding:8px 9px}.history-round-score strong{font-size:14px}.history-actions{grid-template-columns:1fr}
   .arrange-btn{display:grid;place-items:center;width:48px;height:38px;padding:0;font-size:0}.arrange-btn::after{content:"Plads";font-size:10px;font-weight:900}.arrange-bar{padding:9px 10px}.arrange-copy strong{font-size:12px}.arrange-copy span{font-size:10px}.seat-actions{grid-template-columns:1fr}.danger-grid{grid-template-columns:1fr}
@@ -378,6 +378,7 @@ body.fullscreen-active .app{min-height:100vh}
 
   <section id="final" class="screen">
     <div class="card final-hero">
+      <button class="final-close" id="closeFinal" type="button" aria-label="Luk resultat" title="Luk resultat">×</button>
       <div class="kicker">Spil afsluttet</div>
       <div class="trophy">🏆</div>
       <div class="winner-name" id="winnerName"></div>
@@ -796,7 +797,7 @@ $('fullscreenBtn').onclick=toggleFullscreen;
 $('gameMenu').onclick=e=>{if(e.target===$('gameMenu'))closeGameMenu()};
 $('endGameNow').onclick=async()=>{closeGameMenu();await nextPaint();if(await confirmBox('Afslut spil?','Det aktuelle resultat gemmes i Historik, også hvis ikke alle runder er markeret som afsluttet.','Afslut'))await finalizeGame()};
 $('newGameNow').onclick=startNewGameFromActive;
-$('finalStats').onclick=()=>showView('stats');$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>openSetup(false,gamePreset());
+$('finalStats').onclick=()=>showView('stats');$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>openSetup(false,gamePreset());$('closeFinal').onclick=()=>showView('score');
 
 function showView(id){if(id!=='score'&&arrangeMode){arrangeMode=false;selectedSeat=null;dragState=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden');$('arrangeBtn').classList.remove('active')}document.querySelectorAll('.screen').forEach(s=>{const active=s.id===id;s.classList.toggle('active',active);s.setAttribute('aria-hidden',active?'false':'true')});document.querySelectorAll('#nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'instant'})}
 $('nav').onclick=e=>{const b=e.target.closest('[data-view]');if(b)showView(b.dataset.view)};
