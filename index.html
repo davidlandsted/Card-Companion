@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v10.1 -->
+<!-- Stik Companion v10.4 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -46,9 +46,11 @@ h2{font-size:20px} .muted{color:var(--muted)}
 .secondary{background:#151a20;border:1px solid var(--line);border-radius:16px;padding:14px 17px;font-weight:800}
 .welcome .primary{margin-top:28px;width:100%;font-size:18px}
 .setup{width:min(680px,100%);margin:0 auto}
+.setup>.card.field+.card.field{margin-top:12px}
 .setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
 .field{padding:14px}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em}
 .field input,.field select{width:100%;background:#0c0f13;border:1px solid var(--line);color:#fff;padding:13px 14px;border-radius:13px;outline:none}
+.select-wrap{position:relative}.select-wrap select{appearance:none;-webkit-appearance:none;padding-right:54px;font-weight:800;cursor:pointer;border-color:#39414c;background:linear-gradient(180deg,#0f1318,#0a0d11)}.select-wrap::after{content:"";position:absolute;right:44px;top:10px;bottom:10px;width:1px;background:#2b323b;pointer-events:none}.select-chevron{position:absolute;right:15px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:50%;display:grid;place-items:center;pointer-events:none}.select-chevron::before{content:"";width:8px;height:8px;border-right:2px solid var(--accent2);border-bottom:2px solid var(--accent2);transform:rotate(45deg) translate(-1px,-1px)}.select-hint{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.35}
 .input-wrap{position:relative}.input-wrap input{padding-right:44px}.clear-input{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#aeb6c0;background:#191e25;border:1px solid #2f3640;font-size:18px;line-height:1}.clear-input:active{transform:translateY(-50%) scale(.96)}
 .segment{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;background:#0b0e12;border:1px solid var(--line);padding:5px;border-radius:15px}
 .segment button{padding:12px;border-radius:11px;font-weight:800;color:var(--muted)}
@@ -199,12 +201,16 @@ body.fullscreen-active .app{min-height:100vh}
     <div class="topbar"><div><div class="kicker">Opsætning</div><h1>Nyt spil</h1></div></div>
     <div class="card field">
       <label>Antal spillere</label>
-      <select id="playerCount"></select>
+      <div class="select-wrap">
+        <select id="playerCount" aria-label="Vælg antal spillere"></select>
+        <span class="select-chevron" aria-hidden="true"></span>
+      </div>
+      <div class="select-hint">Tryk på feltet for at vælge 2–8 spillere.</div>
       <div class="deal-note" id="dealNote"></div>
     </div>
     <div class="card field">
       <label>Visning</label>
-      <div class="segment" id="modeSegment"><button data-mode="table">Bord (iPad)</button><button data-mode="phone">Telefon</button></div>
+      <div class="segment" id="modeSegment"><button data-mode="table">Bordvisning</button><button data-mode="phone">Samme vej</button></div>
       <div class="mode-hint" id="modeHint"></div>
     </div>
     <div class="player-name-grid" id="nameGrid"></div>
@@ -222,7 +228,7 @@ body.fullscreen-active .app{min-height:100vh}
         <div class="rule" id="roundRule"></div>
         <div class="progress" id="roundProgress"></div>
       </div>
-      <div class="header-actions"><button class="arrange-btn" id="arrangeBtn">Placering</button><button class="game-btn" id="gameMenuBtn">Spil</button><button class="undo-btn" id="undoBtn">↶ Fortryd</button></div>
+      <div class="header-actions"><button class="arrange-btn" id="arrangeBtn">Placering</button><button class="game-btn" id="gameMenuBtn" aria-label="Åbn spilmenu" title="Åbn spilmenu">Spilmenu</button><button class="undo-btn" id="undoBtn">↶ Fortryd</button></div>
     </div>
     <div class="arrange-bar hidden" id="arrangeBar"><div class="arrange-copy"><strong>Arrangér spillere på brættet</strong><span id="arrangeHelp">Træk et spillerfelt til en anden plads, eller tryk på to felter for at bytte dem.</span></div><button class="primary" id="finishArrange">Færdig</button></div>
     <div class="score-board" id="scoreBoard"></div>
@@ -251,13 +257,13 @@ body.fullscreen-active .app{min-height:100vh}
   </section>
 
   <section id="settings" class="screen">
-    <div class="section-head"><div><div class="kicker">Indstillinger</div><h1>Indstillinger</h1></div></div>
+    <div class="section-head"><div><div class="kicker">Tilpasning</div><h1>Indstillinger</h1></div></div>
     <div class="settings-list">
-      <div class="card setting-block"><strong>Visning</strong><div class="desc">Bord viser spillere omkring en tablet. Telefon vender alle felter samme vej.</div><div class="settings-mode-segment" id="settingsModeSegment"><button data-settings-mode="table">Bord (iPad)</button><button data-settings-mode="phone">Telefon</button></div></div>
-      <button class="card setting-row" id="fullscreenBtn"><div><strong id="fullscreenTitle">Fuld skærm</strong><div class="desc" id="fullscreenDesc">Skjul browserens værktøjslinjer, hvor det understøttes.</div></div><span>↗</span></button>
-      <div class="card privacy-note"><div class="privacy-note-icon">⌁</div><div><strong>Data gemmes lokalt</strong><div class="desc">Andre, der åbner hjemmesiden på deres egen enhed eller browser, ser ikke dine resultater. Aktive spil og Historik gemmes kun i denne browsers website-data. Hvis website-data/cookies for siden ryddes, kan resultaterne forsvinde.</div></div></div>
       <button class="card setting-row" id="editPlayers"><div><strong>Rediger spillere</strong><div class="desc">Navne og antal spillere.</div></div><span>›</span></button>
+      <div class="card setting-block"><strong>Visning</strong><div class="desc">Bordvisning vender modstående spillerfelter mod deres pladser. Samme vej vender alle felter mod samme side.</div><div class="settings-mode-segment" id="settingsModeSegment"><button data-settings-mode="table">Bordvisning</button><button data-settings-mode="phone">Samme vej</button></div></div>
+      <button class="card setting-row" id="fullscreenBtn"><div><strong id="fullscreenTitle">Fuld skærm</strong><div class="desc" id="fullscreenDesc">Skjul browserens værktøjslinjer, hvor det understøttes.</div></div><span>↗</span></button>
       <div class="danger-grid"><button class="card setting-row danger" id="resetGame"><div><strong>Nulstil nuværende spil</strong><div class="desc">Sletter point i det aktive spil.</div></div><span>↺</span></button><button class="card setting-row danger" id="clearHistory"><div><strong>Slet historik</strong><div class="desc">Fjerner alle gemte afsluttede spil.</div></div><span>⌫</span></button></div>
+      <div class="card privacy-note"><div class="privacy-note-icon">⌁</div><div><strong>Data gemmes lokalt</strong><div class="desc">Andre, der åbner hjemmesiden på deres egen enhed eller browser, ser ikke dine resultater. Aktive spil og Historik gemmes kun i denne browsers website-data. Hvis website-data/cookies for siden ryddes, kan resultaterne forsvinde.</div></div></div>
     </div>
   </section>
 
@@ -283,8 +289,8 @@ body.fullscreen-active .app{min-height:100vh}
 
 <div class="toast" id="toast"></div>
 <div class="modal hidden" id="modal"><div class="dialog card"><h2 id="modalTitle"></h2><p id="modalText"></p><div class="dialog-actions"><button class="secondary" id="modalCancel">Annuller</button><button class="primary" id="modalConfirm">OK</button></div></div></div>
-<div class="modal hidden" id="gameMenu"><div class="dialog card game-sheet"><div class="kicker">Spil</div><h2>Hvad vil du gøre?</h2><p>Dit aktive spil gemmes automatisk på denne enhed.</p><div class="game-menu-actions"><button class="continue-game" id="closeGameMenu"><span class="menu-copy"><span class="menu-title">Fortsæt spil</span><span class="menu-desc">Luk menuen og fortsæt runden</span></span><span class="menu-arrow">×</span></button><button class="continue-game" id="switchModeNow"><span class="menu-copy"><span class="menu-title" id="switchModeTitle">Skift visning</span><span class="menu-desc" id="switchModeDesc">Skift mellem Bord og Telefon</span></span><span class="menu-arrow">↔</span></button><button class="continue-game" id="fullscreenMenuBtn"><span class="menu-copy"><span class="menu-title">Fuld skærm</span><span class="menu-desc">Skjul browserbjælker, hvor det understøttes</span></span><span class="menu-arrow">↗</span></button><button class="continue-game" id="arrangePlayersNow"><span class="menu-copy"><span class="menu-title">Arrangér spillere</span><span class="menu-desc">Træk felterne til de pladser, I sidder på</span></span><span class="menu-arrow">↕</span></button><button class="end-game" id="endGameNow"><span class="menu-copy"><span class="menu-title">Afslut spil nu</span><span class="menu-desc">Gem nuværende resultat i Historik</span></span><span class="menu-arrow">›</span></button><button class="new-game" id="newGameNow"><span class="menu-copy"><span class="menu-title">Start nyt spil</span><span class="menu-desc">Behold Historik, men erstat det aktive spil</span></span><span class="menu-arrow">›</span></button></div></div></div>
-<div class="modal hidden" id="seatModal"><div class="dialog card seat-dialog"><div class="kicker">Placering</div><h2>Spillere omkring bordet</h2><p class="seat-help">Rækkefølgen her styrer felternes placering i Bord (iPad). Brug pilene – eller vælg “Arrangér på brættet” og træk spillerfelterne direkte. Point og historik ændres ikke.</p><div class="seat-list" id="seatList"></div><div class="seat-actions"><button class="secondary" id="resetSeatOrder">Nulstil</button><button class="arrange-board" id="arrangeOnBoard">Arrangér på brættet</button><button class="primary" id="closeSeatModal">Færdig</button></div></div></div>
+<div class="modal hidden" id="gameMenu"><div class="dialog card game-sheet"><div class="kicker">Spilmenu</div><h2>Hvad vil du gøre?</h2><p>Dit aktive spil gemmes automatisk på denne enhed.</p><div class="game-menu-actions"><button class="continue-game" id="closeGameMenu"><span class="menu-copy"><span class="menu-title">Fortsæt spil</span><span class="menu-desc">Luk menuen og fortsæt runden</span></span><span class="menu-arrow">×</span></button><button class="continue-game" id="switchModeNow"><span class="menu-copy"><span class="menu-title" id="switchModeTitle">Skift visning</span><span class="menu-desc" id="switchModeDesc">Skift mellem Bordvisning og Samme vej</span></span><span class="menu-arrow">↔</span></button><button class="continue-game" id="fullscreenMenuBtn"><span class="menu-copy"><span class="menu-title">Fuld skærm</span><span class="menu-desc">Skjul browserbjælker, hvor det understøttes</span></span><span class="menu-arrow">↗</span></button><button class="continue-game" id="arrangePlayersNow"><span class="menu-copy"><span class="menu-title">Arrangér spillere</span><span class="menu-desc">Træk felterne til de pladser, I sidder på</span></span><span class="menu-arrow">↕</span></button><button class="end-game" id="endGameNow"><span class="menu-copy"><span class="menu-title">Afslut spil nu</span><span class="menu-desc">Gem nuværende resultat i Historik</span></span><span class="menu-arrow">›</span></button><button class="new-game" id="newGameNow"><span class="menu-copy"><span class="menu-title">Start nyt spil</span><span class="menu-desc">Behold Historik, men erstat det aktive spil</span></span><span class="menu-arrow">›</span></button></div></div></div>
+<div class="modal hidden" id="seatModal"><div class="dialog card seat-dialog"><div class="kicker">Placering</div><h2>Spillere omkring bordet</h2><p class="seat-help">Rækkefølgen her styrer felternes placering, når Bordvisning er valgt. Brug pilene – eller vælg “Arrangér på brættet” og træk spillerfelterne direkte. Point og historik ændres ikke.</p><div class="seat-list" id="seatList"></div><div class="seat-actions"><button class="secondary" id="resetSeatOrder">Nulstil</button><button class="arrange-board" id="arrangeOnBoard">Arrangér på brættet</button><button class="primary" id="closeSeatModal">Færdig</button></div></div></div>
 
 <script>
 (() => {
@@ -323,7 +329,7 @@ function updateDealNote(){
  const example=remove===1?'Fx 4♦ eller 4♥.':`Fx ${['4♦','4♥','4♠','5♦'].slice(0,remove).join(', ')}.`;
  $('dealNote').innerHTML=`<strong>Fjern ${remove} ${remove===1?'lavt kort':'lave kort'} før uddeling – men ingen klør.</strong> ${52-remove} kort deles = ${each} til hver.<span class="club-note">Vælg lave kort, men ikke de allerlaveste. ${example} Så er alle 13 klør stadig med til runden “Ingen klør”.</span>`;
 }
-function updateModeHint(){const mode=$('modeSegment').querySelector('.active')?.dataset.mode||suggestedMode();const recommended=suggestedMode();$('modeHint').textContent=mode==='table'?'Bordtilstand er lavet til iPad/tablet på bordet. Modstående felter vendes i landskab.':'Telefontilstand holder alle spillerfelter vendt samme vej.';if(mode!==recommended)$('modeHint').textContent+=recommended==='phone'?' Telefon anbefales på denne enhed.':' Bord (iPad) anbefales på denne enhed.'}
+function updateModeHint(){const mode=$('modeSegment').querySelector('.active')?.dataset.mode||suggestedMode();$('modeHint').textContent=mode==='table'?'Bordvisning vender modstående spillerfelter 180°, så alle kan læse fra deres plads. Fungerer bedst i landskab og kan bruges på både telefon og tablet.':'Samme vej vender alle spillerfelter mod samme side. Kan bruges på både telefon og tablet.'}
 
 function maxEventsFor(ri,playerCount){
  if(ri===0)return Math.floor(52/playerCount);
@@ -434,8 +440,8 @@ function applyMode(){
  document.body.classList.toggle('fullscreen-active',!!fullscreenElement());
  if($('soundToggle'))$('soundToggle').classList.toggle('on',!!state.sound);
  if($('settingsModeSegment'))[...$('settingsModeSegment').querySelectorAll('[data-settings-mode]')].forEach(b=>b.classList.toggle('active',b.dataset.settingsMode===state.mode));
- if($('switchModeTitle'))$('switchModeTitle').textContent=state.mode==='table'?'Skift til Telefon':'Skift til Bord (iPad)';
- if($('switchModeDesc'))$('switchModeDesc').textContent=state.mode==='table'?'Alle spillerfelter vendes samme vej':'Placér enheden på bordet med modstående felter vendt';
+ if($('switchModeTitle'))$('switchModeTitle').textContent=state.mode==='table'?'Skift til Samme vej':'Skift til Bordvisning';
+ if($('switchModeDesc'))$('switchModeDesc').textContent=state.mode==='table'?'Vend alle spillerfelter mod samme side':'Vend modstående spillerfelter mod deres pladser';
  updateFullscreenCopy();
 }
 function renderAll(){renderScore();renderRounds();renderStats();renderHistory();renderSettings();renderFinal()}
@@ -605,7 +611,7 @@ function renderSeatPreview(){
  $('seatPreview').className=`seat-preview players-${order.length}`;
  $('seatPreview').innerHTML=order.map((pi,seatIndex)=>`<div class="seat-preview-cell ${seatIndex<opposite?'opposite':''}"><div style="min-width:0"><div class="seat-pos">${seatIndex+1}. ${esc(shortSeatLabel(labels[seatIndex]||`Plads ${seatIndex+1}`))}</div><strong>${esc(state.players[pi].name)}</strong></div>${seatIndex<opposite?'<span class="turn">↻</span>':''}</div>`).join('');
 }
-$('settingsModeSegment').onclick=e=>{const b=e.target.closest('[data-settings-mode]');if(!b||b.dataset.settingsMode===state.mode)return;if(arrangeMode){arrangeMode=false;selectedSeat=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden')}state.mode=b.dataset.settingsMode;save();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Telefonvisning valgt')};
+$('settingsModeSegment').onclick=e=>{const b=e.target.closest('[data-settings-mode]');if(!b||b.dataset.settingsMode===state.mode)return;if(arrangeMode){arrangeMode=false;selectedSeat=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden')}state.mode=b.dataset.settingsMode;save();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Samme vej valgt')};
 $('editPlayers').onclick=()=>openSetup(true);
 $('arrangeOnBoard').onclick=()=>{$('seatModal').classList.add('hidden');state.mode='table';save();applyMode();showView('score');setArrangeMode(true)};
 $('arrangeBtn').onclick=()=>setArrangeMode(!arrangeMode);$('finishArrange').onclick=()=>setArrangeMode(false);
@@ -625,7 +631,7 @@ function nextPaint(){return new Promise(resolve=>requestAnimationFrame(()=>reque
 async function startNewGameFromActive(){const preset=gamePreset();closeGameMenu();await nextPaint();if(await confirmBox('Start nyt spil?','Det nuværende aktive spil erstattes. Historikken bevares.','Fortsæt'))openSetup(false,preset)}
 $('gameMenuBtn').onclick=()=>{applyMode();$('gameMenu').classList.remove('hidden')};
 $('closeGameMenu').onclick=closeGameMenu;
-$('switchModeNow').onclick=()=>{if(arrangeMode){arrangeMode=false;selectedSeat=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden')}state.mode=state.mode==='table'?'phone':'table';save();closeGameMenu();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Telefonvisning valgt')};
+$('switchModeNow').onclick=()=>{if(arrangeMode){arrangeMode=false;selectedSeat=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden')}state.mode=state.mode==='table'?'phone':'table';save();closeGameMenu();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Samme vej valgt')};
 $('fullscreenMenuBtn').onclick=async()=>{closeGameMenu();await nextPaint();await toggleFullscreen()};
 $('arrangePlayersNow').onclick=()=>{closeGameMenu();state.mode='table';save();applyMode();showView('score');setArrangeMode(true)};
 $('fullscreenBtn').onclick=toggleFullscreen;
