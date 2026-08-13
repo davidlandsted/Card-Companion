@@ -848,7 +848,11 @@ $('endGameNow').onclick=async()=>{closeGameMenu();await nextPaint();if(await con
 $('newGameNow').onclick=startNewGameFromActive;
 $('finalStats').onclick=()=>showView('stats');$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>openSetup(false,gamePreset());$('closeFinal').onclick=()=>showView('score');
 
-function showView(id){if(id!=='score'&&arrangeMode){arrangeMode=false;selectedSeat=null;dragState=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden');$('arrangeBtn').classList.remove('active')}document.querySelectorAll('.screen').forEach(s=>{const active=s.id===id;s.classList.toggle('active',active);s.setAttribute('aria-hidden',active?'false':'true')});document.querySelectorAll('#nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'instant'})}
+function showView(id){if(id!=='score'&&arrangeMode){arrangeMode=false;selectedSeat=null;dragState=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden');$('arrangeBtn').classList.remove('active')}
+ // Refresh the destination before it becomes visible. In particular, the Runder matrix must
+ // always follow the round currently selected on Score, including changes made with Forrige/Næste.
+ if(id==='score')renderScore();else if(id==='rounds')renderRounds();else if(id==='history')renderHistory();else if(id==='settings')renderSettings();
+ document.querySelectorAll('.screen').forEach(s=>{const active=s.id===id;s.classList.toggle('active',active);s.setAttribute('aria-hidden',active?'false':'true')});document.querySelectorAll('#nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'instant'})}
 $('nav').onclick=e=>{const b=e.target.closest('[data-view]');if(b)showView(b.dataset.view)};
 
 document.addEventListener('fullscreenchange',()=>{applyMode();renderSettings()});document.addEventListener('webkitfullscreenchange',()=>{applyMode();renderSettings()});
