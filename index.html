@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v10.18 -->
+<!-- Stik Companion v10.21 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -458,7 +458,106 @@ body.fullscreen-active .app{min-height:100vh}
 
 /* V10.19 - consistent title rhythm across tabs */
 .section-head .kicker,.round-head .kicker{margin-bottom:1px!important}
+
+/* V10.20 - exact optical centering for round navigation numbers */
+.round-dock .dot{position:relative;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;line-height:1!important;text-align:center!important;text-indent:0!important;letter-spacing:0!important;-webkit-appearance:none;appearance:none;font-variant-numeric:tabular-nums}
+.round-dock .dot .dot-label{display:flex;align-items:center;justify-content:center;width:100%;height:100%;line-height:1;transform:translateY(-.02em);pointer-events:none}
 .section-head h1,.round-head h1{margin-top:0!important;margin-bottom:0!important}
+
+
+/* V10.21 - one calm Score header across phone and tablet; score stays the visual focus */
+.score-header{
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:start!important;
+  gap:16px!important;
+  margin-bottom:8px!important;
+  padding:4px 8px 0!important;
+}
+.score-header .brand{display:none!important}
+.round-head{text-align:left!important;min-width:0}
+.round-head .rule{
+  display:flex!important;
+  align-items:baseline!important;
+  flex-wrap:wrap!important;
+  gap:0 6px!important;
+  margin-top:5px!important;
+  line-height:1.25!important;
+  color:var(--muted)!important;
+}
+.round-head .rule-main{color:#cbd1d8}
+.round-head .limit-note{display:none!important}
+.phone-rule-sep,.phone-limit-note{display:inline!important}
+.phone-rule-sep{color:#59616b}
+.phone-limit-note{font-weight:750;color:#aab2bb;white-space:nowrap}
+.phone-limit-note.complete{color:var(--green)}
+.header-actions{
+  align-self:start!important;
+  justify-self:end!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin-top:2px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.header-actions .arrange-btn,
+.header-actions .game-btn{
+  width:44px!important;
+  height:44px!important;
+  min-width:44px!important;
+  min-height:44px!important;
+  margin:0!important;
+  padding:0!important;
+  border:1px solid #343b45!important;
+  border-radius:14px!important;
+  background:rgba(15,18,23,.94)!important;
+  color:#aeb6c0!important;
+  display:grid!important;
+  place-items:center!important;
+  line-height:1!important;
+  box-shadow:0 4px 14px rgba(0,0,0,.14)!important;
+}
+.header-actions .arrange-btn-label,
+.header-actions .game-btn-label{display:none!important}
+.header-actions .arrange-btn::after,
+.header-actions .game-btn::after{content:none!important}
+.header-actions .arrange-icon{display:grid!important;width:21px;height:21px}
+.header-actions .arrange-icon svg{width:21px;height:21px}
+.header-actions .menu-dots{display:block!important}
+.header-actions .arrange-btn.active{
+  background:var(--accent)!important;
+  border-color:var(--accent)!important;
+  color:#190a02!important;
+  box-shadow:0 6px 18px rgba(255,106,26,.2)!important;
+}
+.header-actions .arrange-btn:active,
+.header-actions .game-btn:active{transform:scale(.96)!important}
+
+@media (max-width:700px){
+  .score-header{gap:12px!important;padding:2px 4px 0!important;margin-bottom:7px!important}
+  .header-actions{gap:7px!important;margin-top:2px!important}
+  .header-actions .arrange-btn,
+  .header-actions .game-btn{
+    width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;border-radius:13px!important;
+  }
+  .header-actions .arrange-icon{width:20px;height:20px}
+  .header-actions .arrange-icon svg{width:20px;height:20px}
+}
+
+@media (orientation:landscape) and (max-height:560px) and (max-width:1000px){
+  .score-header{gap:10px!important;padding:1px 3px 0!important;margin-bottom:4px!important}
+  .round-head .rule{gap:0 4px!important;margin-top:2px!important;line-height:1.1!important}
+  .header-actions{gap:5px!important;margin-top:1px!important}
+  .header-actions .arrange-btn,
+  .header-actions .game-btn{
+    width:34px!important;height:34px!important;min-width:34px!important;min-height:34px!important;border-radius:10px!important;
+  }
+  .header-actions .arrange-icon{width:17px;height:17px;transform:none!important}
+  .header-actions .arrange-icon svg{width:17px;height:17px}
+  .header-actions .menu-dots{transform:scale(.9)}
+}
 
 </style>
 </head>
@@ -507,7 +606,6 @@ body.fullscreen-active .app{min-height:100vh}
     </div>
     <div class="arrange-bar hidden" id="arrangeBar"><div class="arrange-copy"><strong>Arrangér spillere</strong><span id="arrangeHelp">Træk et spillerfelt til en anden plads, eller tryk på to felter for at bytte dem.</span></div><button class="primary" id="finishArrange">Færdig</button></div>
     <div class="score-board" id="scoreBoard"></div>
-    <div class="middle-strip" id="middleStrip"></div>
     <div class="round-actions">
       <button id="prevRound" class="hidden" aria-hidden="true" tabindex="-1">← Forrige</button>
       <button id="nextRound" class="hidden" aria-hidden="true" tabindex="-1">Næste →</button>
@@ -727,13 +825,12 @@ function applyMode(){
 function renderAll(){renderScore();renderRounds();renderStats();renderHistory();renderSettings();renderFinal()}
 function renderScore(){
  const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;const max=roundMaxEvents(state.round),used=totalRoundEvents(state.round);const full=max!==null&&used>=max;const shortNoun=['stik','klør','damer','K♣','sidste stik',''][state.round];$('roundRule').innerHTML=`<span class="rule-main">${esc(r.rule)}</span>${max!==null?`<span class="phone-rule-sep" aria-hidden="true">·</span><span class="phone-limit-note ${full?'complete':''}">${used} / ${max} ${esc(shortNoun)}${full?' ✓':''}</span><div class="limit-note"><strong style="color:${full?'var(--green)':'#dce1e6'}">${used} / ${max}${full?' ✓':''}</strong> · ${esc(limitLabel(state.round,max))}</div>`:''}`;
- $('roundProgress').innerHTML=ROUNDS.map((_,i)=>`<button type="button" class="dot ${i===state.round?'active':''} ${state.completed[i]?'done':''}" data-jump-round="${i}" aria-label="Åbn runde ${i+1}: ${esc(ROUNDS[i].name)}">${i+1}</button>`).join('');
+ $('roundProgress').innerHTML=ROUNDS.map((_,i)=>`<button type="button" class="dot ${i===state.round?'active':''} ${state.completed[i]?'done':''}" data-jump-round="${i}" aria-label="Åbn runde ${i+1}: ${esc(ROUNDS[i].name)}"><span class="dot-label" aria-hidden="true">${i+1}</span></button>`).join('');
  const t=totals(),best=Math.min(...t);$('scoreBoard').innerHTML='';
  const displayOrder=displayPlayerIndices(),oppositeCount=oppositeSeatCount(displayOrder.length);
  displayOrder.forEach((i,seatIndex)=>{
   const p=state.players[i],score=state.scores[i][state.round],events=currentRoundEventCount(i);const plusDisabled=max!==null&&used>=max;const minusDisabled=score<=0;const opposite=seatIndex<oppositeCount?' opposite-seat':'';const selected=arrangeMode&&seatIndex===selectedSeat?' arrange-selected':'';const placeLabel=seatLabels(displayOrder.length)[seatIndex]||`Plads ${seatIndex+1}`;$('scoreBoard').insertAdjacentHTML('beforeend',`<article class="player-card${opposite}${selected}" data-seat-index="${seatIndex}" style="--seatglow:${seatGlow[i%seatGlow.length]}"><div class="seat-inner"><button class="score-minus" data-score="${i}" data-dir="-1" ${minusDisabled?'disabled':''}>−</button><div class="player-core"><div class="player-name">${esc(p.name)}</div><div class="round-score">${score}</div><div class="event-count">${events} ${esc(r.event)}</div><div class="total-score">Total ${t[i]}</div></div><button class="score-plus" data-score="${i}" data-dir="1" ${plusDisabled?'disabled':''}>+</button></div><div class="drag-overlay" aria-label="Flyt ${esc(p.name)}"><div class="drag-overlay-inner"><div class="drag-grip">⠿</div><strong>${esc(p.name)}</strong><span>${esc(placeLabel)}</span></div></div>${t[i]===best?'<span class="leader-badge">fører</span>':''}</article>`)
  });
- $('middleStrip').innerHTML=`<div class="mini-panel"><h3>Rangering</h3>${rankData().slice(0,4).map(x=>`<div class="rank-row"><span>${x.rank}. ${esc(state.players[x.i].name)}</span><strong>${x.score}</strong></div>`).join('')}</div><div class="mini-panel"><h3>Rundestatus</h3><div class="rank-row"><span>Afsluttede runder</span><strong>${completedCount()} / 6</strong></div><div class="rank-row"><span>Aktiv runde</span><strong>${state.round+1}</strong></div></div>`;
  $('completeRound').textContent=state.completed[state.round]?'Genåbn runde':'Afslut runde';
 }
 $('scoreBoard').onclick=e=>{
