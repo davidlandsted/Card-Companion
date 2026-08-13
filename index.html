@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v10.21 -->
+<!-- Stik Companion v10.22 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -132,7 +132,7 @@ table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px 10p
 body.fullscreen-active .app{min-height:100vh}
 
 /* Final */
-.final-hero{position:relative;text-align:center;padding:26px 18px}.final-close{position:absolute;top:14px;right:14px;width:38px;height:38px;padding:0;border-radius:50%;border:1px solid #343b45;background:#10151b;color:#aeb6c0;display:grid;place-items:center;font-size:24px;font-weight:400;line-height:1;box-shadow:0 6px 18px rgba(0,0,0,.18);transition:background .15s,border-color .15s,color .15s,transform .15s}.final-close:hover{background:#171d24;border-color:#46505c;color:#fff}.final-close:active{transform:scale(.94)}.trophy{font-size:64px}.winner-name{font-size:36px;font-weight:900;margin-top:5px}.winner-score{color:var(--green);font-size:18px;margin-top:4px}.final-rank{margin-top:16px;display:grid;gap:8px}.final-row{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid var(--line);background:#0d1014;border-radius:13px}.final-actions{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:8px;margin-top:18px}.final-actions button{padding:14px;border-radius:14px;background:#14191f;border:1px solid var(--line);font-weight:800}.final-actions button.primary{background:linear-gradient(180deg,var(--accent2),var(--accent));color:#190a02;border-color:transparent;box-shadow:0 10px 28px rgba(255,106,26,.2)}.final-hint{color:var(--muted);font-size:12px;margin-top:12px}
+.final-hero{position:relative;text-align:center;padding:26px 18px}.final-close{position:absolute;top:14px;right:14px;width:38px;height:38px;padding:0;border-radius:50%;border:1px solid #343b45;background:#10151b;color:#aeb6c0;display:grid;place-items:center;font-size:24px;font-weight:400;line-height:1;box-shadow:0 6px 18px rgba(0,0,0,.18);transition:background .15s,border-color .15s,color .15s,transform .15s}.final-close:hover{background:#171d24;border-color:#46505c;color:#fff}.final-close:active{transform:scale(.94)}.trophy{font-size:64px}.winner-name{font-size:36px;font-weight:900;margin-top:5px}.winner-score{color:var(--green);font-size:18px;margin-top:4px}.final-rank{margin-top:16px;display:grid;gap:8px}.final-row{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid var(--line);background:#0d1014;border-radius:13px}.final-actions{display:grid;grid-template-columns:1.35fr 1fr;gap:8px;margin-top:18px}.final-actions button{padding:14px;border-radius:14px;background:#14191f;border:1px solid var(--line);font-weight:800}.final-actions button.primary{background:linear-gradient(180deg,var(--accent2),var(--accent));color:#190a02;border-color:transparent;box-shadow:0 10px 28px rgba(255,106,26,.2)}.final-hint{color:var(--muted);font-size:12px;margin-top:12px}
 
 /* Nav */
 .nav{position:fixed;left:0;right:0;bottom:0;height:calc(70px + var(--safe-bottom));padding:5px 8px var(--safe-bottom);background:rgba(5,6,8,.94);backdrop-filter:blur(18px);border-top:1px solid #20252d;display:grid;grid-template-columns:repeat(4,1fr);z-index:50}.nav button{display:grid;place-items:center;color:#7f8894;font-size:10px;gap:2px}.nav .ico{width:23px;height:23px;display:grid;place-items:center}.nav .ico svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.nav button.active{color:var(--accent)}
@@ -559,6 +559,7 @@ body.fullscreen-active .app{min-height:100vh}
   .header-actions .menu-dots{transform:scale(.9)}
 }
 
+/* V10.22 - simplified final screen: statistics action removed */
 </style>
 </head>
 <body>
@@ -651,7 +652,7 @@ body.fullscreen-active .app{min-height:100vh}
       <div class="winner-score" id="winnerScore"></div>
       <div class="final-rank" id="finalRank"></div>
       <div class="final-hint">Klar til en ny omgang?</div>
-      <div class="final-actions"><button class="primary" id="newGameFinal">Start nyt spil</button><button id="finalRounds">Se runder</button><button id="finalStats">Se statistik</button></div>
+      <div class="final-actions"><button class="primary" id="newGameFinal">Start nyt spil</button><button id="finalRounds">Se runder</button></div>
     </div>
   </section>
 
@@ -1068,7 +1069,7 @@ $('fullscreenBtn').onclick=toggleFullscreen;
 $('gameMenu').onclick=e=>{if(e.target===$('gameMenu'))closeGameMenu()};
 $('endGameNow').onclick=async()=>{closeGameMenu();await nextPaint();if(await confirmBox('Afslut spil?','Det aktuelle resultat gemmes i Historik, også hvis ikke alle runder er markeret som afsluttet.','Afslut'))await finalizeGame()};
 $('newGameNow').onclick=startNewGameFromActive;
-$('finalStats').onclick=()=>showView('stats');$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>openSetup(false,gamePreset());$('closeFinal').onclick=()=>showView('score');
+$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>openSetup(false,gamePreset());$('closeFinal').onclick=()=>showView('score');
 
 function showView(id){if(id!=='score'&&arrangeMode){arrangeMode=false;selectedSeat=null;dragState=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden');$('arrangeBtn').classList.remove('active')}
  // Refresh the destination before it becomes visible. In particular, the Runder matrix must
