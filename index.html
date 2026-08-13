@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v10.12 -->
+<!-- Stik Companion v10.17 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -335,6 +335,71 @@ body.fullscreen-active .app{min-height:100vh}
   .header-actions .arrange-btn.active{background:var(--accent);border-color:var(--accent);color:#190a02}
 }
 
+/* V10.17 - calmer, section-style score header on phones */
+.arrange-btn-label{display:inline}
+.arrange-icon{display:none;width:20px;height:20px;place-items:center}
+.arrange-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.phone-rule-sep,.phone-limit-note{display:none}
+
+@media (max-width:700px){
+  .score-header{
+    grid-template-columns:minmax(0,1fr) auto!important;
+    align-items:start;
+    gap:12px!important;
+    margin-bottom:9px!important;
+    padding:3px 4px 0;
+  }
+  .score-header .brand{display:none!important}
+  .round-head{text-align:left!important;min-width:0}
+  .round-head .kicker{font-size:10px!important;letter-spacing:.14em;line-height:1.1;margin-bottom:4px}
+  .round-head h1{font-size:21px!important;line-height:1.05;margin:0!important;letter-spacing:-.015em}
+  .round-head .rule{
+    display:flex;align-items:baseline;flex-wrap:wrap;gap:0 5px;
+    margin-top:5px!important;font-size:10.5px!important;line-height:1.25!important;color:var(--muted)!important;
+  }
+  .round-head .rule-main{color:#cbd1d8}
+  .round-head .limit-note{display:none!important}
+  .phone-rule-sep,.phone-limit-note{display:inline}
+  .phone-rule-sep{color:#59616b}
+  .phone-limit-note{font-weight:750;color:#aab2bb;white-space:nowrap}
+  .phone-limit-note.complete{color:var(--green)}
+  .progress{justify-content:flex-start!important;gap:5px!important;margin-top:8px!important}
+  .dot{width:23px!important;height:23px!important;font-size:10px!important}
+  .header-actions{align-self:start;justify-self:end!important;gap:7px!important;margin-top:2px}
+  .header-actions .arrange-btn,.header-actions .game-btn{
+    width:42px!important;height:42px!important;padding:0!important;border-radius:13px!important;
+    border:1px solid #343b45!important;background:rgba(15,18,23,.94)!important;color:#aeb6c0!important;
+    box-shadow:0 4px 14px rgba(0,0,0,.14)!important;display:grid!important;place-items:center!important;
+  }
+  .header-actions .arrange-btn::after{content:none!important}
+  .header-actions .arrange-btn-label{display:none!important}
+  .header-actions .arrange-icon{display:grid}
+  .header-actions .arrange-btn.active{
+    background:var(--accent)!important;border-color:var(--accent)!important;color:#190a02!important;
+    box-shadow:0 6px 18px rgba(255,106,26,.2)!important;
+  }
+  .header-actions .game-btn-label{display:none!important}
+  .header-actions .menu-dots{display:block!important}
+}
+
+@media (orientation:landscape) and (max-height:560px) and (max-width:1000px){
+  .score-header{grid-template-columns:minmax(0,1fr) auto!important;align-items:start;gap:10px!important;padding:1px 3px 0;margin-bottom:5px!important}
+  .score-header .brand{display:none!important}
+  .round-head{text-align:left!important}
+  .round-head .kicker{font-size:8px!important;letter-spacing:.13em;margin-bottom:2px}
+  .round-head h1{font-size:15px!important;margin:0!important}
+  .round-head .rule{display:flex;align-items:baseline;gap:4px;margin-top:2px!important;font-size:8.5px!important;line-height:1.1!important;color:var(--muted)!important}
+  .round-head .limit-note{display:none!important}
+  .phone-rule-sep,.phone-limit-note{display:inline}
+  .phone-limit-note{font-weight:750;white-space:nowrap}.phone-limit-note.complete{color:var(--green)}
+  .progress{justify-content:flex-start!important;gap:3px!important;margin-top:4px!important}
+  .header-actions{align-self:start;gap:5px!important;margin-top:1px}
+  .header-actions .arrange-btn,.header-actions .game-btn{width:34px!important;height:34px!important;padding:0!important;border-radius:10px!important;border:1px solid #343b45!important;background:rgba(15,18,23,.94)!important;color:#aeb6c0!important;display:grid!important;place-items:center!important}
+  .header-actions .arrange-btn::after{content:none!important}.header-actions .arrange-btn-label{display:none!important}.header-actions .arrange-icon{display:grid;transform:scale(.85)}
+  .header-actions .arrange-btn.active{background:var(--accent)!important;border-color:var(--accent)!important;color:#190a02!important}
+  .header-actions .game-btn-label{display:none!important}.header-actions .menu-dots{display:block!important;transform:scale(.9)}
+}
+
 </style>
 </head>
 <body>
@@ -379,7 +444,7 @@ body.fullscreen-active .app{min-height:100vh}
         <div class="rule" id="roundRule"></div>
         <div class="progress" id="roundProgress"></div>
       </div>
-      <div class="header-actions"><button class="arrange-btn" id="arrangeBtn">Placering</button><button class="game-btn" id="gameMenuBtn" aria-label="Åbn spilmenu" title="Åbn spilmenu"><span class="game-btn-label">Spilmenu</span><span class="menu-dots" aria-hidden="true"></span></button></div>
+      <div class="header-actions"><button class="arrange-btn" id="arrangeBtn" aria-label="Placér spillere" title="Placér spillere"><span class="arrange-btn-label">Placering</span><span class="arrange-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 7h11m0 0-3-3m3 3-3 3M17 17H6m0 0 3-3m-3 3 3 3"/></svg></span></button><button class="game-btn" id="gameMenuBtn" aria-label="Åbn spilmenu" title="Åbn spilmenu"><span class="game-btn-label">Spilmenu</span><span class="menu-dots" aria-hidden="true"></span></button></div>
     </div>
     <div class="arrange-bar hidden" id="arrangeBar"><div class="arrange-copy"><strong>Arrangér spillere</strong><span id="arrangeHelp">Træk et spillerfelt til en anden plads, eller tryk på to felter for at bytte dem.</span></div><button class="primary" id="finishArrange">Færdig</button></div>
     <div class="score-board" id="scoreBoard"></div>
@@ -601,7 +666,7 @@ function applyMode(){
 }
 function renderAll(){renderScore();renderRounds();renderStats();renderHistory();renderSettings();renderFinal()}
 function renderScore(){
- const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;const max=roundMaxEvents(state.round),used=totalRoundEvents(state.round);const full=max!==null&&used>=max;$('roundRule').innerHTML=`${esc(r.rule)}${max!==null?`<div class="limit-note"><strong style="color:${full?'var(--green)':'#dce1e6'}">${used} / ${max}${full?' ✓':''}</strong> · ${esc(limitLabel(state.round,max))}</div>`:''}`;
+ const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;const max=roundMaxEvents(state.round),used=totalRoundEvents(state.round);const full=max!==null&&used>=max;const shortNoun=['stik','klør','damer','K♣','sidste stik',''][state.round];$('roundRule').innerHTML=`<span class="rule-main">${esc(r.rule)}</span>${max!==null?`<span class="phone-rule-sep" aria-hidden="true">·</span><span class="phone-limit-note ${full?'complete':''}">${used} / ${max} ${esc(shortNoun)}${full?' ✓':''}</span><div class="limit-note"><strong style="color:${full?'var(--green)':'#dce1e6'}">${used} / ${max}${full?' ✓':''}</strong> · ${esc(limitLabel(state.round,max))}</div>`:''}`;
  $('roundProgress').innerHTML=ROUNDS.map((_,i)=>`<button type="button" class="dot ${i===state.round?'active':''} ${state.completed[i]?'done':''}" data-jump-round="${i}" aria-label="Åbn runde ${i+1}: ${esc(ROUNDS[i].name)}">${i+1}</button>`).join('');
  const t=totals(),best=Math.min(...t);$('scoreBoard').innerHTML='';
  const displayOrder=displayPlayerIndices(),oppositeCount=oppositeSeatCount(displayOrder.length);
