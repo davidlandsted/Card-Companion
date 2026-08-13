@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v10.22 -->
+<!-- Stik Companion v10.23 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -560,6 +560,45 @@ body.fullscreen-active .app{min-height:100vh}
 }
 
 /* V10.22 - simplified final screen: statistics action removed */
+
+/* V10.23 - simple custom point values */
+.point-values-card{overflow:hidden;padding:0!important}
+.point-values-card summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:10px;padding:14px;text-align:left}
+.point-values-card summary::-webkit-details-marker{display:none}
+.point-values-summary-copy{min-width:0}
+.point-values-summary-copy strong{display:block;font-size:15px;line-height:1.25}
+.point-values-summary-copy .desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.45}
+.point-values-status{padding:5px 8px;border-radius:999px;border:1px solid #343c46;background:#0b0f13;color:var(--muted);font-size:10px;font-weight:850;white-space:nowrap}
+.point-values-status.custom{border-color:rgba(255,106,26,.36);background:rgba(255,106,26,.08);color:var(--accent2)}
+.point-values-chevron{width:28px;height:28px;border-radius:50%;border:1px solid #303741;display:grid;place-items:center;color:var(--muted);font-size:15px;transition:transform .18s}
+.point-values-card[open] .point-values-chevron{transform:rotate(180deg)}
+.point-values-body{border-top:1px solid #252c34;padding:12px 14px 14px;background:rgba(8,11,14,.42)}
+.point-value-grid{display:grid;gap:7px}
+.point-value-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 10px;border:1px solid #29313a;border-radius:12px;background:#0c1015}
+.point-value-copy{min-width:0}
+.point-value-copy strong{display:block;font-size:12px;line-height:1.2;color:#eef1f4}
+.point-value-copy span{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+.point-value-input-wrap{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.point-value-input{width:72px;height:38px;padding:7px 8px;border-radius:10px;border:1px solid #37414c;background:#090c10;color:#fff;text-align:center;font-size:15px;font-weight:900;outline:none;-moz-appearance:textfield}
+.point-value-input::-webkit-outer-spin-button,.point-value-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.point-value-input:focus{border-color:rgba(255,106,26,.8);box-shadow:0 0 0 2px rgba(255,106,26,.12)}
+.point-value-unit{font-size:10px;color:var(--muted);width:30px}
+.point-value-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.point-value-actions button{padding:11px 10px;border-radius:12px;font-size:12px;font-weight:850}
+.point-value-note{font-size:10px;line-height:1.45;color:var(--muted);margin-top:9px}
+.history-point-badge{display:inline-flex;align-items:center;margin-left:6px;padding:3px 6px;border-radius:999px;border:1px solid rgba(255,106,26,.3);background:rgba(255,106,26,.07);color:var(--accent2);font-size:9px;font-weight:850;vertical-align:middle}
+
+@media (min-width:701px){
+  .point-value-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .point-values-card summary{padding:16px 18px}
+  .point-values-body{padding:14px 18px 16px}
+}
+
+@media (max-width:700px){
+  .point-values-card summary{padding:14px}
+  .point-value-input{width:66px}
+}
+
 </style>
 </head>
 <body>
@@ -636,6 +675,7 @@ body.fullscreen-active .app{min-height:100vh}
     <div class="settings-list">
       <button class="card setting-row" id="editPlayers"><div><strong>Rediger spillere</strong><div class="desc">Navne og antal spillere.</div></div><span>›</span></button>
       <div class="card setting-block"><strong>Visning</strong><div class="desc">Bordvisning vender modstående spillerfelter mod deres pladser. Samme vej vender alle felter mod samme side.</div><div class="settings-mode-segment" id="settingsModeSegment"><button data-settings-mode="table">Bordvisning</button><button data-settings-mode="phone">Samme vej</button></div></div>
+      <details class="card point-values-card" id="pointValuesPanel"><summary><div class="point-values-summary-copy"><strong>Pointværdier</strong><div class="desc">Juster point pr. stik, kort eller pas.</div></div><span class="point-values-status" id="pointValuesStatus">Standard</span><span class="point-values-chevron" aria-hidden="true">⌄</span></summary><div class="point-values-body"><div class="point-value-grid" id="pointValueGrid"></div><div class="point-value-actions"><button class="secondary" id="resetPointValues" type="button">Gendan standard</button><button class="primary" id="savePointValues" type="button">Gem ændringer</button></div><div class="point-value-note" id="pointValueNote">Eksisterende point genberegnes efter de nye værdier. Historik ændres ikke.</div></div></details>
       <button class="card setting-row" id="fullscreenBtn"><div><strong id="fullscreenTitle">Fuld skærm</strong><div class="desc" id="fullscreenDesc">Skjul browserens værktøjslinjer, hvor det understøttes.</div></div><span>↗</span></button>
       <div class="card setting-row"><div><strong>Hold skærmen tændt</strong><div class="desc" id="wakeLockDesc">Forhindrer automatisk skærmlås, mens Stik Companion er synlig.</div></div><button class="toggle" id="wakeLockToggle" aria-label="Hold skærmen tændt" aria-pressed="false"></button></div>
       <div class="danger-grid"><button class="card setting-row danger" id="resetGame"><div><strong>Nulstil nuværende spil</strong><div class="desc">Sletter point i det aktive spil.</div></div><span>↺</span></button><button class="card setting-row danger" id="clearHistory"><div><strong>Slet historik</strong><div class="desc">Fjerner alle gemte afsluttede spil.</div></div><span>⌫</span></button></div>
@@ -672,14 +712,15 @@ body.fullscreen-active .app{min-height:100vh}
 <script>
 (() => {
 const ROUNDS = [
- {name:'Ingen stik', unit:5, event:'stik', rule:'5 point pr. stik'},
- {name:'Ingen klør', unit:10, event:'klør', rule:'10 point pr. klør'},
- {name:'Ingen damer', unit:25, event:'dame', rule:'25 point pr. dame'},
- {name:'Klør konge', unit:50, event:'K♣', rule:'50 point for klør konge'},
- {name:'Sidste stik', unit:100, event:'sidste stik', rule:'100 point for sidste stik'},
- {name:'Kabale', unit:25, event:'pas', rule:'25 point pr. pas'}
+ {name:'Ingen stik', unit:5, event:'stik'},
+ {name:'Ingen klør', unit:10, event:'klør'},
+ {name:'Ingen damer', unit:25, event:'dame'},
+ {name:'Klør konge', unit:50, event:'K♣'},
+ {name:'Sidste stik', unit:100, event:'sidste stik'},
+ {name:'Kabale', unit:25, event:'pas'}
 ];
-const STORAGE='stikCompanion.v7'; const LEGACY_STORAGES=['stikCompanion.v6','stikCompanion.v5','stikCompanion.v4','stikCompanion.v3','stikCompanion.vFinal']; const HISTORY='stikCompanion.history'; const WAKE_PREF='stikCompanion.keepAwake';
+const DEFAULT_POINT_VALUES=Object.freeze(ROUNDS.map(r=>r.unit));
+const STORAGE='stikCompanion.v7'; const LEGACY_STORAGES=['stikCompanion.v6','stikCompanion.v5','stikCompanion.v4','stikCompanion.v3','stikCompanion.vFinal']; const HISTORY='stikCompanion.history'; const WAKE_PREF='stikCompanion.keepAwake'; const POINT_PREF='stikCompanion.pointValues';
 const seatGlow=['rgba(255,106,26,.15)','rgba(173,91,255,.15)','rgba(96,214,112,.14)','rgba(255,81,66,.14)','rgba(80,170,255,.14)','rgba(255,206,84,.14)','rgba(255,123,196,.14)','rgba(112,221,214,.14)'];
 const $=id=>document.getElementById(id);
 let modalResolver=null;
@@ -694,9 +735,21 @@ let wakeLockSentinel=null;
 let wakeLockBusy=false;
 let state=loadState();
 
+function sanitizePointValues(values){
+ return DEFAULT_POINT_VALUES.map((fallback,ri)=>{const n=Math.round(Number(values?.[ri]));return Number.isFinite(n)&&n>=1&&n<=500?n:fallback});
+}
+function samePointValues(a,b){const aa=sanitizePointValues(a),bb=sanitizePointValues(b);return aa.every((v,i)=>v===bb[i])}
+function isDefaultPointValues(values){return samePointValues(values,DEFAULT_POINT_VALUES)}
+function loadPointPreferences(){try{return sanitizePointValues(JSON.parse(localStorage.getItem(POINT_PREF)||'null'))}catch(e){return [...DEFAULT_POINT_VALUES]}}
+function savePointPreferences(values){try{localStorage.setItem(POINT_PREF,JSON.stringify(sanitizePointValues(values)))}catch(e){}}
+function roundUnit(ri,values=null){const source=values||state?.pointValues||DEFAULT_POINT_VALUES;return sanitizePointValues(source)[ri]}
+function roundRuleText(ri,values=null){const unit=roundUnit(ri,values);return [
+ `${unit} point pr. stik`,`${unit} point pr. klør`,`${unit} point pr. dame`,`${unit} point for klør konge`,`${unit} point for sidste stik`,`${unit} point pr. pas`
+ ][ri]}
+
 function suggestedMode(){const w=Math.min(window.screen?.width||innerWidth,window.screen?.height||innerHeight);return w>=600?'table':'phone'}
-function freshState(names=['Spiller 1','Spiller 2','Spiller 3','Spiller 4'], mode=suggestedMode()){
- const players=names.map((name,i)=>({id:'p'+Date.now()+'_'+i,name})); return {version:9, players, seatOrder:players.map(p=>p.id), mode, round:0, completed:Array(6).fill(false), scores:names.map(()=>Array(6).fill(0)), actions:[], sound:false, started:true, finalized:false, createdAt:new Date().toISOString()};
+function freshState(names=['Spiller 1','Spiller 2','Spiller 3','Spiller 4'], mode=suggestedMode(), pointValues=loadPointPreferences()){
+ const players=names.map((name,i)=>({id:'p'+Date.now()+'_'+i,name})); return {version:10, players, seatOrder:players.map(p=>p.id), mode, round:0, completed:Array(6).fill(false), scores:names.map(()=>Array(6).fill(0)), pointValues:sanitizePointValues(pointValues), actions:[], sound:false, started:true, finalized:false, createdAt:new Date().toISOString()};
 }
 function cardsToRemove(playerCount){return 52%playerCount}
 function updateDealNote(){
@@ -733,11 +786,12 @@ function seatLabels(n){
 }
 function normalizeLoadedState(raw){
  if(!raw||!Array.isArray(raw.players)||raw.players.length<2)return null;
- raw.version=9;
+ raw.version=10;
  raw.round=Math.max(0,Math.min(5,Number(raw.round)||0));
  raw.completed=Array.from({length:6},(_,ri)=>!!raw.completed?.[ri]);
+ raw.pointValues=sanitizePointValues(raw.pointValues||DEFAULT_POINT_VALUES);
  raw.scores=raw.players.map((_,pi)=>Array.from({length:6},(_,ri)=>{
-   const unit=ROUNDS[ri].unit; const value=Number(raw.scores?.[pi]?.[ri])||0;
+   const unit=roundUnit(ri,raw.pointValues); const value=Number(raw.scores?.[pi]?.[ri])||0;
    return Math.max(0,Math.round(value/unit)*unit);
  }));
  raw.actions=Array.isArray(raw.actions)?raw.actions:[];
@@ -746,7 +800,7 @@ function normalizeLoadedState(raw){
  const invalid=[];
  for(let ri=0;ri<5;ri++){
    const max=maxEventsFor(ri,raw.players.length);
-   const unit=ROUNDS[ri].unit;
+   const unit=roundUnit(ri,raw.pointValues);
    const used=raw.scores.reduce((sum,row)=>sum+Math.round(row[ri]/unit),0);
    if(used>max){
      raw.scores.forEach(row=>row[ri]=0);
@@ -781,15 +835,15 @@ $('modalConfirm').onclick=()=>{if(modalResolver)modalResolver(true);$('modal').c
 
 function totals(){return state.players.map((_,i)=>state.scores[i].reduce((a,b)=>a+b,0))}
 function rankData(){const t=totals(); const sorted=t.map((score,i)=>({i,score})).sort((a,b)=>a.score-b.score);let rank=0,last=null;return sorted.map((x,idx)=>{if(last===null||x.score!==last)rank=idx+1;last=x.score;return {...x,rank}})}
-function currentRoundEventCount(pi){return Math.round(state.scores[pi][state.round]/ROUNDS[state.round].unit)}
+function currentRoundEventCount(pi){return Math.round(state.scores[pi][state.round]/roundUnit(state.round))}
 function completedCount(){return state.completed.filter(Boolean).length}
 function roundMaxEvents(ri){return maxEventsFor(ri,state.players.length)}
-function totalRoundEvents(ri){const unit=ROUNDS[ri].unit;return state.players.reduce((sum,_,pi)=>sum+Math.round(state.scores[pi][ri]/unit),0)}
+function totalRoundEvents(ri){const unit=roundUnit(ri);return state.players.reduce((sum,_,pi)=>sum+Math.round(state.scores[pi][ri]/unit),0)}
 function limitLabel(ri,max){if(ri===0)return `Præcis ${max} stik fordeles med ${state.players.length} spillere`;if(ri===1)return 'Præcis 13 klør i alt';if(ri===2)return 'Præcis 4 damer i alt';if(ri===3)return 'Klør konge gives kun 1 gang';if(ri===4)return 'Sidste stik gives kun 1 gang';return ''}
 
 function init(){
  if(!state){$('welcome').classList.remove('hidden');return}
- $('app').classList.remove('hidden');normalizeSeatOrder(state);save();applyMode();renderAll();showView(state.finalized?'final':'score');
+ $('app').classList.remove('hidden');normalizeSeatOrder(state);try{if(!localStorage.getItem(POINT_PREF))savePointPreferences(state.pointValues)}catch(e){}save();applyMode();renderAll();showView(state.finalized?'final':'score');
  if(startupWarnings.length)setTimeout(()=>toast(startupWarnings.join(' · ')),350);
 }
 $('welcomeStart').onclick=()=>openSetup(false);
@@ -810,7 +864,7 @@ $('startGame').onclick=()=>{
  const n=Number($('playerCount').value);const names=[...document.querySelectorAll('[data-name]')].slice(0,n).map((inp,i)=>inp.value.trim()||`Spiller ${i+1}`);const mode=$('modeSegment').querySelector('.active').dataset.mode;
  if(setupMode==='edit'&&state&&state.started){
    const oldScores=state.scores;const oldPlayers=state.players;state.mode=mode;state.players=names.map((name,i)=>({id:oldPlayers[i]?.id||('p'+Date.now()+'_'+i),name}));state.scores=names.map((_,i)=>oldScores[i]||Array(6).fill(0));normalizeSeatOrder(state);save();
- } else {state=freshState(names,mode);state.sound=false;save()}
+ } else {state=freshState(names,mode,setupPreset?.pointValues||loadPointPreferences());state.sound=false;savePointPreferences(state.pointValues);save()}
  setupPreset=null;$('setupScreen').classList.add('hidden');$('app').classList.remove('hidden');applyMode();renderAll();showView('score');
 };
 
@@ -825,7 +879,7 @@ function applyMode(){
 }
 function renderAll(){renderScore();renderRounds();renderStats();renderHistory();renderSettings();renderFinal()}
 function renderScore(){
- const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;const max=roundMaxEvents(state.round),used=totalRoundEvents(state.round);const full=max!==null&&used>=max;const shortNoun=['stik','klør','damer','K♣','sidste stik',''][state.round];$('roundRule').innerHTML=`<span class="rule-main">${esc(r.rule)}</span>${max!==null?`<span class="phone-rule-sep" aria-hidden="true">·</span><span class="phone-limit-note ${full?'complete':''}">${used} / ${max} ${esc(shortNoun)}${full?' ✓':''}</span><div class="limit-note"><strong style="color:${full?'var(--green)':'#dce1e6'}">${used} / ${max}${full?' ✓':''}</strong> · ${esc(limitLabel(state.round,max))}</div>`:''}`;
+ const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;const max=roundMaxEvents(state.round),used=totalRoundEvents(state.round);const full=max!==null&&used>=max;const shortNoun=['stik','klør','damer','K♣','sidste stik',''][state.round];$('roundRule').innerHTML=`<span class="rule-main">${esc(roundRuleText(state.round))}</span>${max!==null?`<span class="phone-rule-sep" aria-hidden="true">·</span><span class="phone-limit-note ${full?'complete':''}">${used} / ${max} ${esc(shortNoun)}${full?' ✓':''}</span><div class="limit-note"><strong style="color:${full?'var(--green)':'#dce1e6'}">${used} / ${max}${full?' ✓':''}</strong> · ${esc(limitLabel(state.round,max))}</div>`:''}`;
  $('roundProgress').innerHTML=ROUNDS.map((_,i)=>`<button type="button" class="dot ${i===state.round?'active':''} ${state.completed[i]?'done':''}" data-jump-round="${i}" aria-label="Åbn runde ${i+1}: ${esc(ROUNDS[i].name)}"><span class="dot-label" aria-hidden="true">${i+1}</span></button>`).join('');
  const t=totals(),best=Math.min(...t);$('scoreBoard').innerHTML='';
  const displayOrder=displayPlayerIndices(),oppositeCount=oppositeSeatCount(displayOrder.length);
@@ -882,7 +936,7 @@ function finishSeatDrag(e){
 $('scoreBoard').addEventListener('pointerup',finishSeatDrag);$('scoreBoard').addEventListener('pointercancel',finishSeatDrag);
 $('roundProgress').onclick=e=>{const b=e.target.closest('[data-jump-round]');if(!b)return;state.round=Number(b.dataset.jumpRound);save();renderAll();showView('score')};
 function changeScore(pi,dir){
- const r=state.round,unit=ROUNDS[r].unit,old=state.scores[pi][r];
+ const r=state.round,unit=roundUnit(r),old=state.scores[pi][r];
  if(dir>0){
    const max=roundMaxEvents(r),used=totalRoundEvents(r);
    if(max!==null&&used>=max){
@@ -940,12 +994,12 @@ function playerStats(i){const completed=state.completed.map((x,ri)=>x?ri:null).f
 function renderStats(){
  const maxScore=Math.max(100,...state.scores.flat());$('statsGrid').innerHTML='';state.players.forEach((p,i)=>{const s=playerStats(i);const bars=ROUNDS.map((r,ri)=>`<div class="bar-row"><span>${r.name}</span><span class="bar-track"><span class="bar-fill" style="display:block;width:${Math.min(100,(state.scores[i][ri]/maxScore)*100)}%"></span></span><strong>${state.scores[i][ri]}</strong></div>`).join('');$('statsGrid').insertAdjacentHTML('beforeend',`<article class="card stat-card"><div class="stat-name">${esc(p.name)}</div><div class="stat-total">${s.total}</div><div class="muted">Placering ${s.rank}</div><div class="metric-grid"><div class="metric"><div class="v">${s.avg.toFixed(1).replace('.',',')}</div><div class="l">Gns. pr. runde</div></div><div class="metric"><div class="v">${s.wins}</div><div class="l">Rundesejre</div></div><div class="metric"><div class="v">${s.zeros}</div><div class="l">0-point runder</div></div><div class="metric"><div class="v">${s.worstVal}</div><div class="l">Værste runde</div></div></div><div class="bars">${bars}</div></article>`)});
 }
-function historySnapshot(){return {id:'g'+Date.now(),date:new Date().toISOString(),players:state.players.map(p=>p.name),scores:state.scores.map(r=>[...r]),totals:totals(),completed:[...state.completed],winner:rankData()[0].i,mode:state.mode,seatOrderNames:displayPlayerIndices().map(i=>state.players[i].name)}}
+function historySnapshot(){return {id:'g'+Date.now(),date:new Date().toISOString(),players:state.players.map(p=>p.name),scores:state.scores.map(r=>[...r]),totals:totals(),completed:[...state.completed],pointValues:[...state.pointValues],winner:rankData()[0].i,mode:state.mode,seatOrderNames:displayPlayerIndices().map(i=>state.players[i].name)}}
 async function finalizeGame(){if(!state.finalized){state.finalized=true;save();const h=loadHistory();h.unshift(historySnapshot());saveHistory(h.slice(0,50))}renderAll();showView('final')}
 function renderHistory(){
  const h=loadHistory();if(!h.length){$('historyList').innerHTML='<div class="card" style="padding:14px"><strong>Ingen gemte spil endnu</strong><div class="date" style="margin-top:4px">Når et spil afsluttes, vises det her.</div></div>';return}
  $('historyList').innerHTML=h.map((g,idx)=>{
-  const dt=new Date(g.date);const d=dt.toLocaleDateString('da-DK',{day:'numeric',month:'short',year:'numeric'});const tm=dt.toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});
+  const dt=new Date(g.date);const d=dt.toLocaleDateString('da-DK',{day:'numeric',month:'short',year:'numeric'});const tm=dt.toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});const gamePointValues=sanitizePointValues(g.pointValues||DEFAULT_POINT_VALUES);const customPointValues=!isDefaultPointValues(gamePointValues);
   const totalsG=Array.isArray(g.totals)?g.totals:g.players.map((_,pi)=>(g.scores?.[pi]||[]).reduce((a,b)=>a+(Number(b)||0),0));
   const order=g.players.map((_,pi)=>pi).sort((a,b)=>(totalsG[a]??0)-(totalsG[b]??0)||a-b);
   const rankByPlayer={};let lastScore=null,lastRank=0;order.forEach((pi,pos)=>{const score=totalsG[pi]??0;if(pos===0||score!==lastScore)lastRank=pos+1;rankByPlayer[pi]=lastRank;lastScore=score});
@@ -960,12 +1014,12 @@ function renderHistory(){
    return `<tr class="history-matrix-row ${isDone?'done':'pending'}"><th class="history-matrix-label"><div class="history-matrix-label-inner"><span class="history-matrix-round-no">${isDone?'✓':ri+1}</span><span class="history-matrix-round-name">${esc(r.name)}</span></div></th>${scoreCells}</tr>`;
   }).join('');
   const matrix=`<div class="history-matrix-card"><div class="history-matrix-caption"><strong>Resultat pr. runde</strong><span>Laveste total vinder</span></div><div class="history-matrix-scroll"><table class="history-matrix-table" style="--player-count:${order.length}"><thead><tr><th class="history-matrix-corner">Runde</th>${playerHeads}</tr></thead><tbody><tr class="history-matrix-total-row"><th class="history-matrix-total-label">Total</th>${totalCells}</tr>${roundRows}</tbody></table></div><div class="history-matrix-hint"><span>Rød = højeste score i runden</span><strong>${doneCount} / 6 afsluttet</strong></div></div>`;
-  return `<details class="card history-item"><summary><div class="history-summary-main"><div class="date">${d} · kl. ${tm} · ${g.players.length} spillere</div><strong>${overallWinners.length>1?'Vindere':'Vinder'}: <span class="winner">${overallWinnerNames.map(esc).join(', ')||'—'}</span></strong><div class="history-player-chips">${chips}</div></div><span class="history-chevron">⌄</span></summary><div class="history-details">${matrix}<div class="history-actions"><button class="history-play-again" data-playagain="${idx}">Spil igen med disse spillere</button><button class="history-delete" data-delhist="${idx}">Slet dette spil</button></div></div></details>`;
+  return `<details class="card history-item"><summary><div class="history-summary-main"><div class="date">${d} · kl. ${tm} · ${g.players.length} spillere${customPointValues?'<span class="history-point-badge">Tilpassede point</span>':''}</div><strong>${overallWinners.length>1?'Vindere':'Vinder'}: <span class="winner">${overallWinnerNames.map(esc).join(', ')||'—'}</span></strong><div class="history-player-chips">${chips}</div></div><span class="history-chevron">⌄</span></summary><div class="history-details">${matrix}<div class="history-actions"><button class="history-play-again" data-playagain="${idx}">Spil igen med disse spillere</button><button class="history-delete" data-delhist="${idx}">Slet dette spil</button></div></div></details>`;
  }).join('')
 }
 $('historyList').onclick=async e=>{
  const again=e.target.closest('[data-playagain]');
- if(again){e.preventDefault();e.stopPropagation();const h=loadHistory();const g=h[Number(again.dataset.playagain)];if(!g)return;const names=(Array.isArray(g.seatOrderNames)&&g.seatOrderNames.length?g.seatOrderNames:g.players).filter(Boolean);openSetup(false,{names,mode:g.mode||state.mode});return}
+ if(again){e.preventDefault();e.stopPropagation();const h=loadHistory();const g=h[Number(again.dataset.playagain)];if(!g)return;const names=(Array.isArray(g.seatOrderNames)&&g.seatOrderNames.length?g.seatOrderNames:g.players).filter(Boolean);openSetup(false,{names,mode:g.mode||state.mode,pointValues:sanitizePointValues(g.pointValues||DEFAULT_POINT_VALUES)});return}
  const b=e.target.closest('[data-delhist]');if(!b)return;e.preventDefault();e.stopPropagation();if(await confirmBox('Slet spil?','Denne historikpost kan ikke gendannes.','Slet')){const h=loadHistory();h.splice(Number(b.dataset.delhist),1);saveHistory(h);renderHistory()}
 };
 function isStandalone(){return window.matchMedia?.('(display-mode: standalone)').matches||window.navigator.standalone===true}
@@ -1024,8 +1078,42 @@ async function setWakeLockWanted(on){
  saveWakeLockWanted(on);
  if(on)await requestScreenWakeLock(false);else await releaseScreenWakeLock(false);
 }
+const POINT_VALUE_META=[
+ {label:'Ingen stik',hint:'Point pr. stik'},
+ {label:'Ingen klør',hint:'Point pr. klør'},
+ {label:'Ingen damer',hint:'Point pr. dame'},
+ {label:'Klør konge',hint:'Point for kortet'},
+ {label:'Sidste stik',hint:'Point for sidste stik'},
+ {label:'Kabale',hint:'Point pr. pas'}
+];
+function settingsPointValues(){return state?.finalized?loadPointPreferences():sanitizePointValues(state?.pointValues||loadPointPreferences())}
+function renderPointValueSettings(){
+ const grid=$('pointValueGrid'),status=$('pointValuesStatus'),note=$('pointValueNote');if(!grid||!status||!note)return;
+ const values=settingsPointValues();const custom=!isDefaultPointValues(values);
+ status.textContent=custom?'Tilpasset':'Standard';status.classList.toggle('custom',custom);
+ grid.innerHTML=POINT_VALUE_META.map((m,ri)=>`<label class="point-value-row"><span class="point-value-copy"><strong>${esc(m.label)}</strong><span>${esc(m.hint)}</span></span><span class="point-value-input-wrap"><input class="point-value-input" data-point-value="${ri}" type="number" inputmode="numeric" min="1" max="500" step="1" value="${values[ri]}" aria-label="${esc(m.hint)}"><span class="point-value-unit">point</span></span></label>`).join('');
+ note.textContent=state?.finalized?'Gemte ændringer gælder fra næste spil. Det afsluttede resultat og Historik ændres ikke.':'Hvis spillet allerede har point, genberegnes de efter de nye værdier. Historik ændres ikke.';
+}
+function readPointValueInputs(){
+ const inputs=[...document.querySelectorAll('[data-point-value]')];const values=[];
+ for(const input of inputs){const n=Math.round(Number(input.value));if(!Number.isFinite(n)||n<1||n>500){input.focus();toast('Brug et helt tal fra 1 til 500');return null}values[Number(input.dataset.pointValue)]=n}
+ return sanitizePointValues(values);
+}
+function activeGameHasPoints(){return !!state?.scores?.some(row=>row.some(v=>Number(v)>0))}
+async function applyPointValues(nextValues){
+ const next=sanitizePointValues(nextValues);const current=settingsPointValues();
+ if(samePointValues(next,current)){renderPointValueSettings();toast('Pointværdierne er allerede gemt');return}
+ if(state.finalized){savePointPreferences(next);renderPointValueSettings();toast('Gemt til næste spil');return}
+ if(activeGameHasPoints()){
+  const ok=await confirmBox('Opdatér pointværdier?','Allerede registrerede stik, kort og pas bevares, men pointene i det aktive spil genberegnes. Gemte spil i Historik ændres ikke.','Opdatér');
+  if(!ok){renderPointValueSettings();return}
+ }
+ const old=sanitizePointValues(state.pointValues||DEFAULT_POINT_VALUES);
+ state.scores=state.scores.map(row=>row.map((score,ri)=>Math.max(0,Math.round((Number(score)||0)/old[ri])*next[ri])));
+ state.pointValues=[...next];savePointPreferences(next);save();renderAll();toast(isDefaultPointValues(next)?'Standardværdier gendannet':'Pointværdier gemt');
+}
 function renderSettings(){
- applyMode();updateWakeLockUI();
+ applyMode();updateWakeLockUI();renderPointValueSettings();
 }
 function shortSeatLabel(label){return String(label).replace(' – vendes 180°','').replace(' – vendes','')}
 function renderSeatPreview(){
@@ -1035,6 +1123,9 @@ function renderSeatPreview(){
 }
 $('settingsModeSegment').onclick=e=>{const b=e.target.closest('[data-settings-mode]');if(!b||b.dataset.settingsMode===state.mode)return;if(arrangeMode){arrangeMode=false;selectedSeat=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden')}state.mode=b.dataset.settingsMode;save();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Samme vej valgt')};
 $('wakeLockToggle').onclick=()=>setWakeLockWanted(!wakeLockWanted());
+$('savePointValues').onclick=()=>{const values=readPointValueInputs();if(values)applyPointValues(values)};
+$('resetPointValues').onclick=()=>applyPointValues(DEFAULT_POINT_VALUES);
+$('pointValuesPanel').addEventListener('toggle',()=>{if($('pointValuesPanel').open)renderPointValueSettings()});
 $('editPlayers').onclick=()=>openSetup(true);
 $('arrangeOnBoard').onclick=()=>{$('seatModal').classList.add('hidden');save();applyMode();showView('score');setArrangeMode(true)};
 $('arrangeBtn').onclick=()=>setArrangeMode(!arrangeMode);$('finishArrange').onclick=()=>setArrangeMode(false);
@@ -1049,14 +1140,14 @@ async function resetCurrentGame(fromMenu=false){
  if(fromMenu){closeGameMenu();await nextPaint()}
  const ok=await confirmBox('Nulstil nuværende spil?','Alle point, afsluttede runder og fortryd-historik i det aktive spil bliver slettet. Spillernavne, bordrækkefølge og gemte spil i Historik bevares.','Nulstil');
  if(!ok)return;
- const names=displayPlayerIndices().map(i=>state.players[i].name),mode=state.mode;
- state=freshState(names,mode);state.sound=false;save();renderAll();showView('score');toast('Det aktive spil er nulstillet');
+ const names=displayPlayerIndices().map(i=>state.players[i].name),mode=state.mode,pointValues=[...state.pointValues];
+ state=freshState(names,mode,pointValues);state.sound=false;save();renderAll();showView('score');toast('Det aktive spil er nulstillet');
 }
 $('resetGame').onclick=()=>resetCurrentGame(false);
 $('clearHistory').onclick=async()=>{if(await confirmBox('Slet al historik?','Alle gemte afsluttede spil fjernes fra denne enhed.','Slet')){saveHistory([]);renderHistory();toast('Historik slettet')}};
 function renderFinal(){if(!state?.finalized)return;const ranks=rankData();const w=ranks[0];$('winnerName').textContent=state.players[w.i].name;$('winnerScore').textContent=`${w.score} point`;$('finalRank').innerHTML=ranks.map(x=>`<div class="final-row"><span>${x.rank}. ${esc(state.players[x.i].name)}</span><strong>${x.score}</strong></div>`).join('')}
 function closeGameMenu(){ $('gameMenu').classList.add('hidden') }
-function gamePreset(){return {names:displayPlayerIndices().map(i=>state.players[i].name),mode:state.mode}}
+function gamePreset(){return {names:displayPlayerIndices().map(i=>state.players[i].name),mode:state.mode,pointValues:loadPointPreferences()}}
 function nextPaint(){return new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))}
 async function startNewGameFromActive(){const preset=gamePreset();closeGameMenu();await nextPaint();if(await confirmBox('Start nyt spil?','Det nuværende aktive spil erstattes. Historikken bevares.','Fortsæt'))openSetup(false,preset)}
 $('gameMenuBtn').onclick=()=>{applyMode();$('gameMenu').classList.remove('hidden')};
