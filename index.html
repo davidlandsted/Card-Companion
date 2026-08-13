@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v10.17 -->
+<!-- Stik Companion v10.18 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -400,6 +400,61 @@ body.fullscreen-active .app{min-height:100vh}
   .header-actions .game-btn-label{display:none!important}.header-actions .menu-dots{display:block!important;transform:scale(.9)}
 }
 
+/* V10.18 - unified page titles and bottom round navigation */
+.section-head h1,.round-head h1{font-size:28px;line-height:1.05;letter-spacing:-.02em}
+.section-head .kicker,.round-head .kicker{font-size:12px;letter-spacing:.12em;line-height:1.1}
+.round-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;margin-top:9px}
+.round-dock{min-width:0;min-height:46px;display:flex;align-items:center;justify-content:center;padding:6px 10px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#12171d,#0c1015);box-shadow:inset 0 1px 0 rgba(255,255,255,.018)}
+.round-dock .progress{margin:0;justify-content:center;gap:6px;flex-wrap:nowrap;width:100%}
+.round-dock .dot{width:28px;height:28px;font-size:11px;flex:0 0 auto}
+.round-actions .complete{min-width:210px;min-height:46px;padding:10px 18px;border-radius:14px;font-size:13px}
+
+@media (max-width:700px){
+  .section-head h1,.round-head h1{font-size:24px!important;line-height:1.04!important;letter-spacing:-.02em!important}
+  .section-head .kicker,.round-head .kicker{font-size:10px!important;letter-spacing:.14em!important;line-height:1.1!important}
+  .section-head p{font-size:11px!important;line-height:1.35!important;margin-top:5px!important}
+  .score-header{margin-bottom:7px!important;padding-top:2px!important}
+  .round-head .rule{margin-top:5px!important}
+  .round-actions{grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;margin-top:6px!important;flex:0 0 auto}
+  .round-dock{min-height:44px;height:44px;padding:4px 6px;border-radius:13px}
+  .round-dock .progress{gap:4px!important;margin:0!important;justify-content:center!important}
+  .round-dock .dot{width:27px!important;height:27px!important;font-size:10px!important}
+  .round-actions .complete{min-width:132px;min-height:44px;height:44px;padding:0 12px!important;border-radius:13px!important;font-size:11.5px!important;white-space:nowrap}
+}
+
+@media (max-width:380px) and (orientation:portrait){
+  .round-dock{padding-left:4px;padding-right:4px}
+  .round-dock .progress{gap:3px!important}
+  .round-dock .dot{width:25px!important;height:25px!important;font-size:9.5px!important}
+  .round-actions .complete{min-width:116px;padding:0 9px!important;font-size:10.5px!important}
+}
+
+@media (orientation:landscape) and (max-height:560px) and (max-width:1000px){
+  .section-head h1,.round-head h1{font-size:18px!important;line-height:1.02!important}
+  .section-head .kicker,.round-head .kicker{font-size:8px!important}
+  .score-header{margin-bottom:4px!important}
+  .round-actions{grid-template-columns:minmax(0,1fr) auto!important;gap:5px!important;margin-top:4px!important}
+  .round-dock{min-height:30px;height:30px;padding:2px 5px;border-radius:9px}
+  .round-dock .progress{gap:3px!important;margin:0!important}
+  .round-dock .dot{width:20px!important;height:20px!important;font-size:8px!important}
+  .round-actions .complete{min-width:108px;min-height:30px;height:30px;padding:0 9px!important;border-radius:9px!important;font-size:9px!important}
+}
+
+@media (min-width:701px) and (min-height:561px){
+  .round-actions{grid-template-columns:auto 1fr}
+  .round-dock{width:max-content}
+  .round-dock .dot{width:30px;height:30px;font-size:12px}
+  .round-actions .complete{min-width:230px;width:min(280px,100%);justify-self:end}
+}
+
+@media (min-width:900px) and (min-height:700px){
+  .section-head h1,.round-head h1{font-size:32px!important;line-height:1.05!important}
+  .section-head .kicker,.round-head .kicker{font-size:13px!important}
+  .round-dock{min-height:50px;padding:7px 12px}
+  .round-dock .dot{width:32px;height:32px;font-size:12px}
+  .round-actions .complete{min-width:270px;min-height:50px;font-size:14px}
+}
+
 </style>
 </head>
 <body>
@@ -442,7 +497,6 @@ body.fullscreen-active .app{min-height:100vh}
         <div class="kicker" id="roundKicker">Runde 1 / 6</div>
         <h1 id="roundTitle">Ingen stik</h1>
         <div class="rule" id="roundRule"></div>
-        <div class="progress" id="roundProgress"></div>
       </div>
       <div class="header-actions"><button class="arrange-btn" id="arrangeBtn" aria-label="Placér spillere" title="Placér spillere"><span class="arrange-btn-label">Placering</span><span class="arrange-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 7h11m0 0-3-3m3 3-3 3M17 17H6m0 0 3-3m-3 3 3 3"/></svg></span></button><button class="game-btn" id="gameMenuBtn" aria-label="Åbn spilmenu" title="Åbn spilmenu"><span class="game-btn-label">Spilmenu</span><span class="menu-dots" aria-hidden="true"></span></button></div>
     </div>
@@ -450,8 +504,9 @@ body.fullscreen-active .app{min-height:100vh}
     <div class="score-board" id="scoreBoard"></div>
     <div class="middle-strip" id="middleStrip"></div>
     <div class="round-actions">
-      <button id="prevRound">← Forrige</button>
-      <button id="nextRound">Næste →</button>
+      <button id="prevRound" class="hidden" aria-hidden="true" tabindex="-1">← Forrige</button>
+      <button id="nextRound" class="hidden" aria-hidden="true" tabindex="-1">Næste →</button>
+      <div class="round-dock" aria-label="Vælg runde"><div class="progress" id="roundProgress"></div></div>
       <button class="complete" id="completeRound">Afslut runde</button>
     </div>
   </section>
