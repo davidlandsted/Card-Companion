@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Stik Companion" />
 <title>Stik Companion</title>
-<!-- Stik Companion v10.23 -->
+<!-- Stik Companion v10.24 -->
 <style>
 :root{
   --bg:#07080a; --bg2:#0d1014; --panel:#11151b; --panel2:#151a21; --line:#2a3038;
@@ -137,7 +137,7 @@ body.fullscreen-active .app{min-height:100vh}
 /* Nav */
 .nav{position:fixed;left:0;right:0;bottom:0;height:calc(70px + var(--safe-bottom));padding:5px 8px var(--safe-bottom);background:rgba(5,6,8,.94);backdrop-filter:blur(18px);border-top:1px solid #20252d;display:grid;grid-template-columns:repeat(4,1fr);z-index:50}.nav button{display:grid;place-items:center;color:#7f8894;font-size:10px;gap:2px}.nav .ico{width:23px;height:23px;display:grid;place-items:center}.nav .ico svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.nav button.active{color:var(--accent)}
 .toast{position:fixed;left:50%;bottom:calc(82px + var(--safe-bottom));transform:translateX(-50%);background:#151a20;border:1px solid #343b45;padding:10px 14px;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.18s;z-index:100;font-size:13px}.toast.show{opacity:1}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.68);display:grid;place-items:center;padding:20px;z-index:120;backdrop-filter:blur(4px)}.dialog{width:min(440px,100%);padding:18px}.dialog p{color:var(--muted);font-size:13px;margin-top:7px}.dialog-actions{display:flex;gap:8px;margin-top:16px}.dialog-actions>*{flex:1}#gameMenu{z-index:100;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.game-sheet{width:min(460px,100%);padding:18px;max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}.game-menu-actions{display:grid;gap:9px;margin-top:16px}.game-menu-actions button{width:100%;padding:14px 15px;border-radius:14px;border:1px solid var(--line);font-weight:850;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#11161c}.game-menu-actions button .menu-copy{display:grid;gap:2px}.game-menu-actions button .menu-title{font-size:14px}.game-menu-actions button .menu-desc{font-size:10px;color:var(--muted);font-weight:500}.game-menu-actions button .menu-arrow{font-size:18px;color:var(--muted)}.game-menu-actions .continue-game{background:#141a20}.game-menu-actions .reset-game{background:rgba(243,195,91,.08);border-color:rgba(243,195,91,.3);color:#ffe4a3}.game-menu-actions .end-game{background:rgba(255,138,61,.08);border-color:rgba(255,138,61,.28);color:#ffd2ad}.game-menu-actions .new-game{background:rgba(255,91,84,.07);border-color:rgba(255,91,84,.28);color:#ffd0ce}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.68);display:grid;place-items:center;padding:20px;z-index:120;backdrop-filter:blur(4px)}.dialog{width:min(440px,100%);padding:18px}.dialog p{color:var(--muted);font-size:13px;margin-top:7px}.dialog-actions{display:flex;gap:8px;margin-top:16px}.dialog-actions>*{flex:1}#gameMenu{z-index:100;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.game-sheet{width:min(460px,100%);padding:18px;max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}.game-menu-actions{display:grid;gap:9px;margin-top:16px}.game-menu-actions button{width:100%;padding:14px 15px;border-radius:14px;border:1px solid var(--line);font-weight:850;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#11161c}.game-menu-actions button .menu-copy{display:grid;gap:2px}.game-menu-actions button .menu-title{font-size:14px}.game-menu-actions button .menu-desc{font-size:10px;color:var(--muted);font-weight:500}.game-menu-actions button .menu-arrow{font-size:18px;color:var(--muted)}.game-menu-actions .continue-game{background:#141a20}.game-menu-actions .reset-game{background:rgba(243,195,91,.08);border-color:rgba(243,195,91,.3);color:#ffe4a3}.game-menu-actions .end-game{background:rgba(255,138,61,.08);border-color:rgba(255,138,61,.28);color:#ffd2ad}.game-menu-actions .new-game{background:rgba(119,213,138,.08);border-color:rgba(119,213,138,.32);color:#c9f5d2}.game-menu-actions .new-game .menu-arrow{color:var(--green)}
 
 @media (max-width:700px){
   .screen{padding:12px}.score-screen{padding:7px 8px 5px}
@@ -599,6 +599,83 @@ body.fullscreen-active .app{min-height:100vh}
   .point-value-input{width:66px}
 }
 
+
+/* V10.24 - clear finished-game state on top of Score */
+.score-screen{position:relative}
+.score-finished-overlay{
+  position:absolute;inset:0;z-index:44;
+  display:grid;place-items:center;
+  padding:18px;
+  background:rgba(4,6,8,.76);
+  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  animation:finishFade .18s ease-out;
+}
+@keyframes finishFade{from{opacity:0}to{opacity:1}}
+.score-finish-card{
+  width:min(470px,100%);
+  max-height:calc(100% - 18px);
+  overflow:auto;
+  padding:24px 20px 20px;
+  border-color:#38414b;
+  box-shadow:0 28px 80px rgba(0,0,0,.58);
+}
+.score-finish-card .trophy{font-size:58px;line-height:1;margin-top:10px}
+.score-finish-card .winner-name{font-size:34px;line-height:1.05}
+.score-finish-card .winner-score{font-size:17px}
+.score-finish-status{margin-top:8px;color:var(--muted);font-size:11px;line-height:1.4}
+.score-finish-card .final-rank{margin-top:14px}
+.score-finish-card .final-row{padding:10px 12px}
+.score-finish-card .final-actions{grid-template-columns:1.35fr 1fr;margin-top:16px}
+.score-finish-card .final-actions button.primary{
+  background:linear-gradient(180deg,#8ae19a,var(--green));
+  color:#07120a;border-color:transparent;
+  box-shadow:0 10px 28px rgba(119,213,138,.18)
+}
+.score-finish-card .final-actions button.primary:active{filter:brightness(.94)}
+.score-screen.game-finalized .score-board,
+.score-screen.game-finalized .score-header,
+.score-screen.game-finalized .arrange-bar{filter:saturate(.72)}
+.score-screen.game-finalized .header-actions{visibility:hidden}
+.score-screen.game-finalized .score-minus,
+.score-screen.game-finalized .score-plus{pointer-events:none}
+.score-screen.game-finalized .round-actions .complete{
+  background:linear-gradient(180deg,#8ae19a,var(--green));
+  color:#07120a;border-color:transparent;
+  box-shadow:0 8px 22px rgba(119,213,138,.16)
+}
+.score-screen.game-finalized .round-actions .complete::before{content:"+ ";font-weight:900}
+
+@media (max-width:700px){
+  .score-finished-overlay{padding:12px 12px 8px}
+  .score-finish-card{max-height:calc(100% - 6px);padding:22px 16px 16px;border-radius:22px}
+  .score-finish-card .final-close{top:10px;right:10px;width:34px;height:34px;font-size:21px}
+  .score-finish-card .trophy{font-size:48px;margin-top:8px}
+  .score-finish-card .winner-name{font-size:30px}
+  .score-finish-card .winner-score{font-size:15px}
+  .score-finish-status{font-size:10px}
+  .score-finish-card .final-rank{gap:6px;margin-top:12px}
+  .score-finish-card .final-row{padding:9px 11px;font-size:12px}
+  .score-finish-card .final-hint{font-size:10.5px;margin-top:10px}
+  .score-finish-card .final-actions{grid-template-columns:1fr;gap:7px;margin-top:13px}
+  .score-finish-card .final-actions button{padding:12px;border-radius:13px;font-size:12px}
+}
+
+@media (orientation:landscape) and (max-height:560px) and (max-width:1000px){
+  .score-finished-overlay{padding:6px}
+  .score-finish-card{width:min(520px,72vw);max-height:calc(100% - 4px);padding:13px 16px 12px;border-radius:16px}
+  .score-finish-card .final-close{top:7px;right:7px;width:28px;height:28px;font-size:18px}
+  .score-finish-card .kicker{font-size:8px!important}
+  .score-finish-card .trophy{font-size:30px;margin-top:4px}
+  .score-finish-card .winner-name{font-size:23px;margin-top:2px}
+  .score-finish-card .winner-score{font-size:11px;margin-top:2px}
+  .score-finish-status{font-size:8.5px;margin-top:4px}
+  .score-finish-card .final-rank{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:7px}
+  .score-finish-card .final-row{padding:6px 8px;border-radius:9px;font-size:9px}
+  .score-finish-card .final-hint{display:none}
+  .score-finish-card .final-actions{grid-template-columns:1.3fr 1fr;gap:6px;margin-top:8px}
+  .score-finish-card .final-actions button{padding:8px;border-radius:10px;font-size:9.5px}
+}
+
 </style>
 </head>
 <body>
@@ -652,6 +729,19 @@ body.fullscreen-active .app{min-height:100vh}
       <div class="round-dock" aria-label="Vælg runde"><div class="progress" id="roundProgress"></div></div>
       <button class="complete" id="completeRound">Afslut runde</button>
     </div>
+    <div class="score-finished-overlay hidden" id="scoreFinishedOverlay" role="dialog" aria-modal="true" aria-labelledby="finishOverlayTitle">
+      <div class="card final-hero score-finish-card">
+        <button class="final-close" id="closeFinal" type="button" aria-label="Luk resultat" title="Luk resultat">×</button>
+        <div class="kicker">Spil afsluttet</div>
+        <div class="trophy" id="finishIcon">🏆</div>
+        <div class="winner-name" id="winnerName"></div>
+        <div class="winner-score" id="winnerScore"></div>
+        <div class="score-finish-status" id="finishOverlayTitle"></div>
+        <div class="final-rank" id="finalRank"></div>
+        <div class="final-hint">Klar til en ny omgang?</div>
+        <div class="final-actions"><button class="primary" id="newGameFinal">Start nyt spil</button><button id="finalRounds">Se runder</button></div>
+      </div>
+    </div>
   </section>
 
   <section id="rounds" class="screen">
@@ -680,19 +770,6 @@ body.fullscreen-active .app{min-height:100vh}
       <div class="card setting-row"><div><strong>Hold skærmen tændt</strong><div class="desc" id="wakeLockDesc">Forhindrer automatisk skærmlås, mens Stik Companion er synlig.</div></div><button class="toggle" id="wakeLockToggle" aria-label="Hold skærmen tændt" aria-pressed="false"></button></div>
       <div class="danger-grid"><button class="card setting-row danger" id="resetGame"><div><strong>Nulstil nuværende spil</strong><div class="desc">Sletter point i det aktive spil.</div></div><span>↺</span></button><button class="card setting-row danger" id="clearHistory"><div><strong>Slet historik</strong><div class="desc">Fjerner alle gemte afsluttede spil.</div></div><span>⌫</span></button></div>
       <div class="card privacy-note"><div class="privacy-note-icon">⌁</div><div><strong>Data gemmes lokalt</strong><div class="desc">Andre, der åbner hjemmesiden på deres egen enhed eller browser, ser ikke dine resultater. Aktive spil og Historik gemmes kun i denne browsers website-data. Hvis website-data/cookies for siden ryddes, kan resultaterne forsvinde.</div></div></div>
-    </div>
-  </section>
-
-  <section id="final" class="screen">
-    <div class="card final-hero">
-      <button class="final-close" id="closeFinal" type="button" aria-label="Luk resultat" title="Luk resultat">×</button>
-      <div class="kicker">Spil afsluttet</div>
-      <div class="trophy">🏆</div>
-      <div class="winner-name" id="winnerName"></div>
-      <div class="winner-score" id="winnerScore"></div>
-      <div class="final-rank" id="finalRank"></div>
-      <div class="final-hint">Klar til en ny omgang?</div>
-      <div class="final-actions"><button class="primary" id="newGameFinal">Start nyt spil</button><button id="finalRounds">Se runder</button></div>
     </div>
   </section>
 
@@ -727,6 +804,7 @@ let modalResolver=null;
 let startupWarnings=[];
 let setupMode='new';
 let setupPreset=null;
+let finalOverlayDismissed=false;
 let arrangeMode=false;
 let selectedSeat=null;
 let dragState=null;
@@ -843,11 +921,11 @@ function limitLabel(ri,max){if(ri===0)return `Præcis ${max} stik fordeles med $
 
 function init(){
  if(!state){$('welcome').classList.remove('hidden');return}
- $('app').classList.remove('hidden');normalizeSeatOrder(state);try{if(!localStorage.getItem(POINT_PREF))savePointPreferences(state.pointValues)}catch(e){}save();applyMode();renderAll();showView(state.finalized?'final':'score');
+ $('app').classList.remove('hidden');normalizeSeatOrder(state);try{if(!localStorage.getItem(POINT_PREF))savePointPreferences(state.pointValues)}catch(e){}save();applyMode();renderAll();showView('score');
  if(startupWarnings.length)setTimeout(()=>toast(startupWarnings.join(' · ')),350);
 }
 $('welcomeStart').onclick=()=>openSetup(false);
-$('cancelSetup').onclick=()=>{setupPreset=null;if(state){$('setupScreen').classList.add('hidden');$('app').classList.remove('hidden');applyMode();renderAll();showView(state.finalized?'final':'score')}else{$('setupScreen').classList.add('hidden');$('welcome').classList.remove('hidden')}};
+$('cancelSetup').onclick=()=>{setupPreset=null;if(state){$('setupScreen').classList.add('hidden');$('app').classList.remove('hidden');applyMode();renderAll();showView('score')}else{$('setupScreen').classList.add('hidden');$('welcome').classList.remove('hidden')}};
 function openSetup(edit=false,preset=null){
  setupMode=edit?'edit':'new';setupPreset=preset;
  $('welcome').classList.add('hidden');$('app').classList.add('hidden');$('setupScreen').classList.remove('hidden');
@@ -865,7 +943,7 @@ $('startGame').onclick=()=>{
  if(setupMode==='edit'&&state&&state.started){
    const oldScores=state.scores;const oldPlayers=state.players;state.mode=mode;state.players=names.map((name,i)=>({id:oldPlayers[i]?.id||('p'+Date.now()+'_'+i),name}));state.scores=names.map((_,i)=>oldScores[i]||Array(6).fill(0));normalizeSeatOrder(state);save();
  } else {state=freshState(names,mode,setupPreset?.pointValues||loadPointPreferences());state.sound=false;savePointPreferences(state.pointValues);save()}
- setupPreset=null;$('setupScreen').classList.add('hidden');$('app').classList.remove('hidden');applyMode();renderAll();showView('score');
+ setupPreset=null;finalOverlayDismissed=false;$('setupScreen').classList.add('hidden');$('app').classList.remove('hidden');applyMode();renderAll();showView('score');
 };
 
 function applyMode(){
@@ -881,12 +959,12 @@ function renderAll(){renderScore();renderRounds();renderStats();renderHistory();
 function renderScore(){
  const r=ROUNDS[state.round];$('roundKicker').textContent=`Runde ${state.round+1} / 6`;$('roundTitle').textContent=r.name;const max=roundMaxEvents(state.round),used=totalRoundEvents(state.round);const full=max!==null&&used>=max;const shortNoun=['stik','klør','damer','K♣','sidste stik',''][state.round];$('roundRule').innerHTML=`<span class="rule-main">${esc(roundRuleText(state.round))}</span>${max!==null?`<span class="phone-rule-sep" aria-hidden="true">·</span><span class="phone-limit-note ${full?'complete':''}">${used} / ${max} ${esc(shortNoun)}${full?' ✓':''}</span><div class="limit-note"><strong style="color:${full?'var(--green)':'#dce1e6'}">${used} / ${max}${full?' ✓':''}</strong> · ${esc(limitLabel(state.round,max))}</div>`:''}`;
  $('roundProgress').innerHTML=ROUNDS.map((_,i)=>`<button type="button" class="dot ${i===state.round?'active':''} ${state.completed[i]?'done':''}" data-jump-round="${i}" aria-label="Åbn runde ${i+1}: ${esc(ROUNDS[i].name)}"><span class="dot-label" aria-hidden="true">${i+1}</span></button>`).join('');
- const t=totals(),best=Math.min(...t);$('scoreBoard').innerHTML='';
+ const t=totals(),best=Math.min(...t),gameLocked=!!state.finalized;$('score').classList.toggle('game-finalized',gameLocked);$('scoreBoard').innerHTML='';
  const displayOrder=displayPlayerIndices(),oppositeCount=oppositeSeatCount(displayOrder.length);
  displayOrder.forEach((i,seatIndex)=>{
-  const p=state.players[i],score=state.scores[i][state.round],events=currentRoundEventCount(i);const plusDisabled=max!==null&&used>=max;const minusDisabled=score<=0;const opposite=seatIndex<oppositeCount?' opposite-seat':'';const selected=arrangeMode&&seatIndex===selectedSeat?' arrange-selected':'';const placeLabel=seatLabels(displayOrder.length)[seatIndex]||`Plads ${seatIndex+1}`;$('scoreBoard').insertAdjacentHTML('beforeend',`<article class="player-card${opposite}${selected}" data-seat-index="${seatIndex}" style="--seatglow:${seatGlow[i%seatGlow.length]}"><div class="seat-inner"><button class="score-minus" data-score="${i}" data-dir="-1" ${minusDisabled?'disabled':''}>−</button><div class="player-core"><div class="player-name">${esc(p.name)}</div><div class="round-score">${score}</div><div class="event-count">${events} ${esc(r.event)}</div><div class="total-score">Total ${t[i]}</div></div><button class="score-plus" data-score="${i}" data-dir="1" ${plusDisabled?'disabled':''}>+</button></div><div class="drag-overlay" aria-label="Flyt ${esc(p.name)}"><div class="drag-overlay-inner"><div class="drag-grip">⠿</div><strong>${esc(p.name)}</strong><span>${esc(placeLabel)}</span></div></div>${t[i]===best?'<span class="leader-badge">fører</span>':''}</article>`)
+  const p=state.players[i],score=state.scores[i][state.round],events=currentRoundEventCount(i);const plusDisabled=gameLocked||(max!==null&&used>=max);const minusDisabled=gameLocked||score<=0;const opposite=seatIndex<oppositeCount?' opposite-seat':'';const selected=arrangeMode&&seatIndex===selectedSeat?' arrange-selected':'';const placeLabel=seatLabels(displayOrder.length)[seatIndex]||`Plads ${seatIndex+1}`;$('scoreBoard').insertAdjacentHTML('beforeend',`<article class="player-card${opposite}${selected}" data-seat-index="${seatIndex}" style="--seatglow:${seatGlow[i%seatGlow.length]}"><div class="seat-inner"><button class="score-minus" data-score="${i}" data-dir="-1" ${minusDisabled?'disabled':''}>−</button><div class="player-core"><div class="player-name">${esc(p.name)}</div><div class="round-score">${score}</div><div class="event-count">${events} ${esc(r.event)}</div><div class="total-score">Total ${t[i]}</div></div><button class="score-plus" data-score="${i}" data-dir="1" ${plusDisabled?'disabled':''}>+</button></div><div class="drag-overlay" aria-label="Flyt ${esc(p.name)}"><div class="drag-overlay-inner"><div class="drag-grip">⠿</div><strong>${esc(p.name)}</strong><span>${esc(placeLabel)}</span></div></div>${t[i]===best?'<span class="leader-badge">fører</span>':''}</article>`)
  });
- $('completeRound').textContent=state.completed[state.round]?'Genåbn runde':'Afslut runde';
+ $('completeRound').textContent=gameLocked?'Start nyt spil':(state.completed[state.round]?'Genåbn runde':'Afslut runde');$('completeRound').setAttribute('aria-label',gameLocked?'Start nyt spil':'Afslut eller genåbn runde');renderFinal();
 }
 $('scoreBoard').onclick=e=>{
  if(arrangeMode){
@@ -936,6 +1014,7 @@ function finishSeatDrag(e){
 $('scoreBoard').addEventListener('pointerup',finishSeatDrag);$('scoreBoard').addEventListener('pointercancel',finishSeatDrag);
 $('roundProgress').onclick=e=>{const b=e.target.closest('[data-jump-round]');if(!b)return;state.round=Number(b.dataset.jumpRound);save();renderAll();showView('score')};
 function changeScore(pi,dir){
+ if(state?.finalized){toast('Spillet er afsluttet');return}
  const r=state.round,unit=roundUnit(r),old=state.scores[pi][r];
  if(dir>0){
    const max=roundMaxEvents(r),used=totalRoundEvents(r);
@@ -952,6 +1031,7 @@ function changeScore(pi,dir){
 $('prevRound').onclick=()=>{if(state.round>0){state.round--;save();renderScore()}else toast('Du er allerede på første runde')};
 $('nextRound').onclick=()=>{if(state.round<5){state.round++;save();renderScore();return}if(state.completed[5]){finalizeGame();return}toast('Afslut runde 6 for at se resultatet')};
 $('completeRound').onclick=async()=>{
+ if(state.finalized){openSetup(false,gamePreset());return}
  const ri=state.round,wasCompleted=state.completed[ri];
  if(wasCompleted){state.completed[ri]=false;state.finalized=false;save();renderAll();toast('Runden er genåbnet');return}
  const max=roundMaxEvents(ri),used=totalRoundEvents(ri);
@@ -995,7 +1075,7 @@ function renderStats(){
  const maxScore=Math.max(100,...state.scores.flat());$('statsGrid').innerHTML='';state.players.forEach((p,i)=>{const s=playerStats(i);const bars=ROUNDS.map((r,ri)=>`<div class="bar-row"><span>${r.name}</span><span class="bar-track"><span class="bar-fill" style="display:block;width:${Math.min(100,(state.scores[i][ri]/maxScore)*100)}%"></span></span><strong>${state.scores[i][ri]}</strong></div>`).join('');$('statsGrid').insertAdjacentHTML('beforeend',`<article class="card stat-card"><div class="stat-name">${esc(p.name)}</div><div class="stat-total">${s.total}</div><div class="muted">Placering ${s.rank}</div><div class="metric-grid"><div class="metric"><div class="v">${s.avg.toFixed(1).replace('.',',')}</div><div class="l">Gns. pr. runde</div></div><div class="metric"><div class="v">${s.wins}</div><div class="l">Rundesejre</div></div><div class="metric"><div class="v">${s.zeros}</div><div class="l">0-point runder</div></div><div class="metric"><div class="v">${s.worstVal}</div><div class="l">Værste runde</div></div></div><div class="bars">${bars}</div></article>`)});
 }
 function historySnapshot(){return {id:'g'+Date.now(),date:new Date().toISOString(),players:state.players.map(p=>p.name),scores:state.scores.map(r=>[...r]),totals:totals(),completed:[...state.completed],pointValues:[...state.pointValues],winner:rankData()[0].i,mode:state.mode,seatOrderNames:displayPlayerIndices().map(i=>state.players[i].name)}}
-async function finalizeGame(){if(!state.finalized){state.finalized=true;save();const h=loadHistory();h.unshift(historySnapshot());saveHistory(h.slice(0,50))}renderAll();showView('final')}
+async function finalizeGame(){if(!state.finalized){state.finalized=true;save();const h=loadHistory();h.unshift(historySnapshot());saveHistory(h.slice(0,50))}finalOverlayDismissed=false;renderAll();showView('score')}
 function renderHistory(){
  const h=loadHistory();if(!h.length){$('historyList').innerHTML='<div class="card" style="padding:14px"><strong>Ingen gemte spil endnu</strong><div class="date" style="margin-top:4px">Når et spil afsluttes, vises det her.</div></div>';return}
  $('historyList').innerHTML=h.map((g,idx)=>{
@@ -1141,16 +1221,36 @@ async function resetCurrentGame(fromMenu=false){
  const ok=await confirmBox('Nulstil nuværende spil?','Alle point, afsluttede runder og fortryd-historik i det aktive spil bliver slettet. Spillernavne, bordrækkefølge og gemte spil i Historik bevares.','Nulstil');
  if(!ok)return;
  const names=displayPlayerIndices().map(i=>state.players[i].name),mode=state.mode,pointValues=[...state.pointValues];
- state=freshState(names,mode,pointValues);state.sound=false;save();renderAll();showView('score');toast('Det aktive spil er nulstillet');
+ state=freshState(names,mode,pointValues);state.sound=false;finalOverlayDismissed=false;save();renderAll();showView('score');toast('Det aktive spil er nulstillet');
 }
 $('resetGame').onclick=()=>resetCurrentGame(false);
 $('clearHistory').onclick=async()=>{if(await confirmBox('Slet al historik?','Alle gemte afsluttede spil fjernes fra denne enhed.','Slet')){saveHistory([]);renderHistory();toast('Historik slettet')}};
-function renderFinal(){if(!state?.finalized)return;const ranks=rankData();const w=ranks[0];$('winnerName').textContent=state.players[w.i].name;$('winnerScore').textContent=`${w.score} point`;$('finalRank').innerHTML=ranks.map(x=>`<div class="final-row"><span>${x.rank}. ${esc(state.players[x.i].name)}</span><strong>${x.score}</strong></div>`).join('')}
+function renderFinal(){
+ const overlay=$('scoreFinishedOverlay');if(!overlay)return;
+ if(!state?.finalized){overlay.classList.add('hidden');$('score')?.classList.remove('game-finalized');return}
+ const ranks=rankData(),best=ranks[0]?.score??0,winners=ranks.filter(x=>x.score===best),done=completedCount(),complete=done===ROUNDS.length;
+ const names=winners.map(x=>state.players[x.i].name).join(', ');
+ $('finishIcon').textContent=complete?'🏆':'✓';
+ $('winnerName').textContent=names;
+ $('winnerScore').textContent=complete?`${best} point`:`Laveste score · ${best} point`;
+ $('finishOverlayTitle').textContent=complete?'Alle 6 runder er afsluttet.':`Afsluttet efter ${done} af 6 runder.`;
+ $('finalRank').innerHTML=ranks.map(x=>`<div class="final-row"><span>${x.rank}. ${esc(state.players[x.i].name)}</span><strong>${x.score}</strong></div>`).join('');
+ overlay.classList.toggle('hidden',finalOverlayDismissed);
+}
 function closeGameMenu(){ $('gameMenu').classList.add('hidden') }
 function gamePreset(){return {names:displayPlayerIndices().map(i=>state.players[i].name),mode:state.mode,pointValues:loadPointPreferences()}}
 function nextPaint(){return new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))}
 async function startNewGameFromActive(){const preset=gamePreset();closeGameMenu();await nextPaint();if(await confirmBox('Start nyt spil?','Det nuværende aktive spil erstattes. Historikken bevares.','Fortsæt'))openSetup(false,preset)}
-$('gameMenuBtn').onclick=()=>{applyMode();$('gameMenu').classList.remove('hidden')};
+function updateGameMenuForState(){
+ const locked=!!state?.finalized;
+ $('resetGameNow').classList.toggle('hidden',locked);
+ $('endGameNow').classList.toggle('hidden',locked);
+ $('arrangePlayersNow').classList.toggle('hidden',locked);
+ const closeTitle=$('closeGameMenu').querySelector('.menu-title'),closeDesc=$('closeGameMenu').querySelector('.menu-desc');
+ if(closeTitle)closeTitle.textContent=locked?'Luk menu':'Fortsæt spil';
+ if(closeDesc)closeDesc.textContent=locked?'Tilbage til det afsluttede spil':'Luk menuen og fortsæt runden';
+}
+$('gameMenuBtn').onclick=()=>{applyMode();updateGameMenuForState();$('gameMenu').classList.remove('hidden')};
 $('closeGameMenu').onclick=closeGameMenu;
 $('switchModeNow').onclick=()=>{if(arrangeMode){arrangeMode=false;selectedSeat=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden')}state.mode=state.mode==='table'?'phone':'table';save();closeGameMenu();applyMode();renderScore();toast(state.mode==='table'?'Bordvisning valgt':'Samme vej valgt')};
 $('fullscreenMenuBtn').onclick=async()=>{closeGameMenu();await nextPaint();await toggleFullscreen()};
@@ -1160,9 +1260,9 @@ $('fullscreenBtn').onclick=toggleFullscreen;
 $('gameMenu').onclick=e=>{if(e.target===$('gameMenu'))closeGameMenu()};
 $('endGameNow').onclick=async()=>{closeGameMenu();await nextPaint();if(await confirmBox('Afslut spil?','Det aktuelle resultat gemmes i Historik, også hvis ikke alle runder er markeret som afsluttet.','Afslut'))await finalizeGame()};
 $('newGameNow').onclick=startNewGameFromActive;
-$('finalRounds').onclick=()=>showView('rounds');$('newGameFinal').onclick=()=>openSetup(false,gamePreset());$('closeFinal').onclick=()=>showView('score');
+$('finalRounds').onclick=()=>{finalOverlayDismissed=true;renderFinal();showView('rounds')};$('newGameFinal').onclick=()=>openSetup(false,gamePreset());$('closeFinal').onclick=()=>{finalOverlayDismissed=true;renderFinal();showView('score')};
 
-function showView(id){if(id!=='score'&&arrangeMode){arrangeMode=false;selectedSeat=null;dragState=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden');$('arrangeBtn').classList.remove('active')}
+function showView(id){if(state?.finalized&&id!=='score')finalOverlayDismissed=true;if(id!=='score'&&arrangeMode){arrangeMode=false;selectedSeat=null;dragState=null;document.body.classList.remove('arrange-mode');$('arrangeBar').classList.add('hidden');$('arrangeBtn').classList.remove('active')}
  // Refresh the destination before it becomes visible. In particular, the Runder matrix must
  // always follow the round currently selected on Score, including changes made with Forrige/Næste.
  if(id==='score')renderScore();else if(id==='rounds')renderRounds();else if(id==='history')renderHistory();else if(id==='settings')renderSettings();
